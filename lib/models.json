@@ -1,0 +1,421 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"title": "Sense",
+	"description": "Qlik Sense Engine API structs",
+	"type": "object",
+	"definitions":
+	{
+      "NxOptions": {
+        "properties": {
+          "title":
+          {
+            "type": "string"
+          },
+          "showTitles":
+          {
+            "type": "boolean"
+          },
+          "subtitle":
+          {
+            "type": "string"
+          },
+          "footnote":
+          {
+            "type": "string"
+          },
+          "qHyperCubeDef": {
+            "$ref": "#/definitions/QHyperCubeDef"
+          }
+        },
+        "additionalProperties": false
+      },
+
+      "QHyperCubeDef": {
+        "properties": {
+          "qDimensions": {
+            "description": "Dimensions",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/NxDimension"
+            }
+          },
+          "qMeasures": {
+            "description": "Dimensions",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/NxMeasure"
+            }
+          },
+          "columnWidths": {
+            "description": "Columns widths, -1 means autosize",
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "columnOrder": {
+            "description": "Columns orders",
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required":
+        [
+          "qDimensions", "qMeasures"
+        ]
+      },
+
+      "NxDimension": {
+			"properties": {
+				"type": {
+					"description": "Should be set to `dimension` simetimes",
+					"type": "string"
+				},
+				"qLibraryId": {
+					"description": "Refers to a dimension stored in the library.",
+					"type": "string"
+				},
+				"qDef":
+				{
+					"description": "Refers to a dimension stored in the hypercube.",
+					"$ref": "#/definitions/NxInlineDimensionDef"
+				},
+
+				"qNullSuppression":
+				{
+					"description": "If set to true, no null values are returned.",
+					"type": "boolean"
+				},
+				"qShowAll":
+				{
+					"description": "If set to true, all dimension values are shown.",
+					"type": "boolean"
+				},
+				"qOtherLabel":
+				{
+					"description": "This property is used when some dimension limits are set.",
+					"type": "string"
+				},
+				"qTotalLabel":
+				{
+					"description": "If this property is set, the total of the calculated values is returned.",
+					"type": "string"
+				},
+				"qOtherTotalSpec":
+				{
+					"description": "Sets the dimension limits. Each dimension of a hypercube is configured separately. Just stub for now. Should add type in future",
+					"type": "string"
+				},
+
+				"qCalcCond":
+				{
+					"description": "Specifies a calculation condition, which must be fulfilled for the measure to be calculated",
+					"$ref": "#/definitions/NxValueExpr"
+				}
+			},
+			"additionalProperties": false
+		},
+		"NxInlineMeasureDef":
+		{
+			"properties":
+			{
+				"qLabel":
+				{
+					"description": "Name of the measure.",
+					"type": "string"
+				},
+				"qDescription":
+				{
+					"description": "Description of the measure",
+					"type": "string"
+				},
+				"qDef":
+				{
+					"description": "Definition of the expression in the measure.\n Example: Sum (OrderTotal)",
+					"type": "string"
+				},
+				"qRelative":
+				{
+					"description": "If set to true, percentage values are returned instead of absolute numbers",
+					"type": "boolean"
+				},
+				"qBrutalSum":
+				{
+					"description": "If set to true, the sum of rows total should be used rather than real expression total",
+					"type": "boolean"
+				},
+				"qAggrFunc":
+				{
+					"description": "Aggregate function. The default value is 0 (Sum of rows)",
+					"type": "string"
+				},
+				"qAccumulate":
+				{
+					"description": "0 means no accumulation\n1 means full accumulation (each y-value accumulates all previous y-values of the expression)\n≥ 2 means accumulate as many steps as the qAccumulate value",
+					"type": "integer"
+				},
+				"qReverseSort":
+				{
+					"description": "If set to true, it inverts the sort criteria in the field",
+					"type": "boolean"
+				},
+				"qActiveExpression":
+				{
+					"description": "Index of the active expression in a cyclic measure. The indexing starts from 0.",
+					"type": "integer"
+				},
+				"qExpressions":
+				{
+					"description": "If set to true, it inverts the sort criteria in the field",
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					},
+					"uniqueItems": true
+				},
+				"qTags":
+				{
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					},
+					"uniqueItems": true
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qDef"
+			]
+		},
+		"NxMeasure":
+		{
+			"properties":
+			{
+				"type": {
+					"description": "Should be set to `measure` simetimes",
+					"type": "string"
+				},
+				"qLibraryId":
+				{
+					"description": "Refers to a measure stored in the library",
+					"type": "string"
+				},
+				"qDef":
+				{
+					"description": "Definition of the expression in the measure.\n Example: Sum (OrderTotal)",
+					"$ref": "#/definitions/NxInlineMeasureDef"
+				},
+				"qAttributeExpressions":
+				{
+					"type": "array",
+					"items":
+					{
+						"$ref": "#/definitions/NxAttrExprDef"
+					},
+					"uniqueItems": true
+				},
+				"qCalcCond":
+				{
+					"description": "Specifies a calculation condition, which must be fulfilled for the measure to be calculated",
+					"$ref": "#/definitions/NxValueExpr"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qDef"
+			]
+		},
+		"NxAttrExprDef":
+		{
+			"properties":
+			{
+				"qExpression":
+				{
+					"description": "Definition of the attribute expression. Example: Max(OrderID)",
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qExpression"
+			]
+		},
+		"NxInlineDimensionDef":
+		{
+			"properties":
+			{
+				"qFieldDefs":
+				{
+					"description": "Array of field names.\n When creating a grouped dimension, more than one field name is defined",
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					},
+					"uniqueItems": true
+				},
+				"qFieldLabels":
+				{
+					"description": "Array of field labels.",
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					},
+					"uniqueItems": true
+				},
+				"qGrouping":
+				{
+					"description": "Used to define a cyclic group or drill-down group",
+					"type": "string",
+					"enum": [ "N","H","C"]
+				},
+				"qSortCriterias":
+				{
+					"description": "Defines the sorting criteria in the field.",
+					"type": "array",
+					"items":
+					{
+						"$ref": "#/definitions/NxSortCriteria"
+					},
+					"uniqueItems": true
+				},
+				"qNumberPresentations":
+				{
+					"description": "Defines the format of the value.",
+					"type": "array",
+					"items":
+					{
+						"$ref": "#/definitions/NxFieldAttributes"
+					},
+					"uniqueItems": true
+				},
+				"qReverseSort":
+				{
+					"description": "If set to true, it inverts the sort criteria in the field.",
+					"type": "boolean"
+				},
+				"qActiveField":
+				{
+					"description": "ndex of the active field in a cyclic dimension",
+					"type": "integer"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qDef"
+			]
+		},
+		"NxSortCriteria":
+		{
+			"properties":
+			{
+				"qSortByState":
+				{
+					"description": "Sorts the field values according to their logical state (selected, optional, alternative or excluded)",
+					"type": "integer",
+					"enum": [ -1,0,1]
+				},
+				"qSortByFrequency":
+				{
+					"description": "Sorts the field values by numeric value",
+					"type": "integer",
+					"enum": [ -1,0,1]
+				},
+				"qSortByNumeric":
+				{
+					"description": "Sorts the field values according to their logical state (selected, optional, alternative or excluded)",
+					"type": "integer",
+					"enum": [ -1,0,1]
+				},
+				"qSortByAscii":
+				{
+					"description": "Sorts the field by alphabetical order",
+					"type": "integer",
+					"enum": [ -1,0,1]
+				},
+				"qSortByLoadOrder":
+				{
+					"description": "Sorts the field values by the initial load order",
+					"type": "integer",
+					"enum": [ -1,0,1]
+				},
+				"qSortByExpression":
+				{
+					"description": "Sort by expression",
+					"type": "integer",
+					"enum": [ -1,0,1]
+				}
+			},
+			"additionalProperties": false
+		},
+		"NxFieldAttributes":
+		{
+			"properties":
+			{
+				"qType":
+				{
+					"description": "Type of the field.Default is U",
+					"type": "string",
+					"enum": ["U","A","I","R","F","M","D","T","TS","IV"]
+				},
+				"qnDec":
+				{
+					"description": "Number of decimals. Default is 10",
+					"type": "integer",
+					"enum": [ -1,0,1]
+				},
+				"qUseThou":
+				{
+					"description": "Defines whether or not a thousands separator must be used",
+					"type": "integer",
+					"enum": [0,1]
+				},
+				"qFmt":
+				{
+					"description": "Defines the format pattern that applies to qText.Is used in connection to the type of the field",
+					"type": "string"
+				},
+				"qDec":
+				{
+					"description": "Defines the decimal separator.",
+					"type": "string"
+				},
+				"qThou":
+				{
+					"description": "Defines the thousand separator (if any).Is used if qUseThou is set to 1.",
+					"type": "string"
+				}
+			},
+			"additionalProperties": false
+		},
+
+
+
+		"NxValueExpr":
+		{
+			"properties":
+			{
+				"qv":
+				{
+					"description": "Expression returning number value",
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qExpression"
+			]
+		}
+	}
+}

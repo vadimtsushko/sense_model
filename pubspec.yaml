@@ -1,0 +1,5 @@
+name: sense_model
+version: 0.0.1
+description: A simple console application.
+dev_dependencies:
+  dogma_json_schema: any
