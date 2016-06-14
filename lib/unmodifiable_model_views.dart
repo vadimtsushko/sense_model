@@ -15,6 +15,7 @@ export 'src/unmodifiable_model_views/unmodifiable_nx_measure_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_nx_options_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_nx_sort_criteria_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_nx_value_expr_view.dart';
+export 'src/unmodifiable_model_views/unmodifiable_q_columns_container_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_q_hyper_cube_def_view.dart';
 
 //---------------------------------------------------------------------

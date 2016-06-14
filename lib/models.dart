@@ -15,6 +15,7 @@ export 'src/models/nx_measure.dart';
 export 'src/models/nx_options.dart';
 export 'src/models/nx_sort_criteria.dart';
 export 'src/models/nx_value_expr.dart';
+export 'src/models/q_columns_container.dart';
 export 'src/models/q_hyper_cube_def.dart';
 
 //---------------------------------------------------------------------

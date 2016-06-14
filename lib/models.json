@@ -5,6 +5,32 @@
 	"type": "object",
 	"definitions":
 	{
+
+		"QColumnsContainer": {
+			"properties": {
+				"qDimensions": {
+					"description": "Dimensions",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/NxDimension"
+					}
+				},
+				"qMeasures": {
+					"description": "Dimensions",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/NxMeasure"
+					}
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qDimensions", "qMeasures"
+			]
+		},
+
+
       "NxOptions": {
         "properties": {
           "title":
