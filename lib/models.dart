@@ -8,6 +8,7 @@ library sense_model.models;
 
 export 'src/models/nx_attr_expr_def.dart';
 export 'src/models/nx_dimension.dart';
+export 'src/models/nx_dimension_1.dart';
 export 'src/models/nx_field_attributes.dart';
 export 'src/models/nx_inline_dimension_def.dart';
 export 'src/models/nx_inline_measure_def.dart';

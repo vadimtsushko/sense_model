@@ -7,6 +7,7 @@ library sense_model.convert;
 //---------------------------------------------------------------------
 
 export 'src/convert/nx_attr_expr_def_convert.dart';
+export 'src/convert/nx_dimension_1_convert.dart';
 export 'src/convert/nx_dimension_convert.dart';
 export 'src/convert/nx_field_attributes_convert.dart';
 export 'src/convert/nx_inline_dimension_def_convert.dart';

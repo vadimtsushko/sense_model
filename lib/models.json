@@ -94,7 +94,7 @@
         ]
       },
 
-      "NxDimension": {
+		"NxDimension": {
 			"properties": {
 				"type": {
 					"description": "Should be set to `dimension` simetimes",
@@ -142,8 +142,68 @@
 					"$ref": "#/definitions/NxValueExpr"
 				}
 			},
+			"required": ["qDef"],
 			"additionalProperties": false
 		},
+		"NxDimension1": {
+			"properties": {
+				"type": {
+					"description": "Should be set to `dimension` simetimes",
+					"type": "string"
+				},
+				"qLibraryId": {
+					"description": "Refers to a dimension stored in the library.",
+					"type": "string"
+				},
+				"qDef":
+				{
+					"description": "Refers to a dimension stored in the hypercube.",
+					"$ref": "#/definitions/NxInlineDimensionDef"
+				},
+
+				"qNullSuppression":
+				{
+					"description": "If set to true, no null values are returned.",
+					"type": "boolean"
+				},
+				"qShowAll":
+				{
+					"description": "If set to true, all dimension values are shown.",
+					"type": "boolean"
+				},
+				"qOtherLabel":
+				{
+					"description": "This property is used when some dimension limits are set.",
+					"type": "string"
+				},
+				"qTotalLabel":
+				{
+					"description": "If this property is set, the total of the calculated values is returned.",
+					"type": "string"
+				},
+				"qOtherTotalSpec":
+				{
+					"description": "Sets the dimension limits. Each dimension of a hypercube is configured separately. Just stub for now. Should add type in future",
+					"type": "string"
+				},
+
+				"qCalcCond":
+				{
+					"description": "Specifies a calculation condition, which must be fulfilled for the measure to be calculated",
+					"$ref": "#/definitions/NxValueExpr"
+				}
+			},
+			"additionalProperties": false,
+			"oneOf" : [
+				{
+					"required" : ["qLibraryId"]
+				},
+				{
+					"required" : ["qDef"]
+				}
+			]
+		},
+
 		"NxInlineMeasureDef":
 		{
 			"properties":

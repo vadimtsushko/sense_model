@@ -7,6 +7,7 @@ library sense_model.unmodifiable_model_views;
 //---------------------------------------------------------------------
 
 export 'src/unmodifiable_model_views/unmodifiable_nx_attr_expr_def_view.dart';
+export 'src/unmodifiable_model_views/unmodifiable_nx_dimension_1_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_nx_dimension_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_nx_field_attributes_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_nx_inline_dimension_def_view.dart';
