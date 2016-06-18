@@ -6,6 +6,10 @@ library sense_model.models;
 // Exports
 //---------------------------------------------------------------------
 
+export 'src/models/chart_definition.dart';
+export 'src/models/iv_dimension.dart';
+export 'src/models/iv_filter_param.dart';
+export 'src/models/iv_measure.dart';
 export 'src/models/nx_attr_expr_def.dart';
 export 'src/models/nx_dimension.dart';
 export 'src/models/nx_dimension_1.dart';
@@ -18,6 +22,8 @@ export 'src/models/nx_sort_criteria.dart';
 export 'src/models/nx_value_expr.dart';
 export 'src/models/q_columns_container.dart';
 export 'src/models/q_hyper_cube_def.dart';
+export 'src/models/selection_table_data.dart';
+export 'src/models/selection_table_item.dart';
 
 //---------------------------------------------------------------------
 // Library contents

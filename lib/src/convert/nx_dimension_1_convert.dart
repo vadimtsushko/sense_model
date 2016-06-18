@@ -39,13 +39,19 @@ class NxDimension1Decoder extends Converter<Map, NxDimension1>
 
     model.type = input['type'];
     model.qLibraryId = input['qLibraryId'];
-    model.qDef = _nxInlineDimensionDefDecoder.convert(input['qDef']);
+    var qDef = input['qDef'];
+    if (qDef != null) {
+      model.qDef = _nxInlineDimensionDefDecoder.convert(qDef);
+    }
     model.qNullSuppression = input['qNullSuppression'];
     model.qShowAll = input['qShowAll'];
     model.qOtherLabel = input['qOtherLabel'];
     model.qTotalLabel = input['qTotalLabel'];
     model.qOtherTotalSpec = input['qOtherTotalSpec'];
-    model.qCalcCond = _nxValueExprDecoder.convert(input['qCalcCond']);
+    var qCalcCond = input['qCalcCond'];
+    if (qCalcCond != null) {
+      model.qCalcCond = _nxValueExprDecoder.convert(qCalcCond);
+    }
 
     return model;
   }
@@ -65,15 +71,42 @@ class NxDimension1Encoder extends Converter<NxDimension1, Map>
   Map convert(NxDimension1 input) {
     var model = {};
 
-    model['type'] = input.type;
-    model['qLibraryId'] = input.qLibraryId;
-    model['qDef'] = _nxInlineDimensionDefEncoder.convert(input.qDef);
-    model['qNullSuppression'] = input.qNullSuppression;
-    model['qShowAll'] = input.qShowAll;
-    model['qOtherLabel'] = input.qOtherLabel;
-    model['qTotalLabel'] = input.qTotalLabel;
-    model['qOtherTotalSpec'] = input.qOtherTotalSpec;
-    model['qCalcCond'] = _nxValueExprEncoder.convert(input.qCalcCond);
+    var type = input.type;
+    if (type != null) {
+      model['type'] = type;
+    }
+    var qLibraryId = input.qLibraryId;
+    if (qLibraryId != null) {
+      model['qLibraryId'] = qLibraryId;
+    }
+    var qDef = input.qDef;
+    if (qDef != null) {
+      model['qDef'] = _nxInlineDimensionDefEncoder.convert(qDef);
+    }
+    var qNullSuppression = input.qNullSuppression;
+    if (qNullSuppression != null) {
+      model['qNullSuppression'] = qNullSuppression;
+    }
+    var qShowAll = input.qShowAll;
+    if (qShowAll != null) {
+      model['qShowAll'] = qShowAll;
+    }
+    var qOtherLabel = input.qOtherLabel;
+    if (qOtherLabel != null) {
+      model['qOtherLabel'] = qOtherLabel;
+    }
+    var qTotalLabel = input.qTotalLabel;
+    if (qTotalLabel != null) {
+      model['qTotalLabel'] = qTotalLabel;
+    }
+    var qOtherTotalSpec = input.qOtherTotalSpec;
+    if (qOtherTotalSpec != null) {
+      model['qOtherTotalSpec'] = qOtherTotalSpec;
+    }
+    var qCalcCond = input.qCalcCond;
+    if (qCalcCond != null) {
+      model['qCalcCond'] = _nxValueExprEncoder.convert(qCalcCond);
+    }
 
     return model;
   }

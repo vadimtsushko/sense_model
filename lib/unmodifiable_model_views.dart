@@ -6,6 +6,10 @@ library sense_model.unmodifiable_model_views;
 // Exports
 //---------------------------------------------------------------------
 
+export 'src/unmodifiable_model_views/unmodifiable_chart_definition_view.dart';
+export 'src/unmodifiable_model_views/unmodifiable_iv_dimension_view.dart';
+export 'src/unmodifiable_model_views/unmodifiable_iv_filter_param_view.dart';
+export 'src/unmodifiable_model_views/unmodifiable_iv_measure_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_nx_attr_expr_def_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_nx_dimension_1_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_nx_dimension_view.dart';
@@ -18,6 +22,8 @@ export 'src/unmodifiable_model_views/unmodifiable_nx_sort_criteria_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_nx_value_expr_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_q_columns_container_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_q_hyper_cube_def_view.dart';
+export 'src/unmodifiable_model_views/unmodifiable_selection_table_data_view.dart';
+export 'src/unmodifiable_model_views/unmodifiable_selection_table_item_view.dart';
 
 //---------------------------------------------------------------------
 // Library contents
