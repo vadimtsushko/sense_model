@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Sense aux",
+  "description": "Qlik Sense Engine API structs",
+  "type": "object",
+  "definitions":
+  {
+    "NxDataPage":
+    {
+      "properties":
+      {
+        "qMatrix":
+        {
+          "description": "Some text",
+          "type": "string"
+        },
+        "qNum":
+        {
+          "description": "A value",
+          "type": "number"
+        },
+
+        "qElemNumber":
+        {
+          "description": "Rank number of the value, starting from 0.",
+          "type": "integer"
+        },
+        "qState":
+        {
+          "description": "State of the value. The default state for a measure is L.",
+          "type": "string",
+          "enum": ["L","S","O","D","A","X","XS","XL"]
+        },
+        "qIsEmpty":
+        {
+          "description": "Is set to true, if qText and qNum are empty.",
+          "type": "boolean"
+        },
+        "qIsTotalCell":
+        {
+          "description": "Is set to true if a total is displayed in the cell.Not applicable to list objects.",
+          "type": "boolean"
+        },
+        "qIsOtherCell":
+        {
+          "description": "If set to true if the cell belongs to the group Others..Not applicable to list objects.",
+          "type": "boolean"
+        },
+        "qFrequency":
+        {
+          "description": "Frequency of the value.",
+          "type": "string"
+        },
+        "qIsNull":
+        {
+          "description": "Is set to true if the value is Null.",
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required":
+      [
+        "qText"
+      ]
+    },
+    "NxCell":
+    {
+      "properties":
+      {
+        "qText":
+        {
+          "description": "Some text",
+          "type": "string"
+        },
+        "qNum":
+        {
+          "description": "A value",
+          "type": "number"
+        },
+
+        "qElemNumber":
+        {
+          "description": "Rank number of the value, starting from 0.",
+          "type": "integer"
+        },
+        "qState":
+        {
+          "description": "State of the value. The default state for a measure is L.",
+          "type": "string",
+          "enum": ["L","S","O","D","A","X","XS","XL"]
+        },
+        "qIsEmpty":
+        {
+          "description": "Is set to true, if qText and qNum are empty.",
+          "type": "boolean"
+        },
+        "qIsTotalCell":
+        {
+          "description": "Is set to true if a total is displayed in the cell.Not applicable to list objects.",
+          "type": "boolean"
+        },
+        "qIsOtherCell":
+        {
+          "description": "If set to true if the cell belongs to the group Others..Not applicable to list objects.",
+          "type": "boolean"
+        },
+        "qFrequency":
+        {
+          "description": "Frequency of the value.",
+          "type": "string"
+        },
+        "qIsNull":
+        {
+          "description": "Is set to true if the value is Null.",
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required":
+      [
+        "qText"
+      ]
+    },
+
+}

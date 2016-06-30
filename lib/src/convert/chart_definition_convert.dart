@@ -44,11 +44,15 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
       dimensionsTemp0.add(_ivDimensionDecoder.convert(dimensionsValue0));
     }
     model.dimensions = dimensionsTemp0;
-    var measuresTemp0 = <IvMeasure>[];
-    for (var measuresValue0 in input['measures']) {
-      measuresTemp0.add(_ivMeasureDecoder.convert(measuresValue0));
+    model.measuresSelector = input['measuresSelector'];
+    var measures = input['measures'];
+    if (measures != null) {
+      var measuresTemp0 = <IvMeasure>[];
+      for (var measuresValue0 in measures) {
+        measuresTemp0.add(_ivMeasureDecoder.convert(measuresValue0));
+      }
+      model.measures = measuresTemp0;
     }
-    model.measures = measuresTemp0;
 
     return model;
   }
@@ -75,11 +79,18 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
       dimensionsTemp0.add(_ivDimensionEncoder.convert(dimensionsValue0));
     }
     model['dimensions'] = dimensionsTemp0;
-    var measuresTemp0 = [];
-    for (var measuresValue0 in input.measures) {
-      measuresTemp0.add(_ivMeasureEncoder.convert(measuresValue0));
+    var measuresSelector = input.measuresSelector;
+    if (measuresSelector != null) {
+      model['measuresSelector'] = measuresSelector;
     }
-    model['measures'] = measuresTemp0;
+    var measures = input.measures;
+    if (measures != null) {
+      var measuresTemp0 = [];
+      for (var measuresValue0 in measures) {
+        measuresTemp0.add(_ivMeasureEncoder.convert(measuresValue0));
+      }
+      model['measures'] = measuresTemp0;
+    }
 
     return model;
   }
