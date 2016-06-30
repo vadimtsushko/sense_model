@@ -16,6 +16,7 @@ import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
 import 'nx_dimension_convert.dart';
 import 'nx_measure_convert.dart';
+import 'nx_value_expr_convert.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -25,11 +26,14 @@ import 'nx_measure_convert.dart';
 class QHyperCubeDefDecoder extends Converter<Map, QHyperCubeDef>
     implements ModelDecoder<QHyperCubeDef> {
   final Converter<Map, NxDimension> _nxDimensionDecoder;
+  final Converter<Map, NxValueExpr> _nxValueExprDecoder;
   final Converter<Map, NxMeasure> _nxMeasureDecoder;
   QHyperCubeDefDecoder()
       : _nxDimensionDecoder = new NxDimensionDecoder(),
+        _nxValueExprDecoder = new NxValueExprDecoder(),
         _nxMeasureDecoder = new NxMeasureDecoder();
-  QHyperCubeDefDecoder.using(this._nxDimensionDecoder, this._nxMeasureDecoder);
+  QHyperCubeDefDecoder.using(this._nxDimensionDecoder, this._nxValueExprDecoder,
+      this._nxMeasureDecoder);
   @override
   QHyperCubeDef create() => new QHyperCubeDef();
   @override
@@ -41,6 +45,18 @@ class QHyperCubeDefDecoder extends Converter<Map, QHyperCubeDef>
       qDimensionsTemp0.add(_nxDimensionDecoder.convert(qDimensionsValue0));
     }
     model.qDimensions = qDimensionsTemp0;
+    model.qSortbyYValue = input['qSortbyYValue'];
+    model.qNoOfLeftDims = input['qNoOfLeftDims'];
+    model.qSuppressZero = input['qSuppressZero'];
+    model.qSuppressMissing = input['qSuppressMissing'];
+    model.qInterColumnSortOrder = input['qInterColumnSortOrder'] as List<int>;
+    model.qAlwaysFullyExpanded = input['qAlwaysFullyExpanded'];
+    var qCalcCond = input['qCalcCond'];
+    if (qCalcCond != null) {
+      model.qCalcCond = _nxValueExprDecoder.convert(qCalcCond);
+    }
+    model.qShowTotalsAbove = input['qShowTotalsAbove'];
+    model.qIndentMode = input['qIndentMode'];
     var qMeasuresTemp0 = <NxMeasure>[];
     for (var qMeasuresValue0 in input['qMeasures']) {
       qMeasuresTemp0.add(_nxMeasureDecoder.convert(qMeasuresValue0));
@@ -56,11 +72,14 @@ class QHyperCubeDefDecoder extends Converter<Map, QHyperCubeDef>
 class QHyperCubeDefEncoder extends Converter<QHyperCubeDef, Map>
     implements ModelEncoder<QHyperCubeDef> {
   final Converter<NxDimension, Map> _nxDimensionEncoder;
+  final Converter<NxValueExpr, Map> _nxValueExprEncoder;
   final Converter<NxMeasure, Map> _nxMeasureEncoder;
   QHyperCubeDefEncoder()
       : _nxDimensionEncoder = new NxDimensionEncoder(),
+        _nxValueExprEncoder = new NxValueExprEncoder(),
         _nxMeasureEncoder = new NxMeasureEncoder();
-  QHyperCubeDefEncoder.using(this._nxDimensionEncoder, this._nxMeasureEncoder);
+  QHyperCubeDefEncoder.using(this._nxDimensionEncoder, this._nxValueExprEncoder,
+      this._nxMeasureEncoder);
   @override
   Map convert(QHyperCubeDef input) {
     var model = {};
@@ -70,6 +89,42 @@ class QHyperCubeDefEncoder extends Converter<QHyperCubeDef, Map>
       qDimensionsTemp0.add(_nxDimensionEncoder.convert(qDimensionsValue0));
     }
     model['qDimensions'] = qDimensionsTemp0;
+    var qSortbyYValue = input.qSortbyYValue;
+    if (qSortbyYValue != null) {
+      model['qSortbyYValue'] = qSortbyYValue;
+    }
+    var qNoOfLeftDims = input.qNoOfLeftDims;
+    if (qNoOfLeftDims != null) {
+      model['qNoOfLeftDims'] = qNoOfLeftDims;
+    }
+    var qSuppressZero = input.qSuppressZero;
+    if (qSuppressZero != null) {
+      model['qSuppressZero'] = qSuppressZero;
+    }
+    var qSuppressMissing = input.qSuppressMissing;
+    if (qSuppressMissing != null) {
+      model['qSuppressMissing'] = qSuppressMissing;
+    }
+    var qInterColumnSortOrder = input.qInterColumnSortOrder;
+    if (qInterColumnSortOrder != null) {
+      model['qInterColumnSortOrder'] = qInterColumnSortOrder;
+    }
+    var qAlwaysFullyExpanded = input.qAlwaysFullyExpanded;
+    if (qAlwaysFullyExpanded != null) {
+      model['qAlwaysFullyExpanded'] = qAlwaysFullyExpanded;
+    }
+    var qCalcCond = input.qCalcCond;
+    if (qCalcCond != null) {
+      model['qCalcCond'] = _nxValueExprEncoder.convert(qCalcCond);
+    }
+    var qShowTotalsAbove = input.qShowTotalsAbove;
+    if (qShowTotalsAbove != null) {
+      model['qShowTotalsAbove'] = qShowTotalsAbove;
+    }
+    var qIndentMode = input.qIndentMode;
+    if (qIndentMode != null) {
+      model['qIndentMode'] = qIndentMode;
+    }
     var qMeasuresTemp0 = [];
     for (var qMeasuresValue0 in input.qMeasures) {
       qMeasuresTemp0.add(_nxMeasureEncoder.convert(qMeasuresValue0));

@@ -43,6 +43,24 @@ class UnmodifiableIvMeasureView implements IvMeasure {
   }
 
   @override
+  String get param => _model.param;
+  set param(String value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable IvMeasure');
+  }
+
+  @override
+  bool get conditional => _model.conditional;
+  set conditional(bool value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable IvMeasure');
+  }
+
+  @override
+  bool get visible => _model.visible;
+  set visible(bool value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable IvMeasure');
+  }
+
+  @override
   List<IvFilterParam> get filters => _filters;
   set filters(List<IvFilterParam> value) {
     throw new UnsupportedError('Cannot modify an unmodifiable IvMeasure');

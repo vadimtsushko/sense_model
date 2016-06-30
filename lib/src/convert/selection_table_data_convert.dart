@@ -35,6 +35,7 @@ class SelectionTableDataDecoder extends Converter<Map, SelectionTableData>
 
     model.tableId = input['tableId'];
     model.tableType = input['tableType'];
+    model.multiple = input['multiple'];
     var tableItemsTemp0 = <SelectionTableItem>[];
     for (var tableItemsValue0 in input['tableItems']) {
       tableItemsTemp0.add(_selectionTableItemDecoder.convert(tableItemsValue0));
@@ -58,6 +59,10 @@ class SelectionTableDataEncoder extends Converter<SelectionTableData, Map>
 
     model['tableId'] = input.tableId;
     model['tableType'] = input.tableType;
+    var multiple = input.multiple;
+    if (multiple != null) {
+      model['multiple'] = multiple;
+    }
     var tableItemsTemp0 = [];
     for (var tableItemsValue0 in input.tableItems) {
       tableItemsTemp0.add(_selectionTableItemEncoder.convert(tableItemsValue0));

@@ -29,6 +29,8 @@ class IvDimensionDecoder extends Converter<Map, IvDimension>
     model ??= create();
 
     model.isStatic = input['isStatic'];
+    model.contitional = input['contitional'];
+    model.visible = input['visible'];
     model.key = input['key'];
     return model;
   }
@@ -42,6 +44,14 @@ class IvDimensionEncoder extends Converter<IvDimension, Map>
     var model = {};
 
     model['isStatic'] = input.isStatic;
+    var contitional = input.contitional;
+    if (contitional != null) {
+      model['contitional'] = contitional;
+    }
+    var visible = input.visible;
+    if (visible != null) {
+      model['visible'] = visible;
+    }
     model['key'] = input.key;
 
     return model;

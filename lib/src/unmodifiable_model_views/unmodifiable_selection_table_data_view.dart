@@ -46,6 +46,13 @@ class UnmodifiableSelectionTableDataView implements SelectionTableData {
   }
 
   @override
+  bool get multiple => _model.multiple;
+  set multiple(bool value) {
+    throw new UnsupportedError(
+        'Cannot modify an unmodifiable SelectionTableData');
+  }
+
+  @override
   List<SelectionTableItem> get tableItems => _tableItems;
   set tableItems(List<SelectionTableItem> value) {
     throw new UnsupportedError(

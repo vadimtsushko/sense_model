@@ -3,13 +3,25 @@
 library sense_model.src.models.selection_table_item;
 
 //---------------------------------------------------------------------
+// Imports
+//---------------------------------------------------------------------
+
+import 'package:dogma_convert/serialize.dart';
+
+//---------------------------------------------------------------------
 // Library contents
 //---------------------------------------------------------------------
 
 class SelectionTableItem {
   /// Код поля или выражения
+  @Serialize.field('value', optional: true)
   String value;
 
+  /// Дополнительный параметр (обычно не отображается в списках выбора)
+  @Serialize.field('param', optional: true)
+  String param;
+
   /// Строка, которое будет отображаться в списке выбора
+  @Serialize.field('displayValue')
   String displayValue;
 }

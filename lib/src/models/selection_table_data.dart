@@ -6,6 +6,7 @@ library sense_model.src.models.selection_table_data;
 // Imports
 //---------------------------------------------------------------------
 
+import 'package:dogma_convert/serialize.dart';
 import 'selection_table_item.dart';
 
 //---------------------------------------------------------------------
@@ -14,9 +15,16 @@ import 'selection_table_item.dart';
 
 class SelectionTableData {
   /// Код таблицы выбора
+  @Serialize.field('tableId')
   String tableId;
 
   /// Тип выбираемого значения
+  @Serialize.field('tableType')
   String tableType;
+
+  /// Множественный выбор
+  @Serialize.field('multiple', optional: true)
+  bool multiple;
+  @Serialize.field('tableItems')
   List<SelectionTableItem> tableItems;
 }

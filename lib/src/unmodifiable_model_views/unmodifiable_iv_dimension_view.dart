@@ -25,6 +25,18 @@ class UnmodifiableIvDimensionView implements IvDimension {
   }
 
   @override
+  String get contitional => _model.contitional;
+  set contitional(String value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable IvDimension');
+  }
+
+  @override
+  bool get visible => _model.visible;
+  set visible(bool value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable IvDimension');
+  }
+
+  @override
   String get key => _model.key;
   set key(String value) {
     throw new UnsupportedError('Cannot modify an unmodifiable IvDimension');

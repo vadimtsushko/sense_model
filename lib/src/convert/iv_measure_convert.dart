@@ -34,6 +34,9 @@ class IvMeasureDecoder extends Converter<Map, IvMeasure>
 
     model.isStatic = input['isStatic'];
     model.key = input['key'];
+    model.param = input['param'];
+    model.conditional = input['conditional'];
+    model.visible = input['visible'];
     var filters = input['filters'];
     if (filters != null) {
       var filtersTemp0 = <IvFilterParam>[];
@@ -59,6 +62,18 @@ class IvMeasureEncoder extends Converter<IvMeasure, Map>
 
     model['isStatic'] = input.isStatic;
     model['key'] = input.key;
+    var param = input.param;
+    if (param != null) {
+      model['param'] = param;
+    }
+    var conditional = input.conditional;
+    if (conditional != null) {
+      model['conditional'] = conditional;
+    }
+    var visible = input.visible;
+    if (visible != null) {
+      model['visible'] = visible;
+    }
     var filters = input.filters;
     if (filters != null) {
       var filtersTemp0 = [];

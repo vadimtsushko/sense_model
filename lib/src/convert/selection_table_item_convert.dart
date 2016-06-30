@@ -29,6 +29,7 @@ class SelectionTableItemDecoder extends Converter<Map, SelectionTableItem>
     model ??= create();
 
     model.value = input['value'];
+    model.param = input['param'];
     model.displayValue = input['displayValue'];
     return model;
   }
@@ -41,7 +42,14 @@ class SelectionTableItemEncoder extends Converter<SelectionTableItem, Map>
   Map convert(SelectionTableItem input) {
     var model = {};
 
-    model['value'] = input.value;
+    var value = input.value;
+    if (value != null) {
+      model['value'] = value;
+    }
+    var param = input.param;
+    if (param != null) {
+      model['param'] = param;
+    }
     model['displayValue'] = input.displayValue;
 
     return model;

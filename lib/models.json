@@ -5,6 +5,122 @@
 	"type": "object",
 	"definitions": 
 	{
+		"NxDataPage":
+		{
+			"properties":
+			{
+				"qMatrix":
+				{
+					"description": "Some text",
+					"type": "string"
+				},
+				"qNum":
+				{
+					"description": "A value",
+					"type": "number"
+				},
+
+				"qElemNumber":
+				{
+					"description": "Rank number of the value, starting from 0.",
+					"type": "integer"
+				},
+				"qState":
+				{
+					"description": "State of the value. The default state for a measure is L.",
+					"type": "string",
+					"enum": ["L","S","O","D","A","X","XS","XL"]
+				},
+				"qIsEmpty":
+				{
+					"description": "Is set to true, if qText and qNum are empty.",
+					"type": "boolean"
+				},
+				"qIsTotalCell":
+				{
+					"description": "Is set to true if a total is displayed in the cell.Not applicable to list objects.",
+					"type": "boolean"
+				},
+				"qIsOtherCell":
+				{
+					"description": "If set to true if the cell belongs to the group Others..Not applicable to list objects.",
+					"type": "boolean"
+				},
+				"qFrequency":
+				{
+					"description": "Frequency of the value.",
+					"type": "string"
+				},
+				"qIsNull":
+				{
+					"description": "Is set to true if the value is Null.",
+					"type": "boolean"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qText"
+			]
+		},
+		"NxCell":
+		{
+			"properties":
+			{
+				"qText":
+				{
+					"description": "Some text",
+					"type": "string"
+				},
+				"qNum":
+				{
+					"description": "A value",
+					"type": "number"
+				},
+
+				"qElemNumber":
+				{
+					"description": "Rank number of the value, starting from 0.",
+					"type": "integer"
+				},
+				"qState":
+				{
+					"description": "State of the value. The default state for a measure is L.",
+					"type": "string",
+					"enum": ["L","S","O","D","A","X","XS","XL"]
+				},
+				"qIsEmpty":
+				{
+					"description": "Is set to true, if qText and qNum are empty.",
+					"type": "boolean"
+				},
+				"qIsTotalCell":
+				{
+					"description": "Is set to true if a total is displayed in the cell.Not applicable to list objects.",
+					"type": "boolean"
+				},
+				"qIsOtherCell":
+				{
+					"description": "If set to true if the cell belongs to the group Others..Not applicable to list objects.",
+					"type": "boolean"
+				},
+				"qFrequency":
+				{
+					"description": "Frequency of the value.",
+					"type": "string"
+				},
+				"qIsNull":
+				{
+					"description": "Is set to true if the value is Null.",
+					"type": "boolean"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qText"
+			]
+		},
 		"SelectionTableData":
 		{
 			"properties":
@@ -20,6 +136,13 @@
 					"type": "string",
 					"enum": ["Dimension","Measure"]
 				},
+				"multiple":
+				{
+					"description": "Множественный выбор",
+					"type": "boolean",
+					"default": false
+				},
+
 				"tableItems":
 				{
 					"type": "array",
@@ -46,6 +169,11 @@
 					"description": "Код поля или выражения",
 					"type": "string"
 				},
+				"param":
+				{
+					"description": "Дополнительный параметр (обычно не отображается в списках выбора)",
+					"type": "string"
+				},
 				"displayValue":
 				{
 					"description": "Строка, которое будет отображаться в списке выбора",
@@ -55,8 +183,28 @@
 			"additionalProperties": false,
 			"required":
 			[
-				"value",
 				"displayValue"
+			]
+		},
+		"IvKeyValuePair":
+		{
+			"properties":
+			{
+				"key":
+				{
+					"description": "Код",
+					"type": "string"
+				},
+				"value":
+				{
+					"description": "Значение",
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"key", "value"
 			]
 		},
 
@@ -86,12 +234,23 @@
 		{
 			"properties": 
 			{
-				"isStatic": 
+				"isStatic":
 				{
 					"description": "Статическое ли это измерение",
 					"type": "boolean"
 				},
-				"key": 
+				"contitional":
+				{
+					"description": "Необходимо проверить условие отображения колонки",
+					"type": "string"
+				},
+                "visible":
+                {
+                  "description": "Показывать колонку (рантайм параметр)",
+                  "type": "boolean",
+                  "default": true
+                },
+				"key":
 				{
 					"description": "Код поля (если измерение статическое), либо название динамической таблицы, откуда будет получен текущий код поля",
 					"type": "string"
@@ -108,7 +267,7 @@
 		{
 			"properties": 
 			{
-				"isStatic": 
+				"isStatic":
 				{
 					"description": "Статическая ли это мера",
 					"type": "boolean",
@@ -119,7 +278,24 @@
 					"description": "Код поля (если измерение статическое), либо название динамической таблицы, откуда будет получен текущий код поля",
 					"type": "string"
 				},
-				"filters": 
+				"param":
+				{
+					"description": "Дополнительный параметр для выбора динамической меры",
+					"type": "string"
+				},
+				"conditional":
+				{
+					"description": "Необходимо проверить условие отображения колонки",
+                    "type": "boolean",
+                    "default": false
+				},
+                "visible":
+                {
+                  "description": "Показывать колонку (рантайм параметр)",
+                  "type": "boolean",
+                  "default": true
+                },
+				"filters":
 				{
 					"description": "Дополнительный фильтр (используется только для динамических мер)",
 					"type": "array",
@@ -166,7 +342,12 @@
 						"$ref": "#/definitions/IvDimension"
 					}
 				},
-				"measures": 
+				"measuresSelector":
+				{
+					"description": "Код таблицы селектора для множественного выбора мер (используется вместо списка мер в генераторе отчетов)",
+					"type": "string"
+				},
+				"measures":
 				{
 					"description": "Список мер",
 					"type": "array",
@@ -182,8 +363,7 @@
 			[
 				"chartType",
 				"chartId",
-				"dimensions",
-				"measures"
+				"dimensions"
 			]
 		},
 		"QColumnsContainer": 
@@ -256,7 +436,61 @@
 						"$ref": "#/definitions/NxDimension"
 					}
 				},
-				"qMeasures": 
+				"qSortbyYValue":
+				{
+					"description": "To enable the sorting by ascending or descending order in the values of a measure.This property applies to pivot tables and stacked pivot tables.",
+					"type": "integer",
+					"enum": [-1,0,1]
+
+				},
+				"qNoOfLeftDims":
+				{
+					"description": "Number of left dimensions. (meaningfull for pivot tables)",
+					"type": "integer"
+				},
+				"qSuppressZero":
+				{
+					"description": "Removes zero values.Default is false.",
+					"type": "boolean"
+				},
+				"qSuppressMissing":
+				{
+					"description": "Removes missing values.Default is false.",
+					"type": "boolean"
+				},
+				"qInterColumnSortOrder":
+				{
+					"description": "Order the columns of the hypercube should be sorted. The index of the pseudo-dimension (if any) is -1.",
+					"type": "array",
+					"items":
+					{
+						"type": "integer"
+					}
+				},
+
+				"qAlwaysFullyExpanded":
+				{
+					"description": "If this property is set to true, the cells are always expanded. It implies that it is not possible to collapse any cells.",
+					"type": "boolean"
+				},
+				"qCalcCond":
+				{
+					"description": "Specifies a calculation condition, which must be fulfilled for the hypercube to be (re)calculated.",
+					"$ref": "#/definitions/NxValueExpr"
+				},
+
+				"qShowTotalsAbove":
+				{
+					"description": "If set to true, the total (if any) is shown on the first row.",
+					"type": "boolean"
+				},
+				"qIndentMode":
+				{
+					"description": "This property applies for pivot tables and allows to change the layout of the table. An indentation is added to the beginning of each row.",
+					"type": "boolean"
+				},
+
+				"qMeasures":
 				{
 					"description": "Dimensions",
 					"type": "array",

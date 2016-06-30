@@ -23,6 +23,18 @@ class IvMeasure {
   @Serialize.field('key')
   String key;
 
+  /// Дополнительный параметр для выбора динамической меры
+  @Serialize.field('param', optional: true)
+  String param;
+
+  /// Необходимо проверить условие отображения колонки
+  @Serialize.field('conditional', optional: true)
+  bool conditional;
+
+  /// Показывать колонку (рантайм параметр)
+  @Serialize.field('visible', optional: true)
+  bool visible;
+
   /// Дополнительный фильтр (используется только для динамических мер)
   @Serialize.field('filters', optional: true)
   List<IvFilterParam> filters;

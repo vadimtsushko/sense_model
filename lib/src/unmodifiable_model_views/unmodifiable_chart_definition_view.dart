@@ -47,6 +47,12 @@ class UnmodifiableChartDefinitionView implements ChartDefinition {
   }
 
   @override
+  String get measuresSelector => _model.measuresSelector;
+  set measuresSelector(String value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
   List<IvDimension> get dimensions => _dimensions;
   set dimensions(List<IvDimension> value) {
     throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');

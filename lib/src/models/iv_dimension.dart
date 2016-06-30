@@ -3,14 +3,30 @@
 library sense_model.src.models.iv_dimension;
 
 //---------------------------------------------------------------------
+// Imports
+//---------------------------------------------------------------------
+
+import 'package:dogma_convert/serialize.dart';
+
+//---------------------------------------------------------------------
 // Library contents
 //---------------------------------------------------------------------
 
 class IvDimension {
   /// Статическое ли это измерение
+  @Serialize.field('isStatic')
   bool isStatic;
+
+  /// Необходимо проверить условие отображения колонки
+  @Serialize.field('contitional', optional: true)
+  String contitional;
+
+  /// Показывать колонку (рантайм параметр)
+  @Serialize.field('visible', optional: true)
+  bool visible;
 
   /// Код поля (если измерение статическое), либо название динамической таблицы,
   /// откуда будет получен текущий код поля
+  @Serialize.field('key')
   String key;
 }
