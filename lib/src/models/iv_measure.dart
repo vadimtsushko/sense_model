@@ -8,6 +8,7 @@ library sense_model.src.models.iv_measure;
 
 import 'package:dogma_convert/serialize.dart';
 import 'iv_filter_param.dart';
+import 'nx_measure_series.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -34,6 +35,10 @@ class IvMeasure {
   /// Показывать колонку (рантайм параметр)
   @Serialize.field('visible', optional: true)
   bool visible;
+
+  /// Дополнительные параметры меры для комбочарта
+  @Serialize.field('series', optional: true)
+  NxMeasureSeries series;
 
   /// Дополнительный фильтр (используется только для динамических мер)
   @Serialize.field('filters', optional: true)

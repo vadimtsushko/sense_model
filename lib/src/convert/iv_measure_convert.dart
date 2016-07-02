@@ -15,6 +15,7 @@ import 'dart:convert';
 import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
 import 'iv_filter_param_convert.dart';
+import 'nx_measure_series_convert.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -23,9 +24,13 @@ import 'iv_filter_param_convert.dart';
 /// A [ModelDecoder] for [IvMeasure].
 class IvMeasureDecoder extends Converter<Map, IvMeasure>
     implements ModelDecoder<IvMeasure> {
+  final Converter<Map, NxMeasureSeries> _nxMeasureSeriesDecoder;
   final Converter<Map, IvFilterParam> _ivFilterParamDecoder;
-  IvMeasureDecoder() : _ivFilterParamDecoder = new IvFilterParamDecoder();
-  IvMeasureDecoder.using(this._ivFilterParamDecoder);
+  IvMeasureDecoder()
+      : _nxMeasureSeriesDecoder = new NxMeasureSeriesDecoder(),
+        _ivFilterParamDecoder = new IvFilterParamDecoder();
+  IvMeasureDecoder.using(
+      this._nxMeasureSeriesDecoder, this._ivFilterParamDecoder);
   @override
   IvMeasure create() => new IvMeasure();
   @override
@@ -37,6 +42,10 @@ class IvMeasureDecoder extends Converter<Map, IvMeasure>
     model.param = input['param'];
     model.conditional = input['conditional'];
     model.visible = input['visible'];
+    var series = input['series'];
+    if (series != null) {
+      model.series = _nxMeasureSeriesDecoder.convert(series);
+    }
     var filters = input['filters'];
     if (filters != null) {
       var filtersTemp0 = <IvFilterParam>[];
@@ -53,9 +62,13 @@ class IvMeasureDecoder extends Converter<Map, IvMeasure>
 /// A [ModelEncoder] for [IvMeasure].
 class IvMeasureEncoder extends Converter<IvMeasure, Map>
     implements ModelEncoder<IvMeasure> {
+  final Converter<NxMeasureSeries, Map> _nxMeasureSeriesEncoder;
   final Converter<IvFilterParam, Map> _ivFilterParamEncoder;
-  IvMeasureEncoder() : _ivFilterParamEncoder = new IvFilterParamEncoder();
-  IvMeasureEncoder.using(this._ivFilterParamEncoder);
+  IvMeasureEncoder()
+      : _nxMeasureSeriesEncoder = new NxMeasureSeriesEncoder(),
+        _ivFilterParamEncoder = new IvFilterParamEncoder();
+  IvMeasureEncoder.using(
+      this._nxMeasureSeriesEncoder, this._ivFilterParamEncoder);
   @override
   Map convert(IvMeasure input) {
     var model = {};
@@ -73,6 +86,10 @@ class IvMeasureEncoder extends Converter<IvMeasure, Map>
     var visible = input.visible;
     if (visible != null) {
       model['visible'] = visible;
+    }
+    var series = input.series;
+    if (series != null) {
+      model['series'] = _nxMeasureSeriesEncoder.convert(series);
     }
     var filters = input.filters;
     if (filters != null) {

@@ -7,6 +7,7 @@ library sense_model.src.models.nx_inline_measure_def;
 //---------------------------------------------------------------------
 
 import 'package:dogma_convert/serialize.dart';
+import 'nx_measure_series.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -57,6 +58,11 @@ class NxInlineMeasureDef {
   /// If set to true, it inverts the sort criteria in the field
   @Serialize.field('qExpressions', optional: true)
   List<String> qExpressions;
+
+  /// Combo chart series settings for which axis to put the measure and how to
+  /// visualize its data
+  @Serialize.field('series', optional: true)
+  NxMeasureSeries series;
   @Serialize.field('qTags', optional: true)
   List<String> qTags;
 }

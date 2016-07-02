@@ -295,6 +295,12 @@
                   "type": "boolean",
                   "default": true
                 },
+				"series":
+				{
+					"description": "Дополнительные параметры меры для комбочарта",
+					"$ref": "#/definitions/NxMeasureSeries"
+				},
+
 				"filters":
 				{
 					"description": "Дополнительный фильтр (используется только для динамических мер)",
@@ -696,7 +702,13 @@
 					},
 					"uniqueItems": true
 				},
-				"qTags": 
+				"series":
+				{
+					"description": "Combo chart series settings for which axis to put the measure and how to visualize its data",
+					"$ref": "#/definitions/NxMeasureSeries"
+				},
+
+				"qTags":
 				{
 					"type": "array",
 					"items": 
@@ -712,6 +724,39 @@
 				"qDef"
 			]
 		},
+		"NxMeasureSeries":
+		{
+			"properties":
+			{
+				"type":
+				{
+					"description": "Set how to visualize the series",
+					"enum": ["bar","line","marker"],
+					"type": "string"
+				},
+				"axis":
+				{
+					"description": "",
+					"type": "integer"
+				},
+				"marker":
+				{
+					"description": "",
+					"type": "string"
+				},
+				"markerFill":
+				{
+					"description": "",
+					"type": "boolean"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"type"
+			]
+		},
+
 		"NxMeasure": 
 		{
 			"properties": 

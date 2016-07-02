@@ -20,6 +20,7 @@ export 'src/convert/nx_field_attributes_convert.dart';
 export 'src/convert/nx_inline_dimension_def_convert.dart';
 export 'src/convert/nx_inline_measure_def_convert.dart';
 export 'src/convert/nx_measure_convert.dart';
+export 'src/convert/nx_measure_series_convert.dart';
 export 'src/convert/nx_options_convert.dart';
 export 'src/convert/nx_sort_criteria_convert.dart';
 export 'src/convert/nx_value_expr_convert.dart';

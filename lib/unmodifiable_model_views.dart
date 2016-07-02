@@ -19,6 +19,7 @@ export 'src/unmodifiable_model_views/unmodifiable_nx_dimension_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_nx_field_attributes_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_nx_inline_dimension_def_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_nx_inline_measure_def_view.dart';
+export 'src/unmodifiable_model_views/unmodifiable_nx_measure_series_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_nx_measure_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_nx_options_view.dart';
 export 'src/unmodifiable_model_views/unmodifiable_nx_sort_criteria_view.dart';

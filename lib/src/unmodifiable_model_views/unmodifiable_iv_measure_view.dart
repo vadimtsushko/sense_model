@@ -61,6 +61,12 @@ class UnmodifiableIvMeasureView implements IvMeasure {
   }
 
   @override
+  NxMeasureSeries get series => _model.series;
+  set series(NxMeasureSeries value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable IvMeasure');
+  }
+
+  @override
   List<IvFilterParam> get filters => _filters;
   set filters(List<IvFilterParam> value) {
     throw new UnsupportedError('Cannot modify an unmodifiable IvMeasure');
