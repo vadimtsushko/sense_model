@@ -3,6 +3,12 @@
 library sense_model.src.models.nx_sort_criteria;
 
 //---------------------------------------------------------------------
+// Imports
+//---------------------------------------------------------------------
+
+import 'nx_value_expr.dart';
+
+//---------------------------------------------------------------------
 // Library contents
 //---------------------------------------------------------------------
 
@@ -23,6 +29,9 @@ class NxSortCriteria {
 
   /// Sorts the field values by the initial load order
   int qSortByLoadOrder;
+
+  /// Sort by expression.
+  NxValueExpr qExpression;
 
   /// Sort by expression
   int qSortByExpression;

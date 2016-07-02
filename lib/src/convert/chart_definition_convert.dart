@@ -72,6 +72,9 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
       model.dataPoint = _nxDataPointDecoder.convert(dataPoint);
     }
     model.nullMode = input['nullMode'];
+    model.suppressZero = input['suppressZero'];
+    model.suppressMissing = input['suppressMissing'];
+    model.sortbyYValue = input['sortbyYValue'];
     model.orientation = input['orientation'];
     return model;
   }
@@ -141,6 +144,18 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
     var nullMode = input.nullMode;
     if (nullMode != null) {
       model['nullMode'] = nullMode;
+    }
+    var suppressZero = input.suppressZero;
+    if (suppressZero != null) {
+      model['suppressZero'] = suppressZero;
+    }
+    var suppressMissing = input.suppressMissing;
+    if (suppressMissing != null) {
+      model['suppressMissing'] = suppressMissing;
+    }
+    var sortbyYValue = input.sortbyYValue;
+    if (sortbyYValue != null) {
+      model['sortbyYValue'] = sortbyYValue;
     }
     var orientation = input.orientation;
     if (orientation != null) {

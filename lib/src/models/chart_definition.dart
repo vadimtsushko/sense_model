@@ -58,6 +58,19 @@ class ChartDefinition {
   @Serialize.field('nullMode', optional: true)
   Map nullMode;
 
+  /// Removes zero values.Default is false.
+  @Serialize.field('suppressZero', optional: true)
+  bool suppressZero;
+
+  /// Removes missing values.Default is false.
+  @Serialize.field('suppressMissing', optional: true)
+  bool suppressMissing;
+
+  /// To enable the sorting by ascending or descending order in the values of a
+  /// measure.This property applies to pivot tables and stacked pivot tables.
+  @Serialize.field('sortbyYValue', optional: true)
+  int sortbyYValue;
+
   /// Orientation settings. If vertical, the dimension axis can only be docked on
   /// bottom or top and measure axis on left or right
   @Serialize.field('orientation', optional: true)

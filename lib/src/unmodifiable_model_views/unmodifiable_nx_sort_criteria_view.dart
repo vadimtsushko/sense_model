@@ -49,6 +49,12 @@ class UnmodifiableNxSortCriteriaView implements NxSortCriteria {
   }
 
   @override
+  NxValueExpr get qExpression => _model.qExpression;
+  set qExpression(NxValueExpr value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable NxSortCriteria');
+  }
+
+  @override
   int get qSortByExpression => _model.qSortByExpression;
   set qSortByExpression(int value) {
     throw new UnsupportedError('Cannot modify an unmodifiable NxSortCriteria');

@@ -14,6 +14,7 @@ import 'dart:convert';
 
 import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
+import 'nx_value_expr_convert.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -22,6 +23,9 @@ import 'package:sense_model/models.dart';
 /// A [ModelDecoder] for [NxSortCriteria].
 class NxSortCriteriaDecoder extends Converter<Map, NxSortCriteria>
     implements ModelDecoder<NxSortCriteria> {
+  final Converter<Map, NxValueExpr> _nxValueExprDecoder;
+  NxSortCriteriaDecoder() : _nxValueExprDecoder = new NxValueExprDecoder();
+  NxSortCriteriaDecoder.using(this._nxValueExprDecoder);
   @override
   NxSortCriteria create() => new NxSortCriteria();
   @override
@@ -33,6 +37,7 @@ class NxSortCriteriaDecoder extends Converter<Map, NxSortCriteria>
     model.qSortByNumeric = input['qSortByNumeric'];
     model.qSortByAscii = input['qSortByAscii'];
     model.qSortByLoadOrder = input['qSortByLoadOrder'];
+    model.qExpression = _nxValueExprDecoder.convert(input['qExpression']);
     model.qSortByExpression = input['qSortByExpression'];
     return model;
   }
@@ -41,6 +46,9 @@ class NxSortCriteriaDecoder extends Converter<Map, NxSortCriteria>
 /// A [ModelEncoder] for [NxSortCriteria].
 class NxSortCriteriaEncoder extends Converter<NxSortCriteria, Map>
     implements ModelEncoder<NxSortCriteria> {
+  final Converter<NxValueExpr, Map> _nxValueExprEncoder;
+  NxSortCriteriaEncoder() : _nxValueExprEncoder = new NxValueExprEncoder();
+  NxSortCriteriaEncoder.using(this._nxValueExprEncoder);
   @override
   Map convert(NxSortCriteria input) {
     var model = {};
@@ -50,6 +58,7 @@ class NxSortCriteriaEncoder extends Converter<NxSortCriteria, Map>
     model['qSortByNumeric'] = input.qSortByNumeric;
     model['qSortByAscii'] = input.qSortByAscii;
     model['qSortByLoadOrder'] = input.qSortByLoadOrder;
+    model['qExpression'] = _nxValueExprEncoder.convert(input.qExpression);
     model['qSortByExpression'] = input.qSortByExpression;
 
     return model;

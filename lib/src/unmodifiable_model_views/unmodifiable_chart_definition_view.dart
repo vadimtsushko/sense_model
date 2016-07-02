@@ -93,6 +93,24 @@ class UnmodifiableChartDefinitionView implements ChartDefinition {
   }
 
   @override
+  bool get suppressZero => _model.suppressZero;
+  set suppressZero(bool value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
+  bool get suppressMissing => _model.suppressMissing;
+  set suppressMissing(bool value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
+  int get sortbyYValue => _model.sortbyYValue;
+  set sortbyYValue(int value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
   List<IvDimension> get dimensions => _dimensions;
   set dimensions(List<IvDimension> value) {
     throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');

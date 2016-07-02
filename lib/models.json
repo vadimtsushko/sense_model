@@ -418,6 +418,23 @@
 					"enum": ["gap","connect","zero"],
 					"type": "String"
 				},
+				"suppressZero":
+				{
+					"description": "Removes zero values.Default is false.",
+					"type": "boolean"
+				},
+				"suppressMissing":
+				{
+					"description": "Removes missing values.Default is false.",
+					"type": "boolean"
+				},
+				"sortbyYValue":
+				{
+					"description": "To enable the sorting by ascending or descending order in the values of a measure.This property applies to pivot tables and stacked pivot tables.",
+					"type": "integer",
+					"enum": [-1,0,1]
+
+				},
 				"orientation":
 				{
 					"description": "Orientation settings. If vertical, the dimension axis can only be docked on bottom or top and measure axis on left or right",
@@ -1065,7 +1082,13 @@
 						1
 					]
 				},
-				"qSortByExpression": 
+				"qExpression":
+				{
+					"description": "Sort by expression.",
+					"$ref": "#/definitions/NxValueExpr"
+				},
+
+				"qSortByExpression":
 				{
 					"description": "Sort by expression",
 					"type": "integer",
@@ -1140,7 +1163,7 @@
 			},
 			"additionalProperties": false
 		},
-		"NxValueExpr": 
+		"NxValueExpr":
 		{
 			"properties": 
 			{
