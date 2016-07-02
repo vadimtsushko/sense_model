@@ -16,6 +16,8 @@ import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
 import 'iv_dimension_convert.dart';
 import 'iv_measure_convert.dart';
+import 'nx_bar_grouping_convert.dart';
+import 'nx_data_point_convert.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -26,11 +28,15 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
     implements ModelDecoder<ChartDefinition> {
   final Converter<Map, IvDimension> _ivDimensionDecoder;
   final Converter<Map, IvMeasure> _ivMeasureDecoder;
+  final Converter<Map, NxBarGrouping> _nxBarGroupingDecoder;
+  final Converter<Map, NxDataPoint> _nxDataPointDecoder;
   ChartDefinitionDecoder()
       : _ivDimensionDecoder = new IvDimensionDecoder(),
-        _ivMeasureDecoder = new IvMeasureDecoder();
-  ChartDefinitionDecoder.using(
-      this._ivDimensionDecoder, this._ivMeasureDecoder);
+        _ivMeasureDecoder = new IvMeasureDecoder(),
+        _nxBarGroupingDecoder = new NxBarGroupingDecoder(),
+        _nxDataPointDecoder = new NxDataPointDecoder();
+  ChartDefinitionDecoder.using(this._ivDimensionDecoder, this._ivMeasureDecoder,
+      this._nxBarGroupingDecoder, this._nxDataPointDecoder);
   @override
   ChartDefinition create() => new ChartDefinition();
   @override
@@ -53,7 +59,20 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
       }
       model.measures = measuresTemp0;
     }
-
+    model.title = input['title'];
+    model.showTitles = input['showTitles'];
+    model.subtitle = input['subtitle'];
+    model.footnote = input['footnote'];
+    var barGrouping = input['barGrouping'];
+    if (barGrouping != null) {
+      model.barGrouping = _nxBarGroupingDecoder.convert(barGrouping);
+    }
+    var dataPoint = input['dataPoint'];
+    if (dataPoint != null) {
+      model.dataPoint = _nxDataPointDecoder.convert(dataPoint);
+    }
+    model.nullMode = input['nullMode'];
+    model.orientation = input['orientation'];
     return model;
   }
 }
@@ -63,11 +82,15 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
     implements ModelEncoder<ChartDefinition> {
   final Converter<IvDimension, Map> _ivDimensionEncoder;
   final Converter<IvMeasure, Map> _ivMeasureEncoder;
+  final Converter<NxBarGrouping, Map> _nxBarGroupingEncoder;
+  final Converter<NxDataPoint, Map> _nxDataPointEncoder;
   ChartDefinitionEncoder()
       : _ivDimensionEncoder = new IvDimensionEncoder(),
-        _ivMeasureEncoder = new IvMeasureEncoder();
-  ChartDefinitionEncoder.using(
-      this._ivDimensionEncoder, this._ivMeasureEncoder);
+        _ivMeasureEncoder = new IvMeasureEncoder(),
+        _nxBarGroupingEncoder = new NxBarGroupingEncoder(),
+        _nxDataPointEncoder = new NxDataPointEncoder();
+  ChartDefinitionEncoder.using(this._ivDimensionEncoder, this._ivMeasureEncoder,
+      this._nxBarGroupingEncoder, this._nxDataPointEncoder);
   @override
   Map convert(ChartDefinition input) {
     var model = {};
@@ -90,6 +113,38 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
         measuresTemp0.add(_ivMeasureEncoder.convert(measuresValue0));
       }
       model['measures'] = measuresTemp0;
+    }
+    var title = input.title;
+    if (title != null) {
+      model['title'] = title;
+    }
+    var showTitles = input.showTitles;
+    if (showTitles != null) {
+      model['showTitles'] = showTitles;
+    }
+    var subtitle = input.subtitle;
+    if (subtitle != null) {
+      model['subtitle'] = subtitle;
+    }
+    var footnote = input.footnote;
+    if (footnote != null) {
+      model['footnote'] = footnote;
+    }
+    var barGrouping = input.barGrouping;
+    if (barGrouping != null) {
+      model['barGrouping'] = _nxBarGroupingEncoder.convert(barGrouping);
+    }
+    var dataPoint = input.dataPoint;
+    if (dataPoint != null) {
+      model['dataPoint'] = _nxDataPointEncoder.convert(dataPoint);
+    }
+    var nullMode = input.nullMode;
+    if (nullMode != null) {
+      model['nullMode'] = nullMode;
+    }
+    var orientation = input.orientation;
+    if (orientation != null) {
+      model['orientation'] = orientation;
     }
 
     return model;

@@ -14,6 +14,8 @@ import 'dart:convert';
 
 import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
+import 'nx_bar_grouping_convert.dart';
+import 'nx_data_point_convert.dart';
 import 'q_hyper_cube_def_convert.dart';
 
 //---------------------------------------------------------------------
@@ -23,9 +25,15 @@ import 'q_hyper_cube_def_convert.dart';
 /// A [ModelDecoder] for [NxOptions].
 class NxOptionsDecoder extends Converter<Map, NxOptions>
     implements ModelDecoder<NxOptions> {
+  final Converter<Map, NxBarGrouping> _nxBarGroupingDecoder;
+  final Converter<Map, NxDataPoint> _nxDataPointDecoder;
   final Converter<Map, QHyperCubeDef> _qHyperCubeDefDecoder;
-  NxOptionsDecoder() : _qHyperCubeDefDecoder = new QHyperCubeDefDecoder();
-  NxOptionsDecoder.using(this._qHyperCubeDefDecoder);
+  NxOptionsDecoder()
+      : _nxBarGroupingDecoder = new NxBarGroupingDecoder(),
+        _nxDataPointDecoder = new NxDataPointDecoder(),
+        _qHyperCubeDefDecoder = new QHyperCubeDefDecoder();
+  NxOptionsDecoder.using(this._nxBarGroupingDecoder, this._nxDataPointDecoder,
+      this._qHyperCubeDefDecoder);
   @override
   NxOptions create() => new NxOptions();
   @override
@@ -36,7 +44,20 @@ class NxOptionsDecoder extends Converter<Map, NxOptions>
     model.showTitles = input['showTitles'];
     model.subtitle = input['subtitle'];
     model.footnote = input['footnote'];
-    model.qHyperCubeDef = _qHyperCubeDefDecoder.convert(input['qHyperCubeDef']);
+    var barGrouping = input['barGrouping'];
+    if (barGrouping != null) {
+      model.barGrouping = _nxBarGroupingDecoder.convert(barGrouping);
+    }
+    var dataPoint = input['dataPoint'];
+    if (dataPoint != null) {
+      model.dataPoint = _nxDataPointDecoder.convert(dataPoint);
+    }
+    model.nullMode = input['nullMode'];
+    model.orientation = input['orientation'];
+    var qHyperCubeDef = input['qHyperCubeDef'];
+    if (qHyperCubeDef != null) {
+      model.qHyperCubeDef = _qHyperCubeDefDecoder.convert(qHyperCubeDef);
+    }
 
     return model;
   }
@@ -45,18 +66,52 @@ class NxOptionsDecoder extends Converter<Map, NxOptions>
 /// A [ModelEncoder] for [NxOptions].
 class NxOptionsEncoder extends Converter<NxOptions, Map>
     implements ModelEncoder<NxOptions> {
+  final Converter<NxBarGrouping, Map> _nxBarGroupingEncoder;
+  final Converter<NxDataPoint, Map> _nxDataPointEncoder;
   final Converter<QHyperCubeDef, Map> _qHyperCubeDefEncoder;
-  NxOptionsEncoder() : _qHyperCubeDefEncoder = new QHyperCubeDefEncoder();
-  NxOptionsEncoder.using(this._qHyperCubeDefEncoder);
+  NxOptionsEncoder()
+      : _nxBarGroupingEncoder = new NxBarGroupingEncoder(),
+        _nxDataPointEncoder = new NxDataPointEncoder(),
+        _qHyperCubeDefEncoder = new QHyperCubeDefEncoder();
+  NxOptionsEncoder.using(this._nxBarGroupingEncoder, this._nxDataPointEncoder,
+      this._qHyperCubeDefEncoder);
   @override
   Map convert(NxOptions input) {
     var model = {};
 
     model['title'] = input.title;
-    model['showTitles'] = input.showTitles;
-    model['subtitle'] = input.subtitle;
-    model['footnote'] = input.footnote;
-    model['qHyperCubeDef'] = _qHyperCubeDefEncoder.convert(input.qHyperCubeDef);
+    var showTitles = input.showTitles;
+    if (showTitles != null) {
+      model['showTitles'] = showTitles;
+    }
+    var subtitle = input.subtitle;
+    if (subtitle != null) {
+      model['subtitle'] = subtitle;
+    }
+    var footnote = input.footnote;
+    if (footnote != null) {
+      model['footnote'] = footnote;
+    }
+    var barGrouping = input.barGrouping;
+    if (barGrouping != null) {
+      model['barGrouping'] = _nxBarGroupingEncoder.convert(barGrouping);
+    }
+    var dataPoint = input.dataPoint;
+    if (dataPoint != null) {
+      model['dataPoint'] = _nxDataPointEncoder.convert(dataPoint);
+    }
+    var nullMode = input.nullMode;
+    if (nullMode != null) {
+      model['nullMode'] = nullMode;
+    }
+    var orientation = input.orientation;
+    if (orientation != null) {
+      model['orientation'] = orientation;
+    }
+    var qHyperCubeDef = input.qHyperCubeDef;
+    if (qHyperCubeDef != null) {
+      model['qHyperCubeDef'] = _qHyperCubeDefEncoder.convert(qHyperCubeDef);
+    }
 
     return model;
   }

@@ -289,6 +289,28 @@
                     "type": "boolean",
                     "default": false
 				},
+				"qRelative":
+				{
+					"description": "If set to true, percentage values are returned instead of absolute numbers.",
+					"type": "boolean",
+					"default": false
+				},
+				"qAccumulate":
+				{
+					"description": "Режим накопления (0 по умолчанию, 1 - полное накопление)",
+					"type": "integer",
+					"default": 0
+				},
+				"backgroundColor":
+				{
+					"description": "",
+					"type": "string"
+				},
+				"fontColor":
+				{
+					"description": "",
+					"type": "string"
+				},
                 "visible":
                 {
                   "description": "Показывать колонку (рантайм параметр)",
@@ -362,7 +384,47 @@
 					{
 						"$ref": "#/definitions/IvMeasure"
 					}
+				},
+				"title":
+				{
+					"type": "string"
+				},
+				"showTitles":
+				{
+					"type": "boolean"
+				},
+				"subtitle":
+				{
+					"type": "string"
+				},
+				"footnote":
+				{
+					"type": "string"
+				},
+				"barGrouping":
+				{
+					"description": "Bar grouping settings",
+					"$ref": "#/definitions/NxBarGrouping"
+				},
+				"dataPoint":
+				{
+					"description": "Data point settings",
+					"$ref": "#/definitions/NxDataPoint"
+				},
+
+				"nullMode":
+				{
+					"description": "Sets the null value presentation",
+					"enum": ["gap","connect","zero"],
+					"type": "String"
+				},
+				"orientation":
+				{
+					"description": "Orientation settings. If vertical, the dimension axis can only be docked on bottom or top and measure axis on left or right",
+					"enum": ["horizontal","vertical"],
+					"type": "String"
 				}
+
 			},
 			"additionalProperties": false,
 			"required": 
@@ -402,7 +464,41 @@
 				"qMeasures"
 			]
 		},
-		"NxOptions": 
+		"NxDataPoint":
+		{
+			"properties":
+			{
+				"show":
+				{
+					"description": "Set to display data points on line series. Only used if there is at least one measure with type set to line.",
+					"type": "boolean"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"show"
+			]
+		},
+		"NxBarGrouping":
+		{
+			"properties":
+			{
+				"grouping":
+				{
+					"description": "Bar grouping settings",
+					"enum": ["grouped","stacked"],
+					"type": "String"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"grouping"
+			]
+		},
+
+		"NxOptions":
 		{
 			"properties": 
 			{
@@ -422,11 +518,36 @@
 				{
 					"type": "string"
 				},
-				"qHyperCubeDef": 
+				"barGrouping":
+				{
+					"description": "Bar grouping settings",
+					"$ref": "#/definitions/NxBarGrouping"
+				},
+				"dataPoint":
+				{
+					"description": "Data point settings",
+					"$ref": "#/definitions/NxDataPoint"
+				},
+
+				"nullMode":
+				{
+					"description": "Sets the null value presentation",
+					"enum": ["gap","connect","zero"],
+					"type": "String"
+				},
+				"orientation":
+				{
+					"description": "Orientation settings. If vertical, the dimension axis can only be docked on bottom or top and measure axis on left or right",
+					"enum": ["horizontal","vertical"],
+					"type": "String"
+				},
+
+				"qHyperCubeDef":
 				{
 					"$ref": "#/definitions/QHyperCubeDef"
 				}
 			},
+			"required":  ["title"],
 			"additionalProperties": false
 		},
 		"QHyperCubeDef": 

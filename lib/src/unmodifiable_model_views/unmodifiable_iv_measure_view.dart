@@ -55,6 +55,30 @@ class UnmodifiableIvMeasureView implements IvMeasure {
   }
 
   @override
+  bool get qRelative => _model.qRelative;
+  set qRelative(bool value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable IvMeasure');
+  }
+
+  @override
+  int get qAccumulate => _model.qAccumulate;
+  set qAccumulate(int value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable IvMeasure');
+  }
+
+  @override
+  String get backgroundColor => _model.backgroundColor;
+  set backgroundColor(String value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable IvMeasure');
+  }
+
+  @override
+  String get fontColor => _model.fontColor;
+  set fontColor(String value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable IvMeasure');
+  }
+
+  @override
   bool get visible => _model.visible;
   set visible(bool value) {
     throw new UnsupportedError('Cannot modify an unmodifiable IvMeasure');

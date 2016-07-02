@@ -6,6 +6,9 @@ library sense_model.src.models.nx_options;
 // Imports
 //---------------------------------------------------------------------
 
+import 'package:dogma_convert/serialize.dart';
+import 'nx_bar_grouping.dart';
+import 'nx_data_point.dart';
 import 'q_hyper_cube_def.dart';
 
 //---------------------------------------------------------------------
@@ -13,9 +16,31 @@ import 'q_hyper_cube_def.dart';
 //---------------------------------------------------------------------
 
 class NxOptions {
+  @Serialize.field('title')
   String title;
+  @Serialize.field('showTitles', optional: true)
   bool showTitles;
+  @Serialize.field('subtitle', optional: true)
   String subtitle;
+  @Serialize.field('footnote', optional: true)
   String footnote;
+
+  /// Bar grouping settings
+  @Serialize.field('barGrouping', optional: true)
+  NxBarGrouping barGrouping;
+
+  /// Data point settings
+  @Serialize.field('dataPoint', optional: true)
+  NxDataPoint dataPoint;
+
+  /// Sets the null value presentation
+  @Serialize.field('nullMode', optional: true)
+  Map nullMode;
+
+  /// Orientation settings. If vertical, the dimension axis can only be docked on
+  /// bottom or top and measure axis on left or right
+  @Serialize.field('orientation', optional: true)
+  Map orientation;
+  @Serialize.field('qHyperCubeDef', optional: true)
   QHyperCubeDef qHyperCubeDef;
 }

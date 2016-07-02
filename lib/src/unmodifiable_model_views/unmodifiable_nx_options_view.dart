@@ -3,6 +3,12 @@
 library sense_model.src.unmodifiable_model_views.unmodifiable_nx_options_view;
 
 //---------------------------------------------------------------------
+// Standard libraries
+//---------------------------------------------------------------------
+
+import 'dart:collection';
+
+//---------------------------------------------------------------------
 // Imports
 //---------------------------------------------------------------------
 
@@ -15,8 +21,18 @@ import 'package:sense_model/models.dart';
 /// An unmodifiable view over an instance of [NxOptions].
 class UnmodifiableNxOptionsView implements NxOptions {
   final NxOptions _model;
+  final UnmodifiableMapView _nullMode;
+  final UnmodifiableMapView _orientation;
 
-  UnmodifiableNxOptionsView(this._model);
+  factory UnmodifiableNxOptionsView(NxOptions model) {
+    var nullMode = new UnmodifiableMapView(model.nullMode);
+    var orientation = new UnmodifiableMapView(model.orientation);
+    return new UnmodifiableNxOptionsView._internal(
+        model, nullMode, orientation);
+  }
+
+  UnmodifiableNxOptionsView._internal(
+      this._model, this._nullMode, this._orientation);
 
   @override
   String get title => _model.title;
@@ -43,8 +59,32 @@ class UnmodifiableNxOptionsView implements NxOptions {
   }
 
   @override
+  NxBarGrouping get barGrouping => _model.barGrouping;
+  set barGrouping(NxBarGrouping value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable NxOptions');
+  }
+
+  @override
+  NxDataPoint get dataPoint => _model.dataPoint;
+  set dataPoint(NxDataPoint value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable NxOptions');
+  }
+
+  @override
   QHyperCubeDef get qHyperCubeDef => _model.qHyperCubeDef;
   set qHyperCubeDef(QHyperCubeDef value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable NxOptions');
+  }
+
+  @override
+  Map get nullMode => _nullMode;
+  set nullMode(Map value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable NxOptions');
+  }
+
+  @override
+  Map get orientation => _orientation;
+  set orientation(Map value) {
     throw new UnsupportedError('Cannot modify an unmodifiable NxOptions');
   }
 }

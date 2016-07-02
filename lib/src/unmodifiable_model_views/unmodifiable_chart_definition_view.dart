@@ -23,16 +23,20 @@ class UnmodifiableChartDefinitionView implements ChartDefinition {
   final ChartDefinition _model;
   final UnmodifiableListView<IvDimension> _dimensions;
   final UnmodifiableListView<IvMeasure> _measures;
+  final UnmodifiableMapView _nullMode;
+  final UnmodifiableMapView _orientation;
 
   factory UnmodifiableChartDefinitionView(ChartDefinition model) {
     var dimensions = new UnmodifiableListView<IvDimension>(model.dimensions);
     var measures = new UnmodifiableListView<IvMeasure>(model.measures);
+    var nullMode = new UnmodifiableMapView(model.nullMode);
+    var orientation = new UnmodifiableMapView(model.orientation);
     return new UnmodifiableChartDefinitionView._internal(
-        model, dimensions, measures);
+        model, dimensions, measures, nullMode, orientation);
   }
 
-  UnmodifiableChartDefinitionView._internal(
-      this._model, this._dimensions, this._measures);
+  UnmodifiableChartDefinitionView._internal(this._model, this._dimensions,
+      this._measures, this._nullMode, this._orientation);
 
   @override
   String get chartType => _model.chartType;
@@ -53,6 +57,42 @@ class UnmodifiableChartDefinitionView implements ChartDefinition {
   }
 
   @override
+  String get title => _model.title;
+  set title(String value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
+  bool get showTitles => _model.showTitles;
+  set showTitles(bool value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
+  String get subtitle => _model.subtitle;
+  set subtitle(String value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
+  String get footnote => _model.footnote;
+  set footnote(String value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
+  NxBarGrouping get barGrouping => _model.barGrouping;
+  set barGrouping(NxBarGrouping value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
+  NxDataPoint get dataPoint => _model.dataPoint;
+  set dataPoint(NxDataPoint value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
   List<IvDimension> get dimensions => _dimensions;
   set dimensions(List<IvDimension> value) {
     throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
@@ -61,6 +101,18 @@ class UnmodifiableChartDefinitionView implements ChartDefinition {
   @override
   List<IvMeasure> get measures => _measures;
   set measures(List<IvMeasure> value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
+  Map get nullMode => _nullMode;
+  set nullMode(Map value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
+  Map get orientation => _orientation;
+  set orientation(Map value) {
     throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
   }
 }

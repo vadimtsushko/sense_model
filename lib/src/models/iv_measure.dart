@@ -32,6 +32,18 @@ class IvMeasure {
   @Serialize.field('conditional', optional: true)
   bool conditional;
 
+  /// If set to true, percentage values are returned instead of absolute numbers.
+  @Serialize.field('qRelative', optional: true)
+  bool qRelative;
+
+  /// Режим накопления (0 по умолчанию, 1 - полное накопление)
+  @Serialize.field('qAccumulate', optional: true)
+  int qAccumulate;
+  @Serialize.field('backgroundColor', optional: true)
+  String backgroundColor;
+  @Serialize.field('fontColor', optional: true)
+  String fontColor;
+
   /// Показывать колонку (рантайм параметр)
   @Serialize.field('visible', optional: true)
   bool visible;
