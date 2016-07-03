@@ -29,6 +29,7 @@ class NxAttrExprDefDecoder extends Converter<Map, NxAttrExprDef>
     model ??= create();
 
     model.qExpression = input['qExpression'];
+    model.id = input['id'];
     return model;
   }
 }
@@ -41,6 +42,7 @@ class NxAttrExprDefEncoder extends Converter<NxAttrExprDef, Map>
     var model = {};
 
     model['qExpression'] = input.qExpression;
+    model['id'] = input.id;
 
     return model;
   }

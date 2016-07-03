@@ -9,4 +9,7 @@ library sense_model.src.models.nx_attr_expr_def;
 class NxAttrExprDef {
   /// Definition of the attribute expression. Example: Max(OrderID)
   String qExpression;
+
+  /// Type of attribute expression
+  String id;
 }

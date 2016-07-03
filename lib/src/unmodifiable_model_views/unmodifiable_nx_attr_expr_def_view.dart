@@ -23,4 +23,10 @@ class UnmodifiableNxAttrExprDefView implements NxAttrExprDef {
   set qExpression(String value) {
     throw new UnsupportedError('Cannot modify an unmodifiable NxAttrExprDef');
   }
+
+  @override
+  String get id => _model.id;
+  set id(String value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable NxAttrExprDef');
+  }
 }

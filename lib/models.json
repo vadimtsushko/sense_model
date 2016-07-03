@@ -943,12 +943,19 @@
 				{
 					"description": "Definition of the attribute expression. Example: Max(OrderID)",
 					"type": "string"
+				},
+				"id":
+				{
+					"description": "Type of attribute expression",
+					"enum": ["cellForegroundColor","cellBackgroundColor"],
+					"type": "string"
 				}
+
 			},
 			"additionalProperties": false,
 			"required": 
 			[
-				"qExpression"
+				"qExpression", "id"
 			]
 		},
 		"NxInlineDimensionDef": 
