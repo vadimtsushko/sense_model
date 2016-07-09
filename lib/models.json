@@ -444,6 +444,21 @@
 					"description": "Data point settings",
 					"$ref": "#/definitions/NxDataPoint"
 				},
+				"legend":
+				{
+					"description": "Legend settings",
+					"$ref": "#/definitions/NxLegend"
+				},
+				"dimensionAxis":
+				{
+					"description": "Legend settings",
+					"$ref": "#/definitions/NxDimensionAxis"
+				},
+				"measureAxis":
+				{
+					"description": "Legend settings",
+					"$ref": "#/definitions/NxMeasureAxis"
+				},
 
 				"nullMode":
 				{
@@ -531,6 +546,158 @@
 				{
 					"description": "Set to display data points on line series. Only used if there is at least one measure with type set to line.",
 					"type": "boolean"
+				},
+				"showLabels":
+				{
+					"description": "Set to display labels on data points. (F.E. in linechart)",
+					"type": "boolean"
+				}
+
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"show"
+			]
+		},
+		"NxGridLine":
+		{
+			"properties":
+			{
+				"auto":
+				{
+					"description": "Set to use automatic grid line spacing.",
+					"default": true,
+					"type": "boolean"
+				},
+				"spacing":
+				{
+					"description": "Grid line spacing. Used only when auto is set to false",
+					"type": "integer",
+					"enum": [0,1,2,3]
+				}
+
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"auto"
+			]
+		},
+		"NxLegend":
+		{
+			"properties":
+			{
+				"show":
+				{
+					"description": "Set to display the legend.",
+					"default": true,
+					"type": "boolean"
+				},
+				"showTitle":
+				{
+					"description": "Display the legend title",
+					"default": true,
+					"type": "boolean"
+				},
+				"dock":
+				{
+					"description": "Sets the legend position",
+					"type": "string",
+					"default": "auto",
+					"enum": ["auto","right","left","top"]
+				}
+
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"show"
+			]
+		},
+
+		"NxDimensionAxis":
+		{
+			"properties":
+			{
+				"show":
+				{
+					"description": "Set to display the labels and titles",
+					"type": "string",
+					"default": "all",
+					"enum": ["all","labels","title","none"]
+				},
+				"label":
+				{
+					"description": "Set the label orientation",
+					"type": "string",
+					"default": "auto",
+					"enum": ["auto","horizontal","tilted"]
+				},
+				"dock":
+				{
+					"description": "Sets the axis docking position",
+					"type": "string",
+					"default": "near",
+					"enum": ["near","far"]
+				}
+
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"show"
+			]
+		},
+		"NxMeasureAxis":
+		{
+			"properties":
+			{
+				"show":
+				{
+					"description": "Set to display the labels and titles",
+					"type": "string",
+					"default": "all",
+					"enum": ["all","labels","title","none"]
+				},
+				"label":
+				{
+					"description": "Set the label orientation",
+					"type": "string",
+					"default": "auto",
+					"enum": ["auto","horizontal","tilted"]
+				},
+				"dock":
+				{
+					"description": "Sets the axis docking position",
+					"type": "string",
+					"default": "near",
+					"enum": ["near","far"]
+				},
+				"logarithmic":
+				{
+					"description": "Logarithmic scale.",
+					"type": "boolean"
+				},
+				"autoMinMax":
+				{
+					"description": "Set to use automatic min/max for measure color.",
+					"type": "boolean"
+				},
+				"minMax":
+				{
+					"description": "Set custom max/min",
+					"type": "string",
+					"default": "min",
+					"enum": ["min","max","minMax"]
+				},
+				"min": {
+					"description": "min ValueExpressionContainer",
+					"type": "string"
+				},
+				"max": {
+					"description": "max ValueExpressionContainer",
+					"type": "string"
 				}
 			},
 			"additionalProperties": false,
@@ -539,6 +706,7 @@
 				"show"
 			]
 		},
+
 		"NxBarGrouping":
 		{
 			"properties":
@@ -591,6 +759,21 @@
 				{
 					"description": "Data point settings",
 					"$ref": "#/definitions/NxDataPoint"
+				},
+				"legend":
+				{
+					"description": "Legend settings",
+					"$ref": "#/definitions/NxLegend"
+				},
+				"dimensionAxis":
+				{
+					"description": "Legend settings",
+					"$ref": "#/definitions/NxDimensionAxis"
+				},
+				"measureAxis":
+				{
+					"description": "Legend settings",
+					"$ref": "#/definitions/NxMeasureAxis"
 				},
 
 				"nullMode":
@@ -777,63 +960,7 @@
 			],
 			"additionalProperties": false
 		},
-		"NxDimension1": 
-		{
-			"properties": 
-			{
-				"type": 
-				{
-					"description": "Should be set to `dimension` simetimes",
-					"type": "string"
-				},
-				"qLibraryId": 
-				{
-					"description": "Refers to a dimension stored in the library.",
-					"type": "string"
-				},
-				"qDef": 
-				{
-					"description": "Refers to a dimension stored in the hypercube.",
-					"$ref": "#/definitions/NxInlineDimensionDef"
-				},
-				"qNullSuppression": 
-				{
-					"description": "If set to true, no null values are returned.",
-					"type": "boolean"
-				},
-				"qShowAll": 
-				{
-					"description": "If set to true, all dimension values are shown.",
-					"type": "boolean"
-				},
-				"qOtherLabel": 
-				{
-					"description": "This property is used when some dimension limits are set.",
-					"type": "string"
-				},
-				"qTotalLabel": 
-				{
-					"description": "If this property is set, the total of the calculated values is returned.",
-					"type": "string"
-				},
-				"qOtherTotalSpec": 
-				{
-					"description": "Sets the dimension limits. Each dimension of a hypercube is configured separately. Just stub for now. Should add type in future",
-					"type": "string"
-				},
-				"qCalcCond": 
-				{
-					"description": "Specifies a calculation condition, which must be fulfilled for the measure to be calculated",
-					"$ref": "#/definitions/NxValueExpr"
-				}
-			},
-			"additionalProperties": false,
-			"required": 
-			[
-				""
-			]
-		},
-		"NxInlineMeasureDef": 
+		"NxInlineMeasureDef":
 		{
 			"properties": 
 			{
@@ -910,87 +1037,6 @@
 			},
 			"additionalProperties": false,
 			"required": 
-			[
-				"qDef"
-			]
-		},
-		"NxMasterMeasureDef":
-		{
-			"properties":
-			{
-				"qLabel":
-				{
-					"description": "Name of the measure.",
-					"type": "string"
-				},
-				"qDescription":
-				{
-					"description": "Description of the measure",
-					"type": "string"
-				},
-				"qDef":
-				{
-					"description": "Definition of the expression in the measure.\n Example: Sum (OrderTotal)",
-					"type": "string"
-				},
-				"qRelative":
-				{
-					"description": "If set to true, percentage values are returned instead of absolute numbers",
-					"type": "boolean"
-				},
-				"qBrutalSum":
-				{
-					"description": "If set to true, the sum of rows total should be used rather than real expression total",
-					"type": "boolean"
-				},
-				"qAggrFunc":
-				{
-					"description": "Aggregate function. The default value is 0 (Sum of rows)",
-					"type": "string"
-				},
-				"qAccumulate":
-				{
-					"description": "0 means no accumulation\n1 means full accumulation (each y-value accumulates all previous y-values of the expression)\n≥ 2 means accumulate as many steps as the qAccumulate value",
-					"type": "integer"
-				},
-				"qReverseSort":
-				{
-					"description": "If set to true, it inverts the sort criteria in the field",
-					"type": "boolean"
-				},
-				"qActiveExpression":
-				{
-					"description": "Index of the active expression in a cyclic measure. The indexing starts from 0.",
-					"type": "integer"
-				},
-				"qExpressions":
-				{
-					"description": "If set to true, it inverts the sort criteria in the field",
-					"type": "array",
-					"items":
-					{
-						"type": "string"
-					},
-					"uniqueItems": true
-				},
-				"series":
-				{
-					"description": "Combo chart series settings for which axis to put the measure and how to visualize its data",
-					"$ref": "#/definitions/NxMeasureSeries"
-				},
-
-				"qTags":
-				{
-					"type": "array",
-					"items":
-					{
-						"type": "string"
-					},
-					"uniqueItems": true
-				}
-			},
-			"additionalProperties": false,
-			"required":
 			[
 				"qDef"
 			]
@@ -1168,85 +1214,6 @@
 				"qDef"
 			]
 		},
-		"NxLibraryDimensionDef":
-		{
-			"properties":
-			{
-				"qFieldDefs":
-				{
-					"description": "Array of field names.\n When creating a grouped dimension, more than one field name is defined",
-					"type": "array",
-					"items":
-					{
-						"type": "string"
-					},
-					"uniqueItems": true
-				},
-				"qFieldLabels":
-				{
-					"description": "Array of field labels.",
-					"type": "array",
-					"items":
-					{
-						"type": "string"
-					},
-					"uniqueItems": true
-				},
-				"qGrouping":
-				{
-					"description": "Used to define a cyclic group or drill-down group",
-					"type": "string",
-					"enum":
-					[
-						"N",
-						"H",
-						"C"
-					]
-				}
-			},
-			"additionalProperties": false,
-			"required":
-			[
-				"qDef"
-			]
-		},
-		"NxGenericDimensionProperties":
-		{
-			"properties":
-			{
-				"qInfo":
-				{
-					"description": "Array of field names.\n When creating a grouped dimension, more than one field name is defined",
-					"$ref": "#/definitions/NxValueExpr"
-				},
-				"qFieldLabels":
-				{
-					"description": "Array of field labels.",
-					"type": "array",
-					"items":
-					{
-						"type": "string"
-					},
-					"uniqueItems": true
-				},
-				"qGrouping":
-				{
-					"description": "Used to define a cyclic group or drill-down group",
-					"type": "string",
-					"enum":
-					[
-						"N",
-						"H",
-						"C"
-					]
-				}
-			},
-			"additionalProperties": false,
-			"required":
-			[
-				"qDef"
-			]
-		},
 		"NxSortCriteria":
 		{
 			"properties": 
@@ -1334,6 +1301,7 @@
 				{
 					"description": "Type of the field.Default is U",
 					"type": "string",
+					"default": "U",
 					"enum": 
 					[
 						"U",

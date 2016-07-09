@@ -11,7 +11,10 @@ import 'iv_dimension.dart';
 import 'iv_measure.dart';
 import 'nx_bar_grouping.dart';
 import 'nx_data_point.dart';
+import 'nx_dimension_axis.dart';
 import 'nx_donut.dart';
+import 'nx_legend.dart';
+import 'nx_measure_axis.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -60,6 +63,18 @@ class ChartDefinition {
   /// Data point settings
   @Serialize.field('dataPoint', optional: true)
   NxDataPoint dataPoint;
+
+  /// Legend settings
+  @Serialize.field('legend', optional: true)
+  NxLegend legend;
+
+  /// Legend settings
+  @Serialize.field('dimensionAxis', optional: true)
+  NxDimensionAxis dimensionAxis;
+
+  /// Legend settings
+  @Serialize.field('measureAxis', optional: true)
+  NxMeasureAxis measureAxis;
 
   /// Sets the null value presentation
   @Serialize.field('nullMode', optional: true)

@@ -16,7 +16,10 @@ import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
 import 'nx_bar_grouping_convert.dart';
 import 'nx_data_point_convert.dart';
+import 'nx_dimension_axis_convert.dart';
 import 'nx_donut_convert.dart';
+import 'nx_legend_convert.dart';
+import 'nx_measure_axis_convert.dart';
 import 'q_hyper_cube_def_convert.dart';
 
 //---------------------------------------------------------------------
@@ -29,14 +32,26 @@ class NxOptionsDecoder extends Converter<Map, NxOptions>
   final Converter<Map, NxBarGrouping> _nxBarGroupingDecoder;
   final Converter<Map, NxDonut> _nxDonutDecoder;
   final Converter<Map, NxDataPoint> _nxDataPointDecoder;
+  final Converter<Map, NxLegend> _nxLegendDecoder;
+  final Converter<Map, NxDimensionAxis> _nxDimensionAxisDecoder;
+  final Converter<Map, NxMeasureAxis> _nxMeasureAxisDecoder;
   final Converter<Map, QHyperCubeDef> _qHyperCubeDefDecoder;
   NxOptionsDecoder()
       : _nxBarGroupingDecoder = new NxBarGroupingDecoder(),
         _nxDonutDecoder = new NxDonutDecoder(),
         _nxDataPointDecoder = new NxDataPointDecoder(),
+        _nxLegendDecoder = new NxLegendDecoder(),
+        _nxDimensionAxisDecoder = new NxDimensionAxisDecoder(),
+        _nxMeasureAxisDecoder = new NxMeasureAxisDecoder(),
         _qHyperCubeDefDecoder = new QHyperCubeDefDecoder();
-  NxOptionsDecoder.using(this._nxBarGroupingDecoder, this._nxDonutDecoder,
-      this._nxDataPointDecoder, this._qHyperCubeDefDecoder);
+  NxOptionsDecoder.using(
+      this._nxBarGroupingDecoder,
+      this._nxDonutDecoder,
+      this._nxDataPointDecoder,
+      this._nxLegendDecoder,
+      this._nxDimensionAxisDecoder,
+      this._nxMeasureAxisDecoder,
+      this._qHyperCubeDefDecoder);
   @override
   NxOptions create() => new NxOptions();
   @override
@@ -59,6 +74,18 @@ class NxOptionsDecoder extends Converter<Map, NxOptions>
     if (dataPoint != null) {
       model.dataPoint = _nxDataPointDecoder.convert(dataPoint);
     }
+    var legend = input['legend'];
+    if (legend != null) {
+      model.legend = _nxLegendDecoder.convert(legend);
+    }
+    var dimensionAxis = input['dimensionAxis'];
+    if (dimensionAxis != null) {
+      model.dimensionAxis = _nxDimensionAxisDecoder.convert(dimensionAxis);
+    }
+    var measureAxis = input['measureAxis'];
+    if (measureAxis != null) {
+      model.measureAxis = _nxMeasureAxisDecoder.convert(measureAxis);
+    }
     model.nullMode = input['nullMode'];
     model.orientation = input['orientation'];
     var qHyperCubeDef = input['qHyperCubeDef'];
@@ -76,14 +103,26 @@ class NxOptionsEncoder extends Converter<NxOptions, Map>
   final Converter<NxBarGrouping, Map> _nxBarGroupingEncoder;
   final Converter<NxDonut, Map> _nxDonutEncoder;
   final Converter<NxDataPoint, Map> _nxDataPointEncoder;
+  final Converter<NxLegend, Map> _nxLegendEncoder;
+  final Converter<NxDimensionAxis, Map> _nxDimensionAxisEncoder;
+  final Converter<NxMeasureAxis, Map> _nxMeasureAxisEncoder;
   final Converter<QHyperCubeDef, Map> _qHyperCubeDefEncoder;
   NxOptionsEncoder()
       : _nxBarGroupingEncoder = new NxBarGroupingEncoder(),
         _nxDonutEncoder = new NxDonutEncoder(),
         _nxDataPointEncoder = new NxDataPointEncoder(),
+        _nxLegendEncoder = new NxLegendEncoder(),
+        _nxDimensionAxisEncoder = new NxDimensionAxisEncoder(),
+        _nxMeasureAxisEncoder = new NxMeasureAxisEncoder(),
         _qHyperCubeDefEncoder = new QHyperCubeDefEncoder();
-  NxOptionsEncoder.using(this._nxBarGroupingEncoder, this._nxDonutEncoder,
-      this._nxDataPointEncoder, this._qHyperCubeDefEncoder);
+  NxOptionsEncoder.using(
+      this._nxBarGroupingEncoder,
+      this._nxDonutEncoder,
+      this._nxDataPointEncoder,
+      this._nxLegendEncoder,
+      this._nxDimensionAxisEncoder,
+      this._nxMeasureAxisEncoder,
+      this._qHyperCubeDefEncoder);
   @override
   Map convert(NxOptions input) {
     var model = {};
@@ -112,6 +151,18 @@ class NxOptionsEncoder extends Converter<NxOptions, Map>
     var dataPoint = input.dataPoint;
     if (dataPoint != null) {
       model['dataPoint'] = _nxDataPointEncoder.convert(dataPoint);
+    }
+    var legend = input.legend;
+    if (legend != null) {
+      model['legend'] = _nxLegendEncoder.convert(legend);
+    }
+    var dimensionAxis = input.dimensionAxis;
+    if (dimensionAxis != null) {
+      model['dimensionAxis'] = _nxDimensionAxisEncoder.convert(dimensionAxis);
+    }
+    var measureAxis = input.measureAxis;
+    if (measureAxis != null) {
+      model['measureAxis'] = _nxMeasureAxisEncoder.convert(measureAxis);
     }
     var nullMode = input.nullMode;
     if (nullMode != null) {

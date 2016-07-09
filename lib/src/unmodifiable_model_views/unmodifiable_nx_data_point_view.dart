@@ -23,4 +23,10 @@ class UnmodifiableNxDataPointView implements NxDataPoint {
   set show(bool value) {
     throw new UnsupportedError('Cannot modify an unmodifiable NxDataPoint');
   }
+
+  @override
+  bool get showLabels => _model.showLabels;
+  set showLabels(bool value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable NxDataPoint');
+  }
 }

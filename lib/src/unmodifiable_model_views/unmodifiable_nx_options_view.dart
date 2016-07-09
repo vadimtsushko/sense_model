@@ -73,6 +73,24 @@ class UnmodifiableNxOptionsView implements NxOptions {
   }
 
   @override
+  NxLegend get legend => _model.legend;
+  set legend(NxLegend value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable NxOptions');
+  }
+
+  @override
+  NxDimensionAxis get dimensionAxis => _model.dimensionAxis;
+  set dimensionAxis(NxDimensionAxis value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable NxOptions');
+  }
+
+  @override
+  NxMeasureAxis get measureAxis => _model.measureAxis;
+  set measureAxis(NxMeasureAxis value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable NxOptions');
+  }
+
+  @override
   String get orientation => _model.orientation;
   set orientation(String value) {
     throw new UnsupportedError('Cannot modify an unmodifiable NxOptions');

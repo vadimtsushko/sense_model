@@ -108,6 +108,24 @@ class UnmodifiableChartDefinitionView implements ChartDefinition {
   }
 
   @override
+  NxLegend get legend => _model.legend;
+  set legend(NxLegend value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
+  NxDimensionAxis get dimensionAxis => _model.dimensionAxis;
+  set dimensionAxis(NxDimensionAxis value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
+  NxMeasureAxis get measureAxis => _model.measureAxis;
+  set measureAxis(NxMeasureAxis value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
   bool get suppressZero => _model.suppressZero;
   set suppressZero(bool value) {
     throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
