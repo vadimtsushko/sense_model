@@ -43,6 +43,7 @@ class NxMeasureDecoder extends Converter<Map, NxMeasure>
     model.type = input['type'];
     model.qLibraryId = input['qLibraryId'];
     model.qDef = _nxInlineMeasureDefDecoder.convert(input['qDef']);
+    model.autoSort = input['autoSort'];
     var qAttributeExpressions = input['qAttributeExpressions'];
     if (qAttributeExpressions != null) {
       var qAttributeExpressionsTemp0 = <NxAttrExprDef>[];
@@ -86,6 +87,10 @@ class NxMeasureEncoder extends Converter<NxMeasure, Map>
       model['qLibraryId'] = qLibraryId;
     }
     model['qDef'] = _nxInlineMeasureDefEncoder.convert(input.qDef);
+    var autoSort = input.autoSort;
+    if (autoSort != null) {
+      model['autoSort'] = autoSort;
+    }
     var qAttributeExpressions = input.qAttributeExpressions;
     if (qAttributeExpressions != null) {
       var qAttributeExpressionsTemp0 = [];

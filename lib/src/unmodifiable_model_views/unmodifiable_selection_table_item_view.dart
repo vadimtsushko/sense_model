@@ -26,6 +26,13 @@ class UnmodifiableSelectionTableItemView implements SelectionTableItem {
   }
 
   @override
+  bool get isHierarchy => _model.isHierarchy;
+  set isHierarchy(bool value) {
+    throw new UnsupportedError(
+        'Cannot modify an unmodifiable SelectionTableItem');
+  }
+
+  @override
   String get param => _model.param;
   set param(String value) {
     throw new UnsupportedError(

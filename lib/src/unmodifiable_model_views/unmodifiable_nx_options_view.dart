@@ -22,17 +22,13 @@ import 'package:sense_model/models.dart';
 class UnmodifiableNxOptionsView implements NxOptions {
   final NxOptions _model;
   final UnmodifiableMapView _nullMode;
-  final UnmodifiableMapView _orientation;
 
   factory UnmodifiableNxOptionsView(NxOptions model) {
     var nullMode = new UnmodifiableMapView(model.nullMode);
-    var orientation = new UnmodifiableMapView(model.orientation);
-    return new UnmodifiableNxOptionsView._internal(
-        model, nullMode, orientation);
+    return new UnmodifiableNxOptionsView._internal(model, nullMode);
   }
 
-  UnmodifiableNxOptionsView._internal(
-      this._model, this._nullMode, this._orientation);
+  UnmodifiableNxOptionsView._internal(this._model, this._nullMode);
 
   @override
   String get title => _model.title;
@@ -65,8 +61,20 @@ class UnmodifiableNxOptionsView implements NxOptions {
   }
 
   @override
+  NxDonut get donut => _model.donut;
+  set donut(NxDonut value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable NxOptions');
+  }
+
+  @override
   NxDataPoint get dataPoint => _model.dataPoint;
   set dataPoint(NxDataPoint value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable NxOptions');
+  }
+
+  @override
+  String get orientation => _model.orientation;
+  set orientation(String value) {
     throw new UnsupportedError('Cannot modify an unmodifiable NxOptions');
   }
 
@@ -79,12 +87,6 @@ class UnmodifiableNxOptionsView implements NxOptions {
   @override
   Map get nullMode => _nullMode;
   set nullMode(Map value) {
-    throw new UnsupportedError('Cannot modify an unmodifiable NxOptions');
-  }
-
-  @override
-  Map get orientation => _orientation;
-  set orientation(Map value) {
     throw new UnsupportedError('Cannot modify an unmodifiable NxOptions');
   }
 }

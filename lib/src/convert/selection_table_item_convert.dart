@@ -29,6 +29,7 @@ class SelectionTableItemDecoder extends Converter<Map, SelectionTableItem>
     model ??= create();
 
     model.value = input['value'];
+    model.isHierarchy = input['isHierarchy'];
     model.param = input['param'];
     model.displayValue = input['displayValue'];
     return model;
@@ -45,6 +46,10 @@ class SelectionTableItemEncoder extends Converter<SelectionTableItem, Map>
     var value = input.value;
     if (value != null) {
       model['value'] = value;
+    }
+    var isHierarchy = input.isHierarchy;
+    if (isHierarchy != null) {
+      model['isHierarchy'] = isHierarchy;
     }
     var param = input.param;
     if (param != null) {

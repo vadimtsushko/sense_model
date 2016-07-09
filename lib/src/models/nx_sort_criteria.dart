@@ -13,6 +13,12 @@ import 'nx_value_expr.dart';
 //---------------------------------------------------------------------
 
 class NxSortCriteria {
+  /// Sort by expression
+  int qSortByExpression;
+
+  /// Sort by expression.
+  NxValueExpr qExpression;
+
   /// Sorts the field values according to their logical state (selected,
   /// optional, alternative or excluded)
   int qSortByState;
@@ -29,10 +35,4 @@ class NxSortCriteria {
 
   /// Sorts the field values by the initial load order
   int qSortByLoadOrder;
-
-  /// Sort by expression.
-  NxValueExpr qExpression;
-
-  /// Sort by expression
-  int qSortByExpression;
 }

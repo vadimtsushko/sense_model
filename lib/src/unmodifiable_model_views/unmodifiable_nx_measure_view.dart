@@ -51,6 +51,12 @@ class UnmodifiableNxMeasureView implements NxMeasure {
   }
 
   @override
+  bool get autoSort => _model.autoSort;
+  set autoSort(bool value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable NxMeasure');
+  }
+
+  @override
   NxValueExpr get qCalcCond => _model.qCalcCond;
   set qCalcCond(NxValueExpr value) {
     throw new UnsupportedError('Cannot modify an unmodifiable NxMeasure');

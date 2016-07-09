@@ -19,6 +19,18 @@ class UnmodifiableNxSortCriteriaView implements NxSortCriteria {
   UnmodifiableNxSortCriteriaView(this._model);
 
   @override
+  int get qSortByExpression => _model.qSortByExpression;
+  set qSortByExpression(int value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable NxSortCriteria');
+  }
+
+  @override
+  NxValueExpr get qExpression => _model.qExpression;
+  set qExpression(NxValueExpr value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable NxSortCriteria');
+  }
+
+  @override
   int get qSortByState => _model.qSortByState;
   set qSortByState(int value) {
     throw new UnsupportedError('Cannot modify an unmodifiable NxSortCriteria');
@@ -45,18 +57,6 @@ class UnmodifiableNxSortCriteriaView implements NxSortCriteria {
   @override
   int get qSortByLoadOrder => _model.qSortByLoadOrder;
   set qSortByLoadOrder(int value) {
-    throw new UnsupportedError('Cannot modify an unmodifiable NxSortCriteria');
-  }
-
-  @override
-  NxValueExpr get qExpression => _model.qExpression;
-  set qExpression(NxValueExpr value) {
-    throw new UnsupportedError('Cannot modify an unmodifiable NxSortCriteria');
-  }
-
-  @override
-  int get qSortByExpression => _model.qSortByExpression;
-  set qSortByExpression(int value) {
     throw new UnsupportedError('Cannot modify an unmodifiable NxSortCriteria');
   }
 }

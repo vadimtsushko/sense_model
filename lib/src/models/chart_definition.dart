@@ -11,6 +11,7 @@ import 'iv_dimension.dart';
 import 'iv_measure.dart';
 import 'nx_bar_grouping.dart';
 import 'nx_data_point.dart';
+import 'nx_donut.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -26,13 +27,15 @@ class ChartDefinition {
   String chartId;
 
   /// Список измерений
-  @Serialize.field('dimensions')
+  @Serialize.field('dimensions', optional: true)
   List<IvDimension> dimensions;
 
   /// Код таблицы селектора для множественного выбора мер (используется вместо
   /// списка мер в генераторе отчетов)
   @Serialize.field('measuresSelector', optional: true)
   String measuresSelector;
+  @Serialize.field('hierarchySelectors', optional: true)
+  List<String> hierarchySelectors;
 
   /// Список мер
   @Serialize.field('measures', optional: true)
@@ -49,6 +52,10 @@ class ChartDefinition {
   /// Bar grouping settings
   @Serialize.field('barGrouping', optional: true)
   NxBarGrouping barGrouping;
+
+  /// Piechart donut properties
+  @Serialize.field('donut', optional: true)
+  NxDonut donut;
 
   /// Data point settings
   @Serialize.field('dataPoint', optional: true)
@@ -71,8 +78,13 @@ class ChartDefinition {
   @Serialize.field('sortbyYValue', optional: true)
   int sortbyYValue;
 
+  /// Order the columns of the hypercube should be sorted. The index of the
+  /// pseudo-dimension (if any) is -1.
+  @Serialize.field('interColumnSortOrder', optional: true)
+  List<int> interColumnSortOrder;
+
   /// Orientation settings. If vertical, the dimension axis can only be docked on
   /// bottom or top and measure axis on left or right
   @Serialize.field('orientation', optional: true)
-  Map orientation;
+  String orientation;
 }

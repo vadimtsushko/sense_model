@@ -25,8 +25,20 @@ class UnmodifiableIvDimensionView implements IvDimension {
   }
 
   @override
+  bool get dynamicHyerarchy => _model.dynamicHyerarchy;
+  set dynamicHyerarchy(bool value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable IvDimension');
+  }
+
+  @override
   String get contitional => _model.contitional;
   set contitional(String value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable IvDimension');
+  }
+
+  @override
+  IvMeasure get sortByExpression => _model.sortByExpression;
+  set sortByExpression(IvMeasure value) {
     throw new UnsupportedError('Cannot modify an unmodifiable IvDimension');
   }
 

@@ -43,6 +43,12 @@ class UnmodifiableNxDimensionView implements NxDimension {
   }
 
   @override
+  bool get autoSort => _model.autoSort;
+  set autoSort(bool value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable NxDimension');
+  }
+
+  @override
   bool get qShowAll => _model.qShowAll;
   set qShowAll(bool value) {
     throw new UnsupportedError('Cannot modify an unmodifiable NxDimension');

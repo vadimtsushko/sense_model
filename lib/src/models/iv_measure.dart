@@ -52,6 +52,10 @@ class IvMeasure {
   @Serialize.field('series', optional: true)
   NxMeasureSeries series;
 
+  /// Направление сортировки (когда мера используется как мера для сортировки)
+  @Serialize.field('sortOrder', optional: true)
+  int sortOrder;
+
   /// Дополнительный фильтр (используется только для динамических мер)
   @Serialize.field('filters', optional: true)
   List<IvFilterParam> filters;

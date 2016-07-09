@@ -22,21 +22,30 @@ import 'package:sense_model/models.dart';
 class UnmodifiableChartDefinitionView implements ChartDefinition {
   final ChartDefinition _model;
   final UnmodifiableListView<IvDimension> _dimensions;
+  final UnmodifiableListView<String> _hierarchySelectors;
   final UnmodifiableListView<IvMeasure> _measures;
   final UnmodifiableMapView _nullMode;
-  final UnmodifiableMapView _orientation;
+  final UnmodifiableListView<int> _interColumnSortOrder;
 
   factory UnmodifiableChartDefinitionView(ChartDefinition model) {
     var dimensions = new UnmodifiableListView<IvDimension>(model.dimensions);
+    var hierarchySelectors =
+        new UnmodifiableListView<String>(model.hierarchySelectors);
     var measures = new UnmodifiableListView<IvMeasure>(model.measures);
     var nullMode = new UnmodifiableMapView(model.nullMode);
-    var orientation = new UnmodifiableMapView(model.orientation);
-    return new UnmodifiableChartDefinitionView._internal(
-        model, dimensions, measures, nullMode, orientation);
+    var interColumnSortOrder =
+        new UnmodifiableListView<int>(model.interColumnSortOrder);
+    return new UnmodifiableChartDefinitionView._internal(model, dimensions,
+        hierarchySelectors, measures, nullMode, interColumnSortOrder);
   }
 
-  UnmodifiableChartDefinitionView._internal(this._model, this._dimensions,
-      this._measures, this._nullMode, this._orientation);
+  UnmodifiableChartDefinitionView._internal(
+      this._model,
+      this._dimensions,
+      this._hierarchySelectors,
+      this._measures,
+      this._nullMode,
+      this._interColumnSortOrder);
 
   @override
   String get chartType => _model.chartType;
@@ -87,6 +96,12 @@ class UnmodifiableChartDefinitionView implements ChartDefinition {
   }
 
   @override
+  NxDonut get donut => _model.donut;
+  set donut(NxDonut value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
   NxDataPoint get dataPoint => _model.dataPoint;
   set dataPoint(NxDataPoint value) {
     throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
@@ -111,8 +126,20 @@ class UnmodifiableChartDefinitionView implements ChartDefinition {
   }
 
   @override
+  String get orientation => _model.orientation;
+  set orientation(String value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
   List<IvDimension> get dimensions => _dimensions;
   set dimensions(List<IvDimension> value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
+  List<String> get hierarchySelectors => _hierarchySelectors;
+  set hierarchySelectors(List<String> value) {
     throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
   }
 
@@ -129,8 +156,8 @@ class UnmodifiableChartDefinitionView implements ChartDefinition {
   }
 
   @override
-  Map get orientation => _orientation;
-  set orientation(Map value) {
+  List<int> get interColumnSortOrder => _interColumnSortOrder;
+  set interColumnSortOrder(List<int> value) {
     throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
   }
 }

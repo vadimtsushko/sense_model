@@ -39,8 +39,12 @@ class NxDimensionDecoder extends Converter<Map, NxDimension>
 
     model.type = input['type'];
     model.qLibraryId = input['qLibraryId'];
-    model.qDef = _nxInlineDimensionDefDecoder.convert(input['qDef']);
+    var qDef = input['qDef'];
+    if (qDef != null) {
+      model.qDef = _nxInlineDimensionDefDecoder.convert(qDef);
+    }
     model.qNullSuppression = input['qNullSuppression'];
+    model.autoSort = input['autoSort'];
     model.qShowAll = input['qShowAll'];
     model.qOtherLabel = input['qOtherLabel'];
     model.qTotalLabel = input['qTotalLabel'];
@@ -72,14 +76,18 @@ class NxDimensionEncoder extends Converter<NxDimension, Map>
     if (type != null) {
       model['type'] = type;
     }
-    var qLibraryId = input.qLibraryId;
-    if (qLibraryId != null) {
-      model['qLibraryId'] = qLibraryId;
+    model['qLibraryId'] = input.qLibraryId;
+    var qDef = input.qDef;
+    if (qDef != null) {
+      model['qDef'] = _nxInlineDimensionDefEncoder.convert(qDef);
     }
-    model['qDef'] = _nxInlineDimensionDefEncoder.convert(input.qDef);
     var qNullSuppression = input.qNullSuppression;
     if (qNullSuppression != null) {
       model['qNullSuppression'] = qNullSuppression;
+    }
+    var autoSort = input.autoSort;
+    if (autoSort != null) {
+      model['autoSort'] = autoSort;
     }
     var qShowAll = input.qShowAll;
     if (qShowAll != null) {

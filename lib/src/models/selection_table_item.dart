@@ -17,6 +17,10 @@ class SelectionTableItem {
   @Serialize.field('value', optional: true)
   String value;
 
+  /// Является ли это значение иерархическим измерением (рантайм параметр)
+  @Serialize.field('isHierarchy', optional: true)
+  bool isHierarchy;
+
   /// Дополнительный параметр (обычно не отображается в списках выбора)
   @Serialize.field('param', optional: true)
   String param;

@@ -18,6 +18,7 @@ import 'iv_dimension_convert.dart';
 import 'iv_measure_convert.dart';
 import 'nx_bar_grouping_convert.dart';
 import 'nx_data_point_convert.dart';
+import 'nx_donut_convert.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -29,14 +30,20 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
   final Converter<Map, IvDimension> _ivDimensionDecoder;
   final Converter<Map, IvMeasure> _ivMeasureDecoder;
   final Converter<Map, NxBarGrouping> _nxBarGroupingDecoder;
+  final Converter<Map, NxDonut> _nxDonutDecoder;
   final Converter<Map, NxDataPoint> _nxDataPointDecoder;
   ChartDefinitionDecoder()
       : _ivDimensionDecoder = new IvDimensionDecoder(),
         _ivMeasureDecoder = new IvMeasureDecoder(),
         _nxBarGroupingDecoder = new NxBarGroupingDecoder(),
+        _nxDonutDecoder = new NxDonutDecoder(),
         _nxDataPointDecoder = new NxDataPointDecoder();
-  ChartDefinitionDecoder.using(this._ivDimensionDecoder, this._ivMeasureDecoder,
-      this._nxBarGroupingDecoder, this._nxDataPointDecoder);
+  ChartDefinitionDecoder.using(
+      this._ivDimensionDecoder,
+      this._ivMeasureDecoder,
+      this._nxBarGroupingDecoder,
+      this._nxDonutDecoder,
+      this._nxDataPointDecoder);
   @override
   ChartDefinition create() => new ChartDefinition();
   @override
@@ -45,12 +52,16 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
 
     model.chartType = input['chartType'];
     model.chartId = input['chartId'];
-    var dimensionsTemp0 = <IvDimension>[];
-    for (var dimensionsValue0 in input['dimensions']) {
-      dimensionsTemp0.add(_ivDimensionDecoder.convert(dimensionsValue0));
+    var dimensions = input['dimensions'];
+    if (dimensions != null) {
+      var dimensionsTemp0 = <IvDimension>[];
+      for (var dimensionsValue0 in dimensions) {
+        dimensionsTemp0.add(_ivDimensionDecoder.convert(dimensionsValue0));
+      }
+      model.dimensions = dimensionsTemp0;
     }
-    model.dimensions = dimensionsTemp0;
     model.measuresSelector = input['measuresSelector'];
+    model.hierarchySelectors = input['hierarchySelectors'];
     var measures = input['measures'];
     if (measures != null) {
       var measuresTemp0 = <IvMeasure>[];
@@ -67,6 +78,10 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
     if (barGrouping != null) {
       model.barGrouping = _nxBarGroupingDecoder.convert(barGrouping);
     }
+    var donut = input['donut'];
+    if (donut != null) {
+      model.donut = _nxDonutDecoder.convert(donut);
+    }
     var dataPoint = input['dataPoint'];
     if (dataPoint != null) {
       model.dataPoint = _nxDataPointDecoder.convert(dataPoint);
@@ -75,6 +90,7 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
     model.suppressZero = input['suppressZero'];
     model.suppressMissing = input['suppressMissing'];
     model.sortbyYValue = input['sortbyYValue'];
+    model.interColumnSortOrder = input['interColumnSortOrder'] as List<int>;
     model.orientation = input['orientation'];
     return model;
   }
@@ -86,28 +102,41 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
   final Converter<IvDimension, Map> _ivDimensionEncoder;
   final Converter<IvMeasure, Map> _ivMeasureEncoder;
   final Converter<NxBarGrouping, Map> _nxBarGroupingEncoder;
+  final Converter<NxDonut, Map> _nxDonutEncoder;
   final Converter<NxDataPoint, Map> _nxDataPointEncoder;
   ChartDefinitionEncoder()
       : _ivDimensionEncoder = new IvDimensionEncoder(),
         _ivMeasureEncoder = new IvMeasureEncoder(),
         _nxBarGroupingEncoder = new NxBarGroupingEncoder(),
+        _nxDonutEncoder = new NxDonutEncoder(),
         _nxDataPointEncoder = new NxDataPointEncoder();
-  ChartDefinitionEncoder.using(this._ivDimensionEncoder, this._ivMeasureEncoder,
-      this._nxBarGroupingEncoder, this._nxDataPointEncoder);
+  ChartDefinitionEncoder.using(
+      this._ivDimensionEncoder,
+      this._ivMeasureEncoder,
+      this._nxBarGroupingEncoder,
+      this._nxDonutEncoder,
+      this._nxDataPointEncoder);
   @override
   Map convert(ChartDefinition input) {
     var model = {};
 
     model['chartType'] = input.chartType;
     model['chartId'] = input.chartId;
-    var dimensionsTemp0 = [];
-    for (var dimensionsValue0 in input.dimensions) {
-      dimensionsTemp0.add(_ivDimensionEncoder.convert(dimensionsValue0));
+    var dimensions = input.dimensions;
+    if (dimensions != null) {
+      var dimensionsTemp0 = [];
+      for (var dimensionsValue0 in dimensions) {
+        dimensionsTemp0.add(_ivDimensionEncoder.convert(dimensionsValue0));
+      }
+      model['dimensions'] = dimensionsTemp0;
     }
-    model['dimensions'] = dimensionsTemp0;
     var measuresSelector = input.measuresSelector;
     if (measuresSelector != null) {
       model['measuresSelector'] = measuresSelector;
+    }
+    var hierarchySelectors = input.hierarchySelectors;
+    if (hierarchySelectors != null) {
+      model['hierarchySelectors'] = hierarchySelectors;
     }
     var measures = input.measures;
     if (measures != null) {
@@ -137,6 +166,10 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
     if (barGrouping != null) {
       model['barGrouping'] = _nxBarGroupingEncoder.convert(barGrouping);
     }
+    var donut = input.donut;
+    if (donut != null) {
+      model['donut'] = _nxDonutEncoder.convert(donut);
+    }
     var dataPoint = input.dataPoint;
     if (dataPoint != null) {
       model['dataPoint'] = _nxDataPointEncoder.convert(dataPoint);
@@ -156,6 +189,10 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
     var sortbyYValue = input.sortbyYValue;
     if (sortbyYValue != null) {
       model['sortbyYValue'] = sortbyYValue;
+    }
+    var interColumnSortOrder = input.interColumnSortOrder;
+    if (interColumnSortOrder != null) {
+      model['interColumnSortOrder'] = interColumnSortOrder;
     }
     var orientation = input.orientation;
     if (orientation != null) {

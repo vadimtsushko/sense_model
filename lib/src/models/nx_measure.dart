@@ -28,6 +28,10 @@ class NxMeasure {
   ///  Example: Sum (OrderTotal)
   @Serialize.field('qDef')
   NxInlineMeasureDef qDef;
+
+  /// Not documented
+  @Serialize.field('autoSort', optional: true)
+  bool autoSort;
   @Serialize.field('qAttributeExpressions', optional: true)
   List<NxAttrExprDef> qAttributeExpressions;
 

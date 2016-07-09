@@ -7,6 +7,7 @@ library sense_model.src.models.iv_dimension;
 //---------------------------------------------------------------------
 
 import 'package:dogma_convert/serialize.dart';
+import 'iv_measure.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -17,9 +18,17 @@ class IvDimension {
   @Serialize.field('isStatic')
   bool isStatic;
 
+  /// Динамически создаваемая иерархия
+  @Serialize.field('dynamicHyerarchy', optional: true)
+  bool dynamicHyerarchy;
+
   /// Необходимо проверить условие отображения колонки
   @Serialize.field('contitional', optional: true)
   String contitional;
+
+  /// Выражение сортировки (по убыванию)
+  @Serialize.field('sortByExpression', optional: true)
+  IvMeasure sortByExpression;
 
   /// Показывать колонку (рантайм параметр)
   @Serialize.field('visible', optional: true)

@@ -32,13 +32,13 @@ class NxSortCriteriaDecoder extends Converter<Map, NxSortCriteria>
   NxSortCriteria convert(Map input, [NxSortCriteria model]) {
     model ??= create();
 
+    model.qSortByExpression = input['qSortByExpression'];
+    model.qExpression = _nxValueExprDecoder.convert(input['qExpression']);
     model.qSortByState = input['qSortByState'];
     model.qSortByFrequency = input['qSortByFrequency'];
     model.qSortByNumeric = input['qSortByNumeric'];
     model.qSortByAscii = input['qSortByAscii'];
     model.qSortByLoadOrder = input['qSortByLoadOrder'];
-    model.qExpression = _nxValueExprDecoder.convert(input['qExpression']);
-    model.qSortByExpression = input['qSortByExpression'];
     return model;
   }
 }
@@ -53,13 +53,13 @@ class NxSortCriteriaEncoder extends Converter<NxSortCriteria, Map>
   Map convert(NxSortCriteria input) {
     var model = {};
 
+    model['qSortByExpression'] = input.qSortByExpression;
+    model['qExpression'] = _nxValueExprEncoder.convert(input.qExpression);
     model['qSortByState'] = input.qSortByState;
     model['qSortByFrequency'] = input.qSortByFrequency;
     model['qSortByNumeric'] = input.qSortByNumeric;
     model['qSortByAscii'] = input.qSortByAscii;
     model['qSortByLoadOrder'] = input.qSortByLoadOrder;
-    model['qExpression'] = _nxValueExprEncoder.convert(input.qExpression);
-    model['qSortByExpression'] = input.qSortByExpression;
 
     return model;
   }

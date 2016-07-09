@@ -20,16 +20,20 @@ class NxDimension {
   String type;
 
   /// Refers to a dimension stored in the library.
-  @Serialize.field('qLibraryId', optional: true)
+  @Serialize.field('qLibraryId')
   String qLibraryId;
 
   /// Refers to a dimension stored in the hypercube.
-  @Serialize.field('qDef')
+  @Serialize.field('qDef', optional: true)
   NxInlineDimensionDef qDef;
 
   /// If set to true, no null values are returned.
   @Serialize.field('qNullSuppression', optional: true)
   bool qNullSuppression;
+
+  /// Not documented
+  @Serialize.field('autoSort', optional: true)
+  bool autoSort;
 
   /// If set to true, all dimension values are shown.
   @Serialize.field('qShowAll', optional: true)

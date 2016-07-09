@@ -142,7 +142,6 @@
 					"type": "boolean",
 					"default": false
 				},
-
 				"tableItems":
 				{
 					"type": "array",
@@ -168,6 +167,11 @@
 				{
 					"description": "Код поля или выражения",
 					"type": "string"
+				},
+				"isHierarchy":
+				{
+					"description": "Является ли это значение иерархическим измерением (рантайм параметр)",
+					"type": "boolean"
 				},
 				"param":
 				{
@@ -239,10 +243,20 @@
 					"description": "Статическое ли это измерение",
 					"type": "boolean"
 				},
+				"dynamicHyerarchy":
+				{
+					"description": "Динамически создаваемая иерархия",
+					"type": "boolean"
+				},
 				"contitional":
 				{
 					"description": "Необходимо проверить условие отображения колонки",
 					"type": "string"
+				},
+				"sortByExpression":
+				{
+					"description": "Выражение сортировки (по убыванию)",
+					"$ref": "#/definitions/IvMeasure"
 				},
                 "visible":
                 {
@@ -271,7 +285,7 @@
 				{
 					"description": "Статическая ли это мера",
 					"type": "boolean",
-                    "default": false
+                    "default": true
 				},
 				"key": 
 				{
@@ -321,6 +335,12 @@
 				{
 					"description": "Дополнительные параметры меры для комбочарта",
 					"$ref": "#/definitions/NxMeasureSeries"
+				},
+				"sortOrder":
+				{
+					"description": "Направление сортировки (когда мера используется как мера для сортировки)",
+					"type": "integer",
+					"enum": [-1, 1]
 				},
 
 				"filters":
@@ -375,6 +395,14 @@
 					"description": "Код таблицы селектора для множественного выбора мер (используется вместо списка мер в генераторе отчетов)",
 					"type": "string"
 				},
+				"hierarchySelectors":
+				{
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					}
+				},
 				"measures":
 				{
 					"description": "Список мер",
@@ -406,6 +434,11 @@
 					"description": "Bar grouping settings",
 					"$ref": "#/definitions/NxBarGrouping"
 				},
+				"donut":
+				{
+					"description": "Piechart donut properties",
+					"$ref": "#/definitions/NxDonut"
+				},
 				"dataPoint":
 				{
 					"description": "Data point settings",
@@ -435,11 +468,21 @@
 					"enum": [-1,0,1]
 
 				},
-				"orientation":
+              "interColumnSortOrder":
+              {
+                "description": "Order the columns of the hypercube should be sorted. The index of the pseudo-dimension (if any) is -1.",
+                "type": "array",
+                "items":
+                {
+                  "type": "integer"
+                }
+              },
+
+              "orientation":
 				{
 					"description": "Orientation settings. If vertical, the dimension axis can only be docked on bottom or top and measure axis on left or right",
 					"enum": ["horizontal","vertical"],
-					"type": "String"
+					"type": "string"
 				}
 
 			},
@@ -447,8 +490,7 @@
 			"required": 
 			[
 				"chartType",
-				"chartId",
-				"dimensions"
+				"chartId"
 			]
 		},
 		"QColumnsContainer": 
@@ -540,6 +582,11 @@
 					"description": "Bar grouping settings",
 					"$ref": "#/definitions/NxBarGrouping"
 				},
+				"donut":
+				{
+					"description": "Pie chart donut settings.",
+					"$ref": "#/definitions/NxDonut"
+				},
 				"dataPoint":
 				{
 					"description": "Data point settings",
@@ -556,7 +603,7 @@
 				{
 					"description": "Orientation settings. If vertical, the dimension axis can only be docked on bottom or top and measure axis on left or right",
 					"enum": ["horizontal","vertical"],
-					"type": "String"
+					"type": "string"
 				},
 
 				"qHyperCubeDef":
@@ -693,7 +740,12 @@
 					"description": "If set to true, no null values are returned.",
 					"type": "boolean"
 				},
-				"qShowAll": 
+				"autoSort":
+				{
+					"description": "Not documented",
+					"type": "boolean"
+				},
+				"qShowAll":
 				{
 					"description": "If set to true, all dimension values are shown.",
 					"type": "boolean"
@@ -721,7 +773,7 @@
 			},
 			"required": 
 			[
-				"qDef"
+				"qLibraryId"
 			],
 			"additionalProperties": false
 		},
@@ -862,6 +914,87 @@
 				"qDef"
 			]
 		},
+		"NxMasterMeasureDef":
+		{
+			"properties":
+			{
+				"qLabel":
+				{
+					"description": "Name of the measure.",
+					"type": "string"
+				},
+				"qDescription":
+				{
+					"description": "Description of the measure",
+					"type": "string"
+				},
+				"qDef":
+				{
+					"description": "Definition of the expression in the measure.\n Example: Sum (OrderTotal)",
+					"type": "string"
+				},
+				"qRelative":
+				{
+					"description": "If set to true, percentage values are returned instead of absolute numbers",
+					"type": "boolean"
+				},
+				"qBrutalSum":
+				{
+					"description": "If set to true, the sum of rows total should be used rather than real expression total",
+					"type": "boolean"
+				},
+				"qAggrFunc":
+				{
+					"description": "Aggregate function. The default value is 0 (Sum of rows)",
+					"type": "string"
+				},
+				"qAccumulate":
+				{
+					"description": "0 means no accumulation\n1 means full accumulation (each y-value accumulates all previous y-values of the expression)\n≥ 2 means accumulate as many steps as the qAccumulate value",
+					"type": "integer"
+				},
+				"qReverseSort":
+				{
+					"description": "If set to true, it inverts the sort criteria in the field",
+					"type": "boolean"
+				},
+				"qActiveExpression":
+				{
+					"description": "Index of the active expression in a cyclic measure. The indexing starts from 0.",
+					"type": "integer"
+				},
+				"qExpressions":
+				{
+					"description": "If set to true, it inverts the sort criteria in the field",
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					},
+					"uniqueItems": true
+				},
+				"series":
+				{
+					"description": "Combo chart series settings for which axis to put the measure and how to visualize its data",
+					"$ref": "#/definitions/NxMeasureSeries"
+				},
+
+				"qTags":
+				{
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					},
+					"uniqueItems": true
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qDef"
+			]
+		},
 		"NxMeasureSeries":
 		{
 			"properties":
@@ -913,6 +1046,11 @@
 				{
 					"description": "Definition of the expression in the measure.\n Example: Sum (OrderTotal)",
 					"$ref": "#/definitions/NxInlineMeasureDef"
+				},
+				"autoSort":
+				{
+					"description": "Not documented",
+					"type": "boolean"
 				},
 				"qAttributeExpressions": 
 				{
@@ -1030,10 +1168,106 @@
 				"qDef"
 			]
 		},
-		"NxSortCriteria": 
+		"NxLibraryDimensionDef":
+		{
+			"properties":
+			{
+				"qFieldDefs":
+				{
+					"description": "Array of field names.\n When creating a grouped dimension, more than one field name is defined",
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					},
+					"uniqueItems": true
+				},
+				"qFieldLabels":
+				{
+					"description": "Array of field labels.",
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					},
+					"uniqueItems": true
+				},
+				"qGrouping":
+				{
+					"description": "Used to define a cyclic group or drill-down group",
+					"type": "string",
+					"enum":
+					[
+						"N",
+						"H",
+						"C"
+					]
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qDef"
+			]
+		},
+		"NxGenericDimensionProperties":
+		{
+			"properties":
+			{
+				"qInfo":
+				{
+					"description": "Array of field names.\n When creating a grouped dimension, more than one field name is defined",
+					"$ref": "#/definitions/NxValueExpr"
+				},
+				"qFieldLabels":
+				{
+					"description": "Array of field labels.",
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					},
+					"uniqueItems": true
+				},
+				"qGrouping":
+				{
+					"description": "Used to define a cyclic group or drill-down group",
+					"type": "string",
+					"enum":
+					[
+						"N",
+						"H",
+						"C"
+					]
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qDef"
+			]
+		},
+		"NxSortCriteria":
 		{
 			"properties": 
 			{
+				"qSortByExpression":
+				{
+					"description": "Sort by expression",
+					"type": "integer",
+					"enum":
+					[
+						-1,
+						0,
+						1
+					]
+				},
+				"qExpression":
+				{
+					"description": "Sort by expression.",
+					"$ref": "#/definitions/NxValueExpr"
+				},
+
 				"qSortByState": 
 				{
 					"description": "Sorts the field values according to their logical state (selected, optional, alternative or excluded)",
@@ -1081,23 +1315,6 @@
 				"qSortByLoadOrder": 
 				{
 					"description": "Sorts the field values by the initial load order",
-					"type": "integer",
-					"enum": 
-					[
-						-1,
-						0,
-						1
-					]
-				},
-				"qExpression":
-				{
-					"description": "Sort by expression.",
-					"$ref": "#/definitions/NxValueExpr"
-				},
-
-				"qSortByExpression":
-				{
-					"description": "Sort by expression",
 					"type": "integer",
 					"enum": 
 					[
@@ -1170,6 +1387,23 @@
 			},
 			"additionalProperties": false
 		},
+		"NxDonut":
+		{
+			"properties":
+			{
+				"showAsDonut":
+				{
+					"description": "Set to present the pie chart as a donut.",
+					"type": "boolean"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"showAsDonut"
+			]
+		},
+
 		"NxValueExpr":
 		{
 			"properties": 

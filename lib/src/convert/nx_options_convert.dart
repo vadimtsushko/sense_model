@@ -16,6 +16,7 @@ import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
 import 'nx_bar_grouping_convert.dart';
 import 'nx_data_point_convert.dart';
+import 'nx_donut_convert.dart';
 import 'q_hyper_cube_def_convert.dart';
 
 //---------------------------------------------------------------------
@@ -26,14 +27,16 @@ import 'q_hyper_cube_def_convert.dart';
 class NxOptionsDecoder extends Converter<Map, NxOptions>
     implements ModelDecoder<NxOptions> {
   final Converter<Map, NxBarGrouping> _nxBarGroupingDecoder;
+  final Converter<Map, NxDonut> _nxDonutDecoder;
   final Converter<Map, NxDataPoint> _nxDataPointDecoder;
   final Converter<Map, QHyperCubeDef> _qHyperCubeDefDecoder;
   NxOptionsDecoder()
       : _nxBarGroupingDecoder = new NxBarGroupingDecoder(),
+        _nxDonutDecoder = new NxDonutDecoder(),
         _nxDataPointDecoder = new NxDataPointDecoder(),
         _qHyperCubeDefDecoder = new QHyperCubeDefDecoder();
-  NxOptionsDecoder.using(this._nxBarGroupingDecoder, this._nxDataPointDecoder,
-      this._qHyperCubeDefDecoder);
+  NxOptionsDecoder.using(this._nxBarGroupingDecoder, this._nxDonutDecoder,
+      this._nxDataPointDecoder, this._qHyperCubeDefDecoder);
   @override
   NxOptions create() => new NxOptions();
   @override
@@ -47,6 +50,10 @@ class NxOptionsDecoder extends Converter<Map, NxOptions>
     var barGrouping = input['barGrouping'];
     if (barGrouping != null) {
       model.barGrouping = _nxBarGroupingDecoder.convert(barGrouping);
+    }
+    var donut = input['donut'];
+    if (donut != null) {
+      model.donut = _nxDonutDecoder.convert(donut);
     }
     var dataPoint = input['dataPoint'];
     if (dataPoint != null) {
@@ -67,14 +74,16 @@ class NxOptionsDecoder extends Converter<Map, NxOptions>
 class NxOptionsEncoder extends Converter<NxOptions, Map>
     implements ModelEncoder<NxOptions> {
   final Converter<NxBarGrouping, Map> _nxBarGroupingEncoder;
+  final Converter<NxDonut, Map> _nxDonutEncoder;
   final Converter<NxDataPoint, Map> _nxDataPointEncoder;
   final Converter<QHyperCubeDef, Map> _qHyperCubeDefEncoder;
   NxOptionsEncoder()
       : _nxBarGroupingEncoder = new NxBarGroupingEncoder(),
+        _nxDonutEncoder = new NxDonutEncoder(),
         _nxDataPointEncoder = new NxDataPointEncoder(),
         _qHyperCubeDefEncoder = new QHyperCubeDefEncoder();
-  NxOptionsEncoder.using(this._nxBarGroupingEncoder, this._nxDataPointEncoder,
-      this._qHyperCubeDefEncoder);
+  NxOptionsEncoder.using(this._nxBarGroupingEncoder, this._nxDonutEncoder,
+      this._nxDataPointEncoder, this._qHyperCubeDefEncoder);
   @override
   Map convert(NxOptions input) {
     var model = {};
@@ -95,6 +104,10 @@ class NxOptionsEncoder extends Converter<NxOptions, Map>
     var barGrouping = input.barGrouping;
     if (barGrouping != null) {
       model['barGrouping'] = _nxBarGroupingEncoder.convert(barGrouping);
+    }
+    var donut = input.donut;
+    if (donut != null) {
+      model['donut'] = _nxDonutEncoder.convert(donut);
     }
     var dataPoint = input.dataPoint;
     if (dataPoint != null) {

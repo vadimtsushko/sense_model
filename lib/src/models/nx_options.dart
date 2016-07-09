@@ -9,6 +9,7 @@ library sense_model.src.models.nx_options;
 import 'package:dogma_convert/serialize.dart';
 import 'nx_bar_grouping.dart';
 import 'nx_data_point.dart';
+import 'nx_donut.dart';
 import 'q_hyper_cube_def.dart';
 
 //---------------------------------------------------------------------
@@ -29,6 +30,10 @@ class NxOptions {
   @Serialize.field('barGrouping', optional: true)
   NxBarGrouping barGrouping;
 
+  /// Pie chart donut settings.
+  @Serialize.field('donut', optional: true)
+  NxDonut donut;
+
   /// Data point settings
   @Serialize.field('dataPoint', optional: true)
   NxDataPoint dataPoint;
@@ -40,7 +45,7 @@ class NxOptions {
   /// Orientation settings. If vertical, the dimension axis can only be docked on
   /// bottom or top and measure axis on left or right
   @Serialize.field('orientation', optional: true)
-  Map orientation;
+  String orientation;
   @Serialize.field('qHyperCubeDef', optional: true)
   QHyperCubeDef qHyperCubeDef;
 }

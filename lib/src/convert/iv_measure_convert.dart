@@ -50,6 +50,7 @@ class IvMeasureDecoder extends Converter<Map, IvMeasure>
     if (series != null) {
       model.series = _nxMeasureSeriesDecoder.convert(series);
     }
+    model.sortOrder = input['sortOrder'];
     var filters = input['filters'];
     if (filters != null) {
       var filtersTemp0 = <IvFilterParam>[];
@@ -110,6 +111,10 @@ class IvMeasureEncoder extends Converter<IvMeasure, Map>
     var series = input.series;
     if (series != null) {
       model['series'] = _nxMeasureSeriesEncoder.convert(series);
+    }
+    var sortOrder = input.sortOrder;
+    if (sortOrder != null) {
+      model['sortOrder'] = sortOrder;
     }
     var filters = input.filters;
     if (filters != null) {
