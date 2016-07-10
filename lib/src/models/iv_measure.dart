@@ -32,6 +32,10 @@ class IvMeasure {
   @Serialize.field('conditional', optional: true)
   bool conditional;
 
+  /// Ширина колонки
+  @Serialize.field('width', optional: true)
+  int width;
+
   /// If set to true, percentage values are returned instead of absolute numbers.
   @Serialize.field('qRelative', optional: true)
   bool qRelative;

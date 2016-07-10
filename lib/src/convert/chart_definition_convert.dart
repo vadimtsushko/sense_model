@@ -84,6 +84,7 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
     }
     model.title = input['title'];
     model.showTitles = input['showTitles'];
+    model.autoWidth = input['autoWidth'];
     model.subtitle = input['subtitle'];
     model.footnote = input['footnote'];
     var barGrouping = input['barGrouping'];
@@ -186,6 +187,10 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
     var showTitles = input.showTitles;
     if (showTitles != null) {
       model['showTitles'] = showTitles;
+    }
+    var autoWidth = input.autoWidth;
+    if (autoWidth != null) {
+      model['autoWidth'] = autoWidth;
     }
     var subtitle = input.subtitle;
     if (subtitle != null) {

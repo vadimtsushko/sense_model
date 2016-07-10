@@ -41,6 +41,7 @@ class IvMeasureDecoder extends Converter<Map, IvMeasure>
     model.key = input['key'];
     model.param = input['param'];
     model.conditional = input['conditional'];
+    model.width = input['width'];
     model.qRelative = input['qRelative'];
     model.qAccumulate = input['qAccumulate'];
     model.backgroundColor = input['backgroundColor'];
@@ -87,6 +88,10 @@ class IvMeasureEncoder extends Converter<IvMeasure, Map>
     var conditional = input.conditional;
     if (conditional != null) {
       model['conditional'] = conditional;
+    }
+    var width = input.width;
+    if (width != null) {
+      model['width'] = width;
     }
     var qRelative = input.qRelative;
     if (qRelative != null) {

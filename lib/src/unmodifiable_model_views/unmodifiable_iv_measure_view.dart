@@ -55,6 +55,12 @@ class UnmodifiableIvMeasureView implements IvMeasure {
   }
 
   @override
+  int get width => _model.width;
+  set width(int value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable IvMeasure');
+  }
+
+  @override
   bool get qRelative => _model.qRelative;
   set qRelative(bool value) {
     throw new UnsupportedError('Cannot modify an unmodifiable IvMeasure');

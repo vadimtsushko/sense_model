@@ -78,6 +78,12 @@ class UnmodifiableChartDefinitionView implements ChartDefinition {
   }
 
   @override
+  bool get autoWidth => _model.autoWidth;
+  set autoWidth(bool value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');
+  }
+
+  @override
   String get subtitle => _model.subtitle;
   set subtitle(String value) {
     throw new UnsupportedError('Cannot modify an unmodifiable ChartDefinition');

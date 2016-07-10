@@ -253,6 +253,11 @@
 					"description": "Необходимо проверить условие отображения колонки",
 					"type": "string"
 				},
+				"width":
+				{
+					"description": "Ширина колонки",
+					"type": "integer"
+				},
 				"sortByExpression":
 				{
 					"description": "Выражение сортировки (по убыванию)",
@@ -302,6 +307,11 @@
 					"description": "Необходимо проверить условие отображения колонки",
                     "type": "boolean",
                     "default": false
+				},
+				"width":
+				{
+					"description": "Ширина колонки",
+					"type": "integer"
 				},
 				"qRelative":
 				{
@@ -421,6 +431,11 @@
 				{
 					"type": "boolean"
 				},
+				"autoWidth":
+				{
+					"type": "boolean"
+				},
+
 				"subtitle":
 				{
 					"type": "string"

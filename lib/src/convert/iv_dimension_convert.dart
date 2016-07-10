@@ -35,6 +35,7 @@ class IvDimensionDecoder extends Converter<Map, IvDimension>
     model.isStatic = input['isStatic'];
     model.dynamicHyerarchy = input['dynamicHyerarchy'];
     model.contitional = input['contitional'];
+    model.width = input['width'];
     var sortByExpression = input['sortByExpression'];
     if (sortByExpression != null) {
       model.sortByExpression = _ivMeasureDecoder.convert(sortByExpression);
@@ -63,6 +64,10 @@ class IvDimensionEncoder extends Converter<IvDimension, Map>
     var contitional = input.contitional;
     if (contitional != null) {
       model['contitional'] = contitional;
+    }
+    var width = input.width;
+    if (width != null) {
+      model['width'] = width;
     }
     var sortByExpression = input.sortByExpression;
     if (sortByExpression != null) {

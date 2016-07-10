@@ -26,6 +26,10 @@ class IvDimension {
   @Serialize.field('contitional', optional: true)
   String contitional;
 
+  /// Ширина колонки
+  @Serialize.field('width', optional: true)
+  int width;
+
   /// Выражение сортировки (по убыванию)
   @Serialize.field('sortByExpression', optional: true)
   IvMeasure sortByExpression;

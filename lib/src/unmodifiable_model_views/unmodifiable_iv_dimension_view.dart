@@ -37,6 +37,12 @@ class UnmodifiableIvDimensionView implements IvDimension {
   }
 
   @override
+  int get width => _model.width;
+  set width(int value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable IvDimension');
+  }
+
+  @override
   IvMeasure get sortByExpression => _model.sortByExpression;
   set sortByExpression(IvMeasure value) {
     throw new UnsupportedError('Cannot modify an unmodifiable IvDimension');

@@ -47,6 +47,8 @@ class ChartDefinition {
   String title;
   @Serialize.field('showTitles', optional: true)
   bool showTitles;
+  @Serialize.field('autoWidth', optional: true)
+  bool autoWidth;
   @Serialize.field('subtitle', optional: true)
   String subtitle;
   @Serialize.field('footnote', optional: true)
