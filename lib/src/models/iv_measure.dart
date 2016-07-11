@@ -43,6 +43,15 @@ class IvMeasure {
   /// Режим накопления (0 по умолчанию, 1 - полное накопление)
   @Serialize.field('qAccumulate', optional: true)
   int qAccumulate;
+
+  /// If set to true, the sum of rows total should be used rather than real
+  /// expression total
+  @Serialize.field('qBrutalSum', optional: true)
+  bool qBrutalSum;
+
+  /// Aggregate function. The default value is 0 (Sum of rows)
+  @Serialize.field('qAggrFunc', optional: true)
+  String qAggrFunc;
   @Serialize.field('backgroundColor', optional: true)
   String backgroundColor;
   @Serialize.field('fontColor', optional: true)

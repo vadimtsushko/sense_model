@@ -73,6 +73,18 @@ class UnmodifiableIvMeasureView implements IvMeasure {
   }
 
   @override
+  bool get qBrutalSum => _model.qBrutalSum;
+  set qBrutalSum(bool value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable IvMeasure');
+  }
+
+  @override
+  String get qAggrFunc => _model.qAggrFunc;
+  set qAggrFunc(String value) {
+    throw new UnsupportedError('Cannot modify an unmodifiable IvMeasure');
+  }
+
+  @override
   String get backgroundColor => _model.backgroundColor;
   set backgroundColor(String value) {
     throw new UnsupportedError('Cannot modify an unmodifiable IvMeasure');

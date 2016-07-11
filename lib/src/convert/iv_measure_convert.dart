@@ -44,6 +44,8 @@ class IvMeasureDecoder extends Converter<Map, IvMeasure>
     model.width = input['width'];
     model.qRelative = input['qRelative'];
     model.qAccumulate = input['qAccumulate'];
+    model.qBrutalSum = input['qBrutalSum'];
+    model.qAggrFunc = input['qAggrFunc'];
     model.backgroundColor = input['backgroundColor'];
     model.fontColor = input['fontColor'];
     model.visible = input['visible'];
@@ -100,6 +102,14 @@ class IvMeasureEncoder extends Converter<IvMeasure, Map>
     var qAccumulate = input.qAccumulate;
     if (qAccumulate != null) {
       model['qAccumulate'] = qAccumulate;
+    }
+    var qBrutalSum = input.qBrutalSum;
+    if (qBrutalSum != null) {
+      model['qBrutalSum'] = qBrutalSum;
+    }
+    var qAggrFunc = input.qAggrFunc;
+    if (qAggrFunc != null) {
+      model['qAggrFunc'] = qAggrFunc;
     }
     var backgroundColor = input.backgroundColor;
     if (backgroundColor != null) {

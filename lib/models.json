@@ -325,6 +325,16 @@
 					"type": "integer",
 					"default": 0
 				},
+				"qBrutalSum":
+				{
+					"description": "If set to true, the sum of rows total should be used rather than real expression total",
+					"type": "boolean"
+				},
+				"qAggrFunc":
+				{
+					"description": "Aggregate function. The default value is 0 (Sum of rows)",
+					"type": "string"
+				},
 				"backgroundColor":
 				{
 					"description": "",
