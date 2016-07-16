@@ -37,6 +37,10 @@ class NxMeasureAxis {
   @Serialize.field('minMax', optional: true)
   String minMax;
 
+  /// Measure axis spacing
+  @Serialize.field('spacing', optional: true)
+  int spacing;
+
   /// min ValueExpressionContainer
   @Serialize.field('min', optional: true)
   String min;

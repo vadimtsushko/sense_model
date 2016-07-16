@@ -10,11 +10,14 @@ import 'package:dogma_convert/serialize.dart';
 import 'iv_dimension.dart';
 import 'iv_measure.dart';
 import 'nx_bar_grouping.dart';
+import 'nx_color.dart';
 import 'nx_data_point.dart';
 import 'nx_dimension_axis.dart';
 import 'nx_donut.dart';
+import 'nx_grid_line.dart';
 import 'nx_legend.dart';
 import 'nx_measure_axis.dart';
+import 'nx_page.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -62,6 +65,10 @@ class ChartDefinition {
   @Serialize.field('donut', optional: true)
   NxDonut donut;
 
+  /// Color properties
+  @Serialize.field('color', optional: true)
+  NxColor color;
+
   /// Data point settings
   @Serialize.field('dataPoint', optional: true)
   NxDataPoint dataPoint;
@@ -74,13 +81,36 @@ class ChartDefinition {
   @Serialize.field('dimensionAxis', optional: true)
   NxDimensionAxis dimensionAxis;
 
+  /// Initial data set
+  @Serialize.field('qInitialDataFetch', optional: true)
+  NxPage qInitialDataFetch;
+
   /// Legend settings
   @Serialize.field('measureAxis', optional: true)
   NxMeasureAxis measureAxis;
+  @Serialize.field('preferContinuousAxis', optional: true)
+  bool preferContinuousAxis;
 
   /// Sets the null value presentation
   @Serialize.field('nullMode', optional: true)
-  Map nullMode;
+  String nullMode;
+
+  /// Set the type of line chart. Can be one of:
+  @Serialize.field('lineType', optional: true)
+  String lineType;
+
+  /// Stack areas. Dependent of lineType property.
+  @Serialize.field('stackedArea', optional: true)
+  bool stackedArea;
+
+  /// Set to stack positive and negative values separately. Dependent of lineType
+  /// property.
+  @Serialize.field('separateStacking', optional: true)
+  bool separateStacking;
+
+  /// Grid line settings
+  @Serialize.field('gridLine', optional: true)
+  NxGridLine gridLine;
 
   /// Removes zero values.Default is false.
   @Serialize.field('suppressZero', optional: true)

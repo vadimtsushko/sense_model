@@ -7,6 +7,7 @@ library sense_model.src.models.iv_dimension;
 //---------------------------------------------------------------------
 
 import 'package:dogma_convert/serialize.dart';
+import 'iv_attr_expression.dart';
 import 'iv_measure.dart';
 
 //---------------------------------------------------------------------
@@ -15,7 +16,7 @@ import 'iv_measure.dart';
 
 class IvDimension {
   /// Статическое ли это измерение
-  @Serialize.field('isStatic')
+  @Serialize.field('isStatic', optional: true)
   bool isStatic;
 
   /// Динамически создаваемая иерархия
@@ -37,6 +38,10 @@ class IvDimension {
   /// Показывать колонку (рантайм параметр)
   @Serialize.field('visible', optional: true)
   bool visible;
+  @Serialize.field('backgroundColor', optional: true)
+  IvAttrExpression backgroundColor;
+  @Serialize.field('fontColor', optional: true)
+  IvAttrExpression fontColor;
 
   /// Код поля (если измерение статическое), либо название динамической таблицы,
   /// откуда будет получен текущий код поля

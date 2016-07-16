@@ -14,6 +14,7 @@ import 'dart:convert';
 
 import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
+import 'nx_attr_expr_def_convert.dart';
 import 'nx_field_attributes_convert.dart';
 import 'nx_sort_criteria_convert.dart';
 
@@ -26,11 +27,13 @@ class NxInlineDimensionDefDecoder extends Converter<Map, NxInlineDimensionDef>
     implements ModelDecoder<NxInlineDimensionDef> {
   final Converter<Map, NxSortCriteria> _nxSortCriteriaDecoder;
   final Converter<Map, NxFieldAttributes> _nxFieldAttributesDecoder;
+  final Converter<Map, NxAttrExprDef> _nxAttrExprDefDecoder;
   NxInlineDimensionDefDecoder()
       : _nxSortCriteriaDecoder = new NxSortCriteriaDecoder(),
-        _nxFieldAttributesDecoder = new NxFieldAttributesDecoder();
-  NxInlineDimensionDefDecoder.using(
-      this._nxSortCriteriaDecoder, this._nxFieldAttributesDecoder);
+        _nxFieldAttributesDecoder = new NxFieldAttributesDecoder(),
+        _nxAttrExprDefDecoder = new NxAttrExprDefDecoder();
+  NxInlineDimensionDefDecoder.using(this._nxSortCriteriaDecoder,
+      this._nxFieldAttributesDecoder, this._nxAttrExprDefDecoder);
   @override
   NxInlineDimensionDef create() => new NxInlineDimensionDef();
   @override
@@ -59,6 +62,15 @@ class NxInlineDimensionDefDecoder extends Converter<Map, NxInlineDimensionDef>
       model.qNumberPresentations = qNumberPresentationsTemp0;
     }
     model.qReverseSort = input['qReverseSort'];
+    var qAttributeExpressions = input['qAttributeExpressions'];
+    if (qAttributeExpressions != null) {
+      var qAttributeExpressionsTemp0 = <NxAttrExprDef>[];
+      for (var qAttributeExpressionsValue0 in qAttributeExpressions) {
+        qAttributeExpressionsTemp0
+            .add(_nxAttrExprDefDecoder.convert(qAttributeExpressionsValue0));
+      }
+      model.qAttributeExpressions = qAttributeExpressionsTemp0;
+    }
     model.qActiveField = input['qActiveField'];
     return model;
   }
@@ -69,11 +81,13 @@ class NxInlineDimensionDefEncoder extends Converter<NxInlineDimensionDef, Map>
     implements ModelEncoder<NxInlineDimensionDef> {
   final Converter<NxSortCriteria, Map> _nxSortCriteriaEncoder;
   final Converter<NxFieldAttributes, Map> _nxFieldAttributesEncoder;
+  final Converter<NxAttrExprDef, Map> _nxAttrExprDefEncoder;
   NxInlineDimensionDefEncoder()
       : _nxSortCriteriaEncoder = new NxSortCriteriaEncoder(),
-        _nxFieldAttributesEncoder = new NxFieldAttributesEncoder();
-  NxInlineDimensionDefEncoder.using(
-      this._nxSortCriteriaEncoder, this._nxFieldAttributesEncoder);
+        _nxFieldAttributesEncoder = new NxFieldAttributesEncoder(),
+        _nxAttrExprDefEncoder = new NxAttrExprDefEncoder();
+  NxInlineDimensionDefEncoder.using(this._nxSortCriteriaEncoder,
+      this._nxFieldAttributesEncoder, this._nxAttrExprDefEncoder);
   @override
   Map convert(NxInlineDimensionDef input) {
     var model = {};
@@ -111,6 +125,15 @@ class NxInlineDimensionDefEncoder extends Converter<NxInlineDimensionDef, Map>
     var qReverseSort = input.qReverseSort;
     if (qReverseSort != null) {
       model['qReverseSort'] = qReverseSort;
+    }
+    var qAttributeExpressions = input.qAttributeExpressions;
+    if (qAttributeExpressions != null) {
+      var qAttributeExpressionsTemp0 = [];
+      for (var qAttributeExpressionsValue0 in qAttributeExpressions) {
+        qAttributeExpressionsTemp0
+            .add(_nxAttrExprDefEncoder.convert(qAttributeExpressionsValue0));
+      }
+      model['qAttributeExpressions'] = qAttributeExpressionsTemp0;
     }
     var qActiveField = input.qActiveField;
     if (qActiveField != null) {

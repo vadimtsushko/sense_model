@@ -8,9 +8,11 @@ library sense_model.src.models.nx_options;
 
 import 'package:dogma_convert/serialize.dart';
 import 'nx_bar_grouping.dart';
+import 'nx_color.dart';
 import 'nx_data_point.dart';
 import 'nx_dimension_axis.dart';
 import 'nx_donut.dart';
+import 'nx_grid_line.dart';
 import 'nx_legend.dart';
 import 'nx_measure_axis.dart';
 import 'q_hyper_cube_def.dart';
@@ -53,9 +55,30 @@ class NxOptions {
   @Serialize.field('measureAxis', optional: true)
   NxMeasureAxis measureAxis;
 
+  /// Color properties
+  @Serialize.field('color', optional: true)
+  NxColor color;
+
   /// Sets the null value presentation
   @Serialize.field('nullMode', optional: true)
-  Map nullMode;
+  String nullMode;
+
+  /// Set the type of line chart. Can be one of:
+  @Serialize.field('lineType', optional: true)
+  String lineType;
+
+  /// Stack areas. Dependent of lineType property.
+  @Serialize.field('stackedArea', optional: true)
+  bool stackedArea;
+
+  /// Set to stack positive and negative values separately. Dependent of lineType
+  /// property.
+  @Serialize.field('separateStacking', optional: true)
+  bool separateStacking;
+
+  /// Grid line settings
+  @Serialize.field('gridLine', optional: true)
+  NxGridLine gridLine;
 
   /// Orientation settings. If vertical, the dimension axis can only be docked on
   /// bottom or top and measure axis on left or right

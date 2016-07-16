@@ -9,6 +9,7 @@ library sense_model.src.models.q_hyper_cube_def;
 import 'package:dogma_convert/serialize.dart';
 import 'nx_dimension.dart';
 import 'nx_measure.dart';
+import 'nx_page.dart';
 import 'nx_value_expr.dart';
 
 //---------------------------------------------------------------------
@@ -64,6 +65,10 @@ class QHyperCubeDef {
   /// Dimensions
   @Serialize.field('qMeasures')
   List<NxMeasure> qMeasures;
+
+  /// Initial data set
+  @Serialize.field('qInitialDataFetch', optional: true)
+  List<NxPage> qInitialDataFetch;
 
   /// Columns widths, -1 means autosize
   @Serialize.field('columnWidths', optional: true)

@@ -17,11 +17,14 @@ import 'package:sense_model/models.dart';
 import 'iv_dimension_convert.dart';
 import 'iv_measure_convert.dart';
 import 'nx_bar_grouping_convert.dart';
+import 'nx_color_convert.dart';
 import 'nx_data_point_convert.dart';
 import 'nx_dimension_axis_convert.dart';
 import 'nx_donut_convert.dart';
+import 'nx_grid_line_convert.dart';
 import 'nx_legend_convert.dart';
 import 'nx_measure_axis_convert.dart';
+import 'nx_page_convert.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -34,28 +37,37 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
   final Converter<Map, IvMeasure> _ivMeasureDecoder;
   final Converter<Map, NxBarGrouping> _nxBarGroupingDecoder;
   final Converter<Map, NxDonut> _nxDonutDecoder;
+  final Converter<Map, NxColor> _nxColorDecoder;
   final Converter<Map, NxDataPoint> _nxDataPointDecoder;
   final Converter<Map, NxLegend> _nxLegendDecoder;
   final Converter<Map, NxDimensionAxis> _nxDimensionAxisDecoder;
+  final Converter<Map, NxPage> _nxPageDecoder;
   final Converter<Map, NxMeasureAxis> _nxMeasureAxisDecoder;
+  final Converter<Map, NxGridLine> _nxGridLineDecoder;
   ChartDefinitionDecoder()
       : _ivDimensionDecoder = new IvDimensionDecoder(),
         _ivMeasureDecoder = new IvMeasureDecoder(),
         _nxBarGroupingDecoder = new NxBarGroupingDecoder(),
         _nxDonutDecoder = new NxDonutDecoder(),
+        _nxColorDecoder = new NxColorDecoder(),
         _nxDataPointDecoder = new NxDataPointDecoder(),
         _nxLegendDecoder = new NxLegendDecoder(),
         _nxDimensionAxisDecoder = new NxDimensionAxisDecoder(),
-        _nxMeasureAxisDecoder = new NxMeasureAxisDecoder();
+        _nxPageDecoder = new NxPageDecoder(),
+        _nxMeasureAxisDecoder = new NxMeasureAxisDecoder(),
+        _nxGridLineDecoder = new NxGridLineDecoder();
   ChartDefinitionDecoder.using(
       this._ivDimensionDecoder,
       this._ivMeasureDecoder,
       this._nxBarGroupingDecoder,
       this._nxDonutDecoder,
+      this._nxColorDecoder,
       this._nxDataPointDecoder,
       this._nxLegendDecoder,
       this._nxDimensionAxisDecoder,
-      this._nxMeasureAxisDecoder);
+      this._nxPageDecoder,
+      this._nxMeasureAxisDecoder,
+      this._nxGridLineDecoder);
   @override
   ChartDefinition create() => new ChartDefinition();
   @override
@@ -95,6 +107,10 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
     if (donut != null) {
       model.donut = _nxDonutDecoder.convert(donut);
     }
+    var color = input['color'];
+    if (color != null) {
+      model.color = _nxColorDecoder.convert(color);
+    }
     var dataPoint = input['dataPoint'];
     if (dataPoint != null) {
       model.dataPoint = _nxDataPointDecoder.convert(dataPoint);
@@ -107,11 +123,23 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
     if (dimensionAxis != null) {
       model.dimensionAxis = _nxDimensionAxisDecoder.convert(dimensionAxis);
     }
+    var qInitialDataFetch = input['qInitialDataFetch'];
+    if (qInitialDataFetch != null) {
+      model.qInitialDataFetch = _nxPageDecoder.convert(qInitialDataFetch);
+    }
     var measureAxis = input['measureAxis'];
     if (measureAxis != null) {
       model.measureAxis = _nxMeasureAxisDecoder.convert(measureAxis);
     }
+    model.preferContinuousAxis = input['preferContinuousAxis'];
     model.nullMode = input['nullMode'];
+    model.lineType = input['lineType'];
+    model.stackedArea = input['stackedArea'];
+    model.separateStacking = input['separateStacking'];
+    var gridLine = input['gridLine'];
+    if (gridLine != null) {
+      model.gridLine = _nxGridLineDecoder.convert(gridLine);
+    }
     model.suppressZero = input['suppressZero'];
     model.suppressMissing = input['suppressMissing'];
     model.sortbyYValue = input['sortbyYValue'];
@@ -128,28 +156,37 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
   final Converter<IvMeasure, Map> _ivMeasureEncoder;
   final Converter<NxBarGrouping, Map> _nxBarGroupingEncoder;
   final Converter<NxDonut, Map> _nxDonutEncoder;
+  final Converter<NxColor, Map> _nxColorEncoder;
   final Converter<NxDataPoint, Map> _nxDataPointEncoder;
   final Converter<NxLegend, Map> _nxLegendEncoder;
   final Converter<NxDimensionAxis, Map> _nxDimensionAxisEncoder;
+  final Converter<NxPage, Map> _nxPageEncoder;
   final Converter<NxMeasureAxis, Map> _nxMeasureAxisEncoder;
+  final Converter<NxGridLine, Map> _nxGridLineEncoder;
   ChartDefinitionEncoder()
       : _ivDimensionEncoder = new IvDimensionEncoder(),
         _ivMeasureEncoder = new IvMeasureEncoder(),
         _nxBarGroupingEncoder = new NxBarGroupingEncoder(),
         _nxDonutEncoder = new NxDonutEncoder(),
+        _nxColorEncoder = new NxColorEncoder(),
         _nxDataPointEncoder = new NxDataPointEncoder(),
         _nxLegendEncoder = new NxLegendEncoder(),
         _nxDimensionAxisEncoder = new NxDimensionAxisEncoder(),
-        _nxMeasureAxisEncoder = new NxMeasureAxisEncoder();
+        _nxPageEncoder = new NxPageEncoder(),
+        _nxMeasureAxisEncoder = new NxMeasureAxisEncoder(),
+        _nxGridLineEncoder = new NxGridLineEncoder();
   ChartDefinitionEncoder.using(
       this._ivDimensionEncoder,
       this._ivMeasureEncoder,
       this._nxBarGroupingEncoder,
       this._nxDonutEncoder,
+      this._nxColorEncoder,
       this._nxDataPointEncoder,
       this._nxLegendEncoder,
       this._nxDimensionAxisEncoder,
-      this._nxMeasureAxisEncoder);
+      this._nxPageEncoder,
+      this._nxMeasureAxisEncoder,
+      this._nxGridLineEncoder);
   @override
   Map convert(ChartDefinition input) {
     var model = {};
@@ -208,6 +245,10 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
     if (donut != null) {
       model['donut'] = _nxDonutEncoder.convert(donut);
     }
+    var color = input.color;
+    if (color != null) {
+      model['color'] = _nxColorEncoder.convert(color);
+    }
     var dataPoint = input.dataPoint;
     if (dataPoint != null) {
       model['dataPoint'] = _nxDataPointEncoder.convert(dataPoint);
@@ -220,13 +261,37 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
     if (dimensionAxis != null) {
       model['dimensionAxis'] = _nxDimensionAxisEncoder.convert(dimensionAxis);
     }
+    var qInitialDataFetch = input.qInitialDataFetch;
+    if (qInitialDataFetch != null) {
+      model['qInitialDataFetch'] = _nxPageEncoder.convert(qInitialDataFetch);
+    }
     var measureAxis = input.measureAxis;
     if (measureAxis != null) {
       model['measureAxis'] = _nxMeasureAxisEncoder.convert(measureAxis);
     }
+    var preferContinuousAxis = input.preferContinuousAxis;
+    if (preferContinuousAxis != null) {
+      model['preferContinuousAxis'] = preferContinuousAxis;
+    }
     var nullMode = input.nullMode;
     if (nullMode != null) {
       model['nullMode'] = nullMode;
+    }
+    var lineType = input.lineType;
+    if (lineType != null) {
+      model['lineType'] = lineType;
+    }
+    var stackedArea = input.stackedArea;
+    if (stackedArea != null) {
+      model['stackedArea'] = stackedArea;
+    }
+    var separateStacking = input.separateStacking;
+    if (separateStacking != null) {
+      model['separateStacking'] = separateStacking;
+    }
+    var gridLine = input.gridLine;
+    if (gridLine != null) {
+      model['gridLine'] = _nxGridLineEncoder.convert(gridLine);
     }
     var suppressZero = input.suppressZero;
     if (suppressZero != null) {

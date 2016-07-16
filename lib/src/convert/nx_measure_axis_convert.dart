@@ -34,6 +34,7 @@ class NxMeasureAxisDecoder extends Converter<Map, NxMeasureAxis>
     model.logarithmic = input['logarithmic'];
     model.autoMinMax = input['autoMinMax'];
     model.minMax = input['minMax'];
+    model.spacing = input['spacing'];
     model.min = input['min'];
     model.max = input['max'];
     return model;
@@ -67,6 +68,10 @@ class NxMeasureAxisEncoder extends Converter<NxMeasureAxis, Map>
     var minMax = input.minMax;
     if (minMax != null) {
       model['minMax'] = minMax;
+    }
+    var spacing = input.spacing;
+    if (spacing != null) {
+      model['spacing'] = spacing;
     }
     var min = input.min;
     if (min != null) {

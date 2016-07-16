@@ -5,6 +5,7 @@ Future<Null> main(List<String> args) async {
   await build(
       args,
       'sense_model', // The name of the package within the pubspec
-      'lib/models.json' // The path to the root JSON schema,
+      'lib/models.json', // The path to the root JSON schema,
+      unmodifiable: false
       );
 }

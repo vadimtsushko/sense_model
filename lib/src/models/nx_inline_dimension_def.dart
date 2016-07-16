@@ -7,6 +7,7 @@ library sense_model.src.models.nx_inline_dimension_def;
 //---------------------------------------------------------------------
 
 import 'package:dogma_convert/serialize.dart';
+import 'nx_attr_expr_def.dart';
 import 'nx_field_attributes.dart';
 import 'nx_sort_criteria.dart';
 
@@ -39,6 +40,8 @@ class NxInlineDimensionDef {
   /// If set to true, it inverts the sort criteria in the field.
   @Serialize.field('qReverseSort', optional: true)
   bool qReverseSort;
+  @Serialize.field('qAttributeExpressions', optional: true)
+  List<NxAttrExprDef> qAttributeExpressions;
 
   /// ndex of the active field in a cyclic dimension
   @Serialize.field('qActiveField', optional: true)

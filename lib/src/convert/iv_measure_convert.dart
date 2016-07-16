@@ -14,6 +14,7 @@ import 'dart:convert';
 
 import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
+import 'iv_attr_expression_convert.dart';
 import 'iv_filter_param_convert.dart';
 import 'nx_measure_series_convert.dart';
 
@@ -24,12 +25,14 @@ import 'nx_measure_series_convert.dart';
 /// A [ModelDecoder] for [IvMeasure].
 class IvMeasureDecoder extends Converter<Map, IvMeasure>
     implements ModelDecoder<IvMeasure> {
+  final Converter<Map, IvAttrExpression> _ivAttrExpressionDecoder;
   final Converter<Map, NxMeasureSeries> _nxMeasureSeriesDecoder;
   final Converter<Map, IvFilterParam> _ivFilterParamDecoder;
   IvMeasureDecoder()
-      : _nxMeasureSeriesDecoder = new NxMeasureSeriesDecoder(),
+      : _ivAttrExpressionDecoder = new IvAttrExpressionDecoder(),
+        _nxMeasureSeriesDecoder = new NxMeasureSeriesDecoder(),
         _ivFilterParamDecoder = new IvFilterParamDecoder();
-  IvMeasureDecoder.using(
+  IvMeasureDecoder.using(this._ivAttrExpressionDecoder,
       this._nxMeasureSeriesDecoder, this._ivFilterParamDecoder);
   @override
   IvMeasure create() => new IvMeasure();
@@ -46,8 +49,14 @@ class IvMeasureDecoder extends Converter<Map, IvMeasure>
     model.qAccumulate = input['qAccumulate'];
     model.qBrutalSum = input['qBrutalSum'];
     model.qAggrFunc = input['qAggrFunc'];
-    model.backgroundColor = input['backgroundColor'];
-    model.fontColor = input['fontColor'];
+    var backgroundColor = input['backgroundColor'];
+    if (backgroundColor != null) {
+      model.backgroundColor = _ivAttrExpressionDecoder.convert(backgroundColor);
+    }
+    var fontColor = input['fontColor'];
+    if (fontColor != null) {
+      model.fontColor = _ivAttrExpressionDecoder.convert(fontColor);
+    }
     model.visible = input['visible'];
     var series = input['series'];
     if (series != null) {
@@ -70,18 +79,23 @@ class IvMeasureDecoder extends Converter<Map, IvMeasure>
 /// A [ModelEncoder] for [IvMeasure].
 class IvMeasureEncoder extends Converter<IvMeasure, Map>
     implements ModelEncoder<IvMeasure> {
+  final Converter<IvAttrExpression, Map> _ivAttrExpressionEncoder;
   final Converter<NxMeasureSeries, Map> _nxMeasureSeriesEncoder;
   final Converter<IvFilterParam, Map> _ivFilterParamEncoder;
   IvMeasureEncoder()
-      : _nxMeasureSeriesEncoder = new NxMeasureSeriesEncoder(),
+      : _ivAttrExpressionEncoder = new IvAttrExpressionEncoder(),
+        _nxMeasureSeriesEncoder = new NxMeasureSeriesEncoder(),
         _ivFilterParamEncoder = new IvFilterParamEncoder();
-  IvMeasureEncoder.using(
+  IvMeasureEncoder.using(this._ivAttrExpressionEncoder,
       this._nxMeasureSeriesEncoder, this._ivFilterParamEncoder);
   @override
   Map convert(IvMeasure input) {
     var model = {};
 
-    model['isStatic'] = input.isStatic;
+    var isStatic = input.isStatic;
+    if (isStatic != null) {
+      model['isStatic'] = isStatic;
+    }
     model['key'] = input.key;
     var param = input.param;
     if (param != null) {
@@ -113,11 +127,12 @@ class IvMeasureEncoder extends Converter<IvMeasure, Map>
     }
     var backgroundColor = input.backgroundColor;
     if (backgroundColor != null) {
-      model['backgroundColor'] = backgroundColor;
+      model['backgroundColor'] =
+          _ivAttrExpressionEncoder.convert(backgroundColor);
     }
     var fontColor = input.fontColor;
     if (fontColor != null) {
-      model['fontColor'] = fontColor;
+      model['fontColor'] = _ivAttrExpressionEncoder.convert(fontColor);
     }
     var visible = input.visible;
     if (visible != null) {

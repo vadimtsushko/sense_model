@@ -7,6 +7,7 @@ library sense_model.convert;
 //---------------------------------------------------------------------
 
 export 'src/convert/chart_definition_convert.dart';
+export 'src/convert/iv_attr_expression_convert.dart';
 export 'src/convert/iv_dimension_convert.dart';
 export 'src/convert/iv_filter_param_convert.dart';
 export 'src/convert/iv_key_value_pair_convert.dart';
@@ -14,6 +15,7 @@ export 'src/convert/iv_measure_convert.dart';
 export 'src/convert/nx_attr_expr_def_convert.dart';
 export 'src/convert/nx_bar_grouping_convert.dart';
 export 'src/convert/nx_cell_convert.dart';
+export 'src/convert/nx_color_convert.dart';
 export 'src/convert/nx_data_page_convert.dart';
 export 'src/convert/nx_data_point_convert.dart';
 export 'src/convert/nx_dimension_axis_convert.dart';
@@ -28,6 +30,7 @@ export 'src/convert/nx_measure_axis_convert.dart';
 export 'src/convert/nx_measure_convert.dart';
 export 'src/convert/nx_measure_series_convert.dart';
 export 'src/convert/nx_options_convert.dart';
+export 'src/convert/nx_page_convert.dart';
 export 'src/convert/nx_sort_criteria_convert.dart';
 export 'src/convert/nx_value_expr_convert.dart';
 export 'src/convert/q_columns_container_convert.dart';

@@ -16,6 +16,7 @@ import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
 import 'nx_dimension_convert.dart';
 import 'nx_measure_convert.dart';
+import 'nx_page_convert.dart';
 import 'nx_value_expr_convert.dart';
 
 //---------------------------------------------------------------------
@@ -28,12 +29,14 @@ class QHyperCubeDefDecoder extends Converter<Map, QHyperCubeDef>
   final Converter<Map, NxDimension> _nxDimensionDecoder;
   final Converter<Map, NxValueExpr> _nxValueExprDecoder;
   final Converter<Map, NxMeasure> _nxMeasureDecoder;
+  final Converter<Map, NxPage> _nxPageDecoder;
   QHyperCubeDefDecoder()
       : _nxDimensionDecoder = new NxDimensionDecoder(),
         _nxValueExprDecoder = new NxValueExprDecoder(),
-        _nxMeasureDecoder = new NxMeasureDecoder();
+        _nxMeasureDecoder = new NxMeasureDecoder(),
+        _nxPageDecoder = new NxPageDecoder();
   QHyperCubeDefDecoder.using(this._nxDimensionDecoder, this._nxValueExprDecoder,
-      this._nxMeasureDecoder);
+      this._nxMeasureDecoder, this._nxPageDecoder);
   @override
   QHyperCubeDef create() => new QHyperCubeDef();
   @override
@@ -62,6 +65,15 @@ class QHyperCubeDefDecoder extends Converter<Map, QHyperCubeDef>
       qMeasuresTemp0.add(_nxMeasureDecoder.convert(qMeasuresValue0));
     }
     model.qMeasures = qMeasuresTemp0;
+    var qInitialDataFetch = input['qInitialDataFetch'];
+    if (qInitialDataFetch != null) {
+      var qInitialDataFetchTemp0 = <NxPage>[];
+      for (var qInitialDataFetchValue0 in qInitialDataFetch) {
+        qInitialDataFetchTemp0
+            .add(_nxPageDecoder.convert(qInitialDataFetchValue0));
+      }
+      model.qInitialDataFetch = qInitialDataFetchTemp0;
+    }
     model.columnWidths = input['columnWidths'] as List<int>;
     model.columnOrder = input['columnOrder'] as List<int>;
     return model;
@@ -74,12 +86,14 @@ class QHyperCubeDefEncoder extends Converter<QHyperCubeDef, Map>
   final Converter<NxDimension, Map> _nxDimensionEncoder;
   final Converter<NxValueExpr, Map> _nxValueExprEncoder;
   final Converter<NxMeasure, Map> _nxMeasureEncoder;
+  final Converter<NxPage, Map> _nxPageEncoder;
   QHyperCubeDefEncoder()
       : _nxDimensionEncoder = new NxDimensionEncoder(),
         _nxValueExprEncoder = new NxValueExprEncoder(),
-        _nxMeasureEncoder = new NxMeasureEncoder();
+        _nxMeasureEncoder = new NxMeasureEncoder(),
+        _nxPageEncoder = new NxPageEncoder();
   QHyperCubeDefEncoder.using(this._nxDimensionEncoder, this._nxValueExprEncoder,
-      this._nxMeasureEncoder);
+      this._nxMeasureEncoder, this._nxPageEncoder);
   @override
   Map convert(QHyperCubeDef input) {
     var model = {};
@@ -130,6 +144,15 @@ class QHyperCubeDefEncoder extends Converter<QHyperCubeDef, Map>
       qMeasuresTemp0.add(_nxMeasureEncoder.convert(qMeasuresValue0));
     }
     model['qMeasures'] = qMeasuresTemp0;
+    var qInitialDataFetch = input.qInitialDataFetch;
+    if (qInitialDataFetch != null) {
+      var qInitialDataFetchTemp0 = [];
+      for (var qInitialDataFetchValue0 in qInitialDataFetch) {
+        qInitialDataFetchTemp0
+            .add(_nxPageEncoder.convert(qInitialDataFetchValue0));
+      }
+      model['qInitialDataFetch'] = qInitialDataFetchTemp0;
+    }
     var columnWidths = input.columnWidths;
     if (columnWidths != null) {
       model['columnWidths'] = columnWidths;

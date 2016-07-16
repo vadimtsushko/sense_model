@@ -15,9 +15,11 @@ import 'dart:convert';
 import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
 import 'nx_bar_grouping_convert.dart';
+import 'nx_color_convert.dart';
 import 'nx_data_point_convert.dart';
 import 'nx_dimension_axis_convert.dart';
 import 'nx_donut_convert.dart';
+import 'nx_grid_line_convert.dart';
 import 'nx_legend_convert.dart';
 import 'nx_measure_axis_convert.dart';
 import 'q_hyper_cube_def_convert.dart';
@@ -35,6 +37,8 @@ class NxOptionsDecoder extends Converter<Map, NxOptions>
   final Converter<Map, NxLegend> _nxLegendDecoder;
   final Converter<Map, NxDimensionAxis> _nxDimensionAxisDecoder;
   final Converter<Map, NxMeasureAxis> _nxMeasureAxisDecoder;
+  final Converter<Map, NxColor> _nxColorDecoder;
+  final Converter<Map, NxGridLine> _nxGridLineDecoder;
   final Converter<Map, QHyperCubeDef> _qHyperCubeDefDecoder;
   NxOptionsDecoder()
       : _nxBarGroupingDecoder = new NxBarGroupingDecoder(),
@@ -43,6 +47,8 @@ class NxOptionsDecoder extends Converter<Map, NxOptions>
         _nxLegendDecoder = new NxLegendDecoder(),
         _nxDimensionAxisDecoder = new NxDimensionAxisDecoder(),
         _nxMeasureAxisDecoder = new NxMeasureAxisDecoder(),
+        _nxColorDecoder = new NxColorDecoder(),
+        _nxGridLineDecoder = new NxGridLineDecoder(),
         _qHyperCubeDefDecoder = new QHyperCubeDefDecoder();
   NxOptionsDecoder.using(
       this._nxBarGroupingDecoder,
@@ -51,6 +57,8 @@ class NxOptionsDecoder extends Converter<Map, NxOptions>
       this._nxLegendDecoder,
       this._nxDimensionAxisDecoder,
       this._nxMeasureAxisDecoder,
+      this._nxColorDecoder,
+      this._nxGridLineDecoder,
       this._qHyperCubeDefDecoder);
   @override
   NxOptions create() => new NxOptions();
@@ -86,7 +94,18 @@ class NxOptionsDecoder extends Converter<Map, NxOptions>
     if (measureAxis != null) {
       model.measureAxis = _nxMeasureAxisDecoder.convert(measureAxis);
     }
+    var color = input['color'];
+    if (color != null) {
+      model.color = _nxColorDecoder.convert(color);
+    }
     model.nullMode = input['nullMode'];
+    model.lineType = input['lineType'];
+    model.stackedArea = input['stackedArea'];
+    model.separateStacking = input['separateStacking'];
+    var gridLine = input['gridLine'];
+    if (gridLine != null) {
+      model.gridLine = _nxGridLineDecoder.convert(gridLine);
+    }
     model.orientation = input['orientation'];
     var qHyperCubeDef = input['qHyperCubeDef'];
     if (qHyperCubeDef != null) {
@@ -106,6 +125,8 @@ class NxOptionsEncoder extends Converter<NxOptions, Map>
   final Converter<NxLegend, Map> _nxLegendEncoder;
   final Converter<NxDimensionAxis, Map> _nxDimensionAxisEncoder;
   final Converter<NxMeasureAxis, Map> _nxMeasureAxisEncoder;
+  final Converter<NxColor, Map> _nxColorEncoder;
+  final Converter<NxGridLine, Map> _nxGridLineEncoder;
   final Converter<QHyperCubeDef, Map> _qHyperCubeDefEncoder;
   NxOptionsEncoder()
       : _nxBarGroupingEncoder = new NxBarGroupingEncoder(),
@@ -114,6 +135,8 @@ class NxOptionsEncoder extends Converter<NxOptions, Map>
         _nxLegendEncoder = new NxLegendEncoder(),
         _nxDimensionAxisEncoder = new NxDimensionAxisEncoder(),
         _nxMeasureAxisEncoder = new NxMeasureAxisEncoder(),
+        _nxColorEncoder = new NxColorEncoder(),
+        _nxGridLineEncoder = new NxGridLineEncoder(),
         _qHyperCubeDefEncoder = new QHyperCubeDefEncoder();
   NxOptionsEncoder.using(
       this._nxBarGroupingEncoder,
@@ -122,6 +145,8 @@ class NxOptionsEncoder extends Converter<NxOptions, Map>
       this._nxLegendEncoder,
       this._nxDimensionAxisEncoder,
       this._nxMeasureAxisEncoder,
+      this._nxColorEncoder,
+      this._nxGridLineEncoder,
       this._qHyperCubeDefEncoder);
   @override
   Map convert(NxOptions input) {
@@ -164,9 +189,29 @@ class NxOptionsEncoder extends Converter<NxOptions, Map>
     if (measureAxis != null) {
       model['measureAxis'] = _nxMeasureAxisEncoder.convert(measureAxis);
     }
+    var color = input.color;
+    if (color != null) {
+      model['color'] = _nxColorEncoder.convert(color);
+    }
     var nullMode = input.nullMode;
     if (nullMode != null) {
       model['nullMode'] = nullMode;
+    }
+    var lineType = input.lineType;
+    if (lineType != null) {
+      model['lineType'] = lineType;
+    }
+    var stackedArea = input.stackedArea;
+    if (stackedArea != null) {
+      model['stackedArea'] = stackedArea;
+    }
+    var separateStacking = input.separateStacking;
+    if (separateStacking != null) {
+      model['separateStacking'] = separateStacking;
+    }
+    var gridLine = input.gridLine;
+    if (gridLine != null) {
+      model['gridLine'] = _nxGridLineEncoder.convert(gridLine);
     }
     var orientation = input.orientation;
     if (orientation != null) {

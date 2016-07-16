@@ -14,7 +14,7 @@ import 'package:dogma_convert/serialize.dart';
 
 class SelectionTableItem {
   /// Код поля или выражения
-  @Serialize.field('value', optional: true)
+  @Serialize.field('value')
   String value;
 
   /// Является ли это значение иерархическим измерением (рантайм параметр)
@@ -26,6 +26,6 @@ class SelectionTableItem {
   String param;
 
   /// Строка, которое будет отображаться в списке выбора
-  @Serialize.field('displayValue')
+  @Serialize.field('displayValue', optional: true)
   String displayValue;
 }

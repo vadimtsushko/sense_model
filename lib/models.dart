@@ -7,6 +7,7 @@ library sense_model.models;
 //---------------------------------------------------------------------
 
 export 'src/models/chart_definition.dart';
+export 'src/models/iv_attr_expression.dart';
 export 'src/models/iv_dimension.dart';
 export 'src/models/iv_filter_param.dart';
 export 'src/models/iv_key_value_pair.dart';
@@ -14,6 +15,7 @@ export 'src/models/iv_measure.dart';
 export 'src/models/nx_attr_expr_def.dart';
 export 'src/models/nx_bar_grouping.dart';
 export 'src/models/nx_cell.dart';
+export 'src/models/nx_color.dart';
 export 'src/models/nx_data_page.dart';
 export 'src/models/nx_data_point.dart';
 export 'src/models/nx_dimension.dart';
@@ -28,6 +30,7 @@ export 'src/models/nx_measure.dart';
 export 'src/models/nx_measure_axis.dart';
 export 'src/models/nx_measure_series.dart';
 export 'src/models/nx_options.dart';
+export 'src/models/nx_page.dart';
 export 'src/models/nx_sort_criteria.dart';
 export 'src/models/nx_value_expr.dart';
 export 'src/models/q_columns_container.dart';

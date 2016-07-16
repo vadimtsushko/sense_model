@@ -2,8 +2,12 @@
 	"$schema": "http://json-schema.org/draft-04/schema#",
 	"title": "Sense",
 	"description": "Qlik Sense Engine API structs",
-	"type": "object",
-	"definitions": 
+	"additionalProperties" : false,
+	"required" : [ "toValidate" ],
+	"properties" : {
+		"toValidate" : { "$ref" : "#/definitions/ChartDefinition" }
+	},
+	"definitions":
 	{
 		"NxDataPage":
 		{
@@ -187,7 +191,7 @@
 			"additionalProperties": false,
 			"required":
 			[
-				"displayValue"
+				"value"
 			]
 		},
 		"IvKeyValuePair":
@@ -269,6 +273,16 @@
                   "type": "boolean",
                   "default": true
                 },
+				"backgroundColor":
+				{
+					"description": "",
+					"$ref": "#/definitions/IvAttrExpression"
+				},
+				"fontColor":
+				{
+					"description": "",
+					"$ref": "#/definitions/IvAttrExpression"
+				},
 				"key":
 				{
 					"description": "Код поля (если измерение статическое), либо название динамической таблицы, откуда будет получен текущий код поля",
@@ -278,11 +292,39 @@
 			"additionalProperties": false,
 			"required": 
 			[
-				"isStatic",
 				"key"
 			]
 		},
-		"IvMeasure": 
+		"IvAttrExpression":
+		{
+			"properties":
+			{
+				"expression":
+				{
+					"description": "Код",
+					"type": "string"
+				},
+				"inPlace":
+				{
+					"description": "Статическая ли это выражение",
+					"type": "boolean",
+					"default": true
+				},
+				"isStatic":
+				{
+					"description": "Статическая ли это выражение",
+					"type": "boolean",
+					"default": true
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"expression"
+			]
+		},
+
+		"IvMeasure":
 		{
 			"properties": 
 			{
@@ -332,18 +374,19 @@
 				},
 				"qAggrFunc":
 				{
-					"description": "Aggregate function. The default value is 0 (Sum of rows)",
+					"description": "Aggregate function",
+					"enum": ["Sum","Min","Max","Avg"],
 					"type": "string"
 				},
 				"backgroundColor":
 				{
 					"description": "",
-					"type": "string"
+					"$ref": "#/definitions/IvAttrExpression"
 				},
 				"fontColor":
 				{
 					"description": "",
-					"type": "string"
+					"$ref": "#/definitions/IvAttrExpression"
 				},
                 "visible":
                 {
@@ -376,7 +419,6 @@
 			"additionalProperties": false,
 			"required": 
 			[
-				"isStatic",
 				"key"
 			]
 		},
@@ -391,7 +433,12 @@
 					"enum": 
 					[
 						"table",
-						"pivot-table"
+						"pivot-table",
+						"session-table",
+						"barchart",
+						"piechart",
+						"linechart",
+						"combochart"
 					]
 				},
 				"chartId":
@@ -464,6 +511,11 @@
 					"description": "Piechart donut properties",
 					"$ref": "#/definitions/NxDonut"
 				},
+				"color":
+				{
+					"description": "Color properties",
+					"$ref": "#/definitions/NxColor"
+				},
 				"dataPoint":
 				{
 					"description": "Data point settings",
@@ -479,18 +531,51 @@
 					"description": "Legend settings",
 					"$ref": "#/definitions/NxDimensionAxis"
 				},
+				"qInitialDataFetch":
+				{
+					"description": "Initial data set",
+					"$ref": "#/definitions/NxPage"
+				},
 				"measureAxis":
 				{
 					"description": "Legend settings",
 					"$ref": "#/definitions/NxMeasureAxis"
+				},
+				"preferContinuousAxis":
+				{
+					"type": "boolean"
 				},
 
 				"nullMode":
 				{
 					"description": "Sets the null value presentation",
 					"enum": ["gap","connect","zero"],
-					"type": "String"
+					"type": "string"
 				},
+				"lineType":
+				{
+					"description": "Set the type of line chart. Can be one of:",
+					"enum": ["line","area"],
+					"type": "string"
+				},
+				"stackedArea":
+				{
+					"description": "Stack areas. Dependent of lineType property.",
+					"type": "boolean"
+				},
+				"separateStacking":
+				{
+					"description": "Set to stack positive and negative values separately. Dependent of lineType property.",
+					"default": true,
+					"type": "boolean"
+				},
+
+				"gridLine":
+				{
+					"description": "Grid line settings",
+					"$ref": "#/definitions/NxGridLine"
+				},
+
 				"suppressZero":
 				{
 					"description": "Removes zero values.Default is false.",
@@ -508,15 +593,15 @@
 					"enum": [-1,0,1]
 
 				},
-              "interColumnSortOrder":
-              {
-                "description": "Order the columns of the hypercube should be sorted. The index of the pseudo-dimension (if any) is -1.",
-                "type": "array",
-                "items":
-                {
-                  "type": "integer"
-                }
-              },
+			  "interColumnSortOrder":
+			  {
+				"description": "Order the columns of the hypercube should be sorted. The index of the pseudo-dimension (if any) is -1.",
+				"type": "array",
+				"items":
+				{
+				  "type": "integer"
+				}
+			  },
 
               "orientation":
 				{
@@ -601,7 +686,6 @@
 					"type": "integer",
 					"enum": [0,1,2,3]
 				}
-
 			},
 			"additionalProperties": false,
 			"required":
@@ -716,6 +800,12 @@
 					"default": "min",
 					"enum": ["min","max","minMax"]
 				},
+				"spacing":
+				{
+					"description": "Measure axis spacing",
+					"type": "integer",
+					"enum": [0,1,2,3]
+				},
 				"min": {
 					"description": "min ValueExpressionContainer",
 					"type": "string"
@@ -740,7 +830,7 @@
 				{
 					"description": "Bar grouping settings",
 					"enum": ["grouped","stacked"],
-					"type": "String"
+					"type": "string"
 				}
 			},
 			"additionalProperties": false,
@@ -800,12 +890,39 @@
 					"description": "Legend settings",
 					"$ref": "#/definitions/NxMeasureAxis"
 				},
-
+				"color":
+				{
+					"description": "Color properties",
+					"$ref": "#/definitions/NxColor"
+				},
 				"nullMode":
 				{
 					"description": "Sets the null value presentation",
 					"enum": ["gap","connect","zero"],
-					"type": "String"
+					"type": "string"
+				},
+				"lineType":
+				{
+					"description": "Set the type of line chart. Can be one of:",
+					"enum": ["line","area"],
+					"type": "string"
+				},
+				"stackedArea":
+				{
+					"description": "Stack areas. Dependent of lineType property.",
+					"type": "boolean"
+				},
+				"separateStacking":
+				{
+					"description": "Set to stack positive and negative values separately. Dependent of lineType property.",
+					"default": true,
+					"type": "boolean"
+				},
+
+				"gridLine":
+				{
+					"description": "Grid line settings",
+					"$ref": "#/definitions/NxGridLine"
 				},
 				"orientation":
 				{
@@ -898,7 +1015,17 @@
 						"$ref": "#/definitions/NxMeasure"
 					}
 				},
-				"columnWidths": 
+				"qInitialDataFetch":
+				{
+					"description": "Initial data set",
+					"type": "array",
+					"items":
+					{
+						"$ref": "#/definitions/NxPage"
+					}
+				},
+
+				"columnWidths":
 				{
 					"description": "Columns widths, -1 means autosize",
 					"type": "array",
@@ -1016,7 +1143,8 @@
 				},
 				"qAggrFunc": 
 				{
-					"description": "Aggregate function. The default value is 0 (Sum of rows)",
+					"description": "Aggregate function",
+					"enum": ["Sum","Min","Max","Avg"],
 					"type": "string"
 				},
 				"qAccumulate": 
@@ -1096,6 +1224,37 @@
 			"required":
 			[
 				"type"
+			]
+		},
+		"NxPage":
+		{
+			"properties":
+			{
+				"qLeft":
+				{
+					"description": "Position from the left. Corresponds to the first column.",
+					"type": "integer"
+				},
+				"qTop":
+				{
+					"description": "Position from the top. Corresponds to the first row.",
+					"type": "integer"
+				},
+				"qWidth":
+				{
+					"description": "Number of columns in the page. The indexing of the columns may vary depending on whether the cells are expanded or not (parameter qAlwaysFullyExpanded in HyperCubeDef).",
+					"type": "integer"
+				},
+				"qHeight":
+				{
+					"description": "Number of rows or elements in the page. The indexing of the rows may vary depending on whether the cells are expanded or not (parameter qAlwaysFullyExpanded in HyperCubeDef).",
+					"type": "integer"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qWidth","qHeight"
 			]
 		},
 
@@ -1227,7 +1386,16 @@
 					"description": "If set to true, it inverts the sort criteria in the field.",
 					"type": "boolean"
 				},
-				"qActiveField": 
+				"qAttributeExpressions":
+				{
+					"type": "array",
+					"items":
+					{
+						"$ref": "#/definitions/NxAttrExprDef"
+					},
+					"uniqueItems": true
+				},
+				"qActiveField":
 				{
 					"description": "ndex of the active field in a cyclic dimension",
 					"type": "integer"
@@ -1397,6 +1565,112 @@
 			]
 		},
 
+
+		"NxColor":
+		{
+			"properties":
+			{
+				"auto":
+				{
+					"description": "Set to use automatic coloring.",
+					"type": "boolean"
+				},
+				"singleColor":
+				{
+					"description": "Set to use single color",
+					"type": "integer",
+					"default": 3
+				},
+				"mode":
+				{
+					"description": "Sets the coloring mode for the chart",
+					"type": "string",
+					"enum":
+					[
+						"primary",
+						"byDimension",
+						"byExpression",
+						"byMeasure"
+					],
+					"default": "primary"
+				},
+				"persistent":
+				{
+					"description": "Set to use persistent colors on data points between selections",
+					"type": "boolean"
+				},
+				"expressionIsColor":
+				{
+					"description": "Set to define whether the result of the expression is a valid CSS3 color.",
+					"type": "boolean"
+				},
+
+				"expressionLabel":
+				{
+					"description": "Label to be defined on tool tips when using a coloring expression. Only used if expressionIsColor is set to false.",
+					"type": "string"
+				},
+				"measureScheme":
+				{
+					"description": "Measure color scheme. Can be one of: sg (sequential, gradient), sc (sequential, classes), dg (diverging, gradient), dc (diverging, classes)",
+					"type": "string",
+					"enum":
+					[
+						"sg",
+						"sc",
+						"dg",
+						"dc"
+					],
+					"default": "sg"
+				},
+				"reverseScheme":
+				{
+					"description": "Set to reverse the color scheme",
+					"type": "boolean"
+				},
+
+				"dimensionScheme":
+				{
+					"description": "Dimension color scheme",
+					"type": "string",
+					"enum":
+					[
+						"12",
+						"100"
+					],
+					"default": "12"
+				},
+				"dimensionId":
+				{
+					"description": "Id of the dimension to base the coloring on. Should use the CID on the dimension.",
+					"type": "string"
+				},
+				"autoMinMax":
+				{
+					"description": "Set to use automatic min/max for measure color",
+					"type": "boolean",
+					"default": true
+				},
+				"measureMin":
+				{
+					"description": "ValueExpressionContainer",
+					"type": "string"
+				},
+				"measureMax":
+				{
+					"description": "ValueExpressionContainer",
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"auto"
+			]
+
+		},
+
+
 		"NxValueExpr":
 		{
 			"properties": 
@@ -1408,7 +1682,7 @@
 				}
 			},
 			"additionalProperties": false,
-			"required": 
+			"required":
 			[
 				"qExpression"
 			]

@@ -8,5 +8,5 @@ library sense_model.src.models.nx_bar_grouping;
 
 class NxBarGrouping {
   /// Bar grouping settings
-  Map grouping;
+  String grouping;
 }

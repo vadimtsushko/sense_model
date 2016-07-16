@@ -14,6 +14,7 @@ import 'dart:convert';
 
 import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
+import 'iv_attr_expression_convert.dart';
 import 'iv_measure_convert.dart';
 
 //---------------------------------------------------------------------
@@ -24,8 +25,12 @@ import 'iv_measure_convert.dart';
 class IvDimensionDecoder extends Converter<Map, IvDimension>
     implements ModelDecoder<IvDimension> {
   final Converter<Map, IvMeasure> _ivMeasureDecoder;
-  IvDimensionDecoder() : _ivMeasureDecoder = new IvMeasureDecoder();
-  IvDimensionDecoder.using(this._ivMeasureDecoder);
+  final Converter<Map, IvAttrExpression> _ivAttrExpressionDecoder;
+  IvDimensionDecoder()
+      : _ivMeasureDecoder = new IvMeasureDecoder(),
+        _ivAttrExpressionDecoder = new IvAttrExpressionDecoder();
+  IvDimensionDecoder.using(
+      this._ivMeasureDecoder, this._ivAttrExpressionDecoder);
   @override
   IvDimension create() => new IvDimension();
   @override
@@ -41,6 +46,14 @@ class IvDimensionDecoder extends Converter<Map, IvDimension>
       model.sortByExpression = _ivMeasureDecoder.convert(sortByExpression);
     }
     model.visible = input['visible'];
+    var backgroundColor = input['backgroundColor'];
+    if (backgroundColor != null) {
+      model.backgroundColor = _ivAttrExpressionDecoder.convert(backgroundColor);
+    }
+    var fontColor = input['fontColor'];
+    if (fontColor != null) {
+      model.fontColor = _ivAttrExpressionDecoder.convert(fontColor);
+    }
     model.key = input['key'];
     return model;
   }
@@ -50,13 +63,20 @@ class IvDimensionDecoder extends Converter<Map, IvDimension>
 class IvDimensionEncoder extends Converter<IvDimension, Map>
     implements ModelEncoder<IvDimension> {
   final Converter<IvMeasure, Map> _ivMeasureEncoder;
-  IvDimensionEncoder() : _ivMeasureEncoder = new IvMeasureEncoder();
-  IvDimensionEncoder.using(this._ivMeasureEncoder);
+  final Converter<IvAttrExpression, Map> _ivAttrExpressionEncoder;
+  IvDimensionEncoder()
+      : _ivMeasureEncoder = new IvMeasureEncoder(),
+        _ivAttrExpressionEncoder = new IvAttrExpressionEncoder();
+  IvDimensionEncoder.using(
+      this._ivMeasureEncoder, this._ivAttrExpressionEncoder);
   @override
   Map convert(IvDimension input) {
     var model = {};
 
-    model['isStatic'] = input.isStatic;
+    var isStatic = input.isStatic;
+    if (isStatic != null) {
+      model['isStatic'] = isStatic;
+    }
     var dynamicHyerarchy = input.dynamicHyerarchy;
     if (dynamicHyerarchy != null) {
       model['dynamicHyerarchy'] = dynamicHyerarchy;
@@ -76,6 +96,15 @@ class IvDimensionEncoder extends Converter<IvDimension, Map>
     var visible = input.visible;
     if (visible != null) {
       model['visible'] = visible;
+    }
+    var backgroundColor = input.backgroundColor;
+    if (backgroundColor != null) {
+      model['backgroundColor'] =
+          _ivAttrExpressionEncoder.convert(backgroundColor);
+    }
+    var fontColor = input.fontColor;
+    if (fontColor != null) {
+      model['fontColor'] = _ivAttrExpressionEncoder.convert(fontColor);
     }
     model['key'] = input.key;
 

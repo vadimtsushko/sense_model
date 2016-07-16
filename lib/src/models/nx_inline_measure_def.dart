@@ -36,7 +36,7 @@ class NxInlineMeasureDef {
   @Serialize.field('qBrutalSum', optional: true)
   bool qBrutalSum;
 
-  /// Aggregate function. The default value is 0 (Sum of rows)
+  /// Aggregate function
   @Serialize.field('qAggrFunc', optional: true)
   String qAggrFunc;
 

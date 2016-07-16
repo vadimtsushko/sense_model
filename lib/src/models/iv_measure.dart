@@ -7,6 +7,7 @@ library sense_model.src.models.iv_measure;
 //---------------------------------------------------------------------
 
 import 'package:dogma_convert/serialize.dart';
+import 'iv_attr_expression.dart';
 import 'iv_filter_param.dart';
 import 'nx_measure_series.dart';
 
@@ -16,7 +17,7 @@ import 'nx_measure_series.dart';
 
 class IvMeasure {
   /// Статическая ли это мера
-  @Serialize.field('isStatic')
+  @Serialize.field('isStatic', optional: true)
   bool isStatic;
 
   /// Код поля (если измерение статическое), либо название динамической таблицы,
@@ -49,13 +50,13 @@ class IvMeasure {
   @Serialize.field('qBrutalSum', optional: true)
   bool qBrutalSum;
 
-  /// Aggregate function. The default value is 0 (Sum of rows)
+  /// Aggregate function
   @Serialize.field('qAggrFunc', optional: true)
   String qAggrFunc;
   @Serialize.field('backgroundColor', optional: true)
-  String backgroundColor;
+  IvAttrExpression backgroundColor;
   @Serialize.field('fontColor', optional: true)
-  String fontColor;
+  IvAttrExpression fontColor;
 
   /// Показывать колонку (рантайм параметр)
   @Serialize.field('visible', optional: true)
