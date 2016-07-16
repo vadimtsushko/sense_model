@@ -53,6 +53,7 @@ class QHyperCubeDefDecoder extends Converter<Map, QHyperCubeDef>
     model.qSuppressZero = input['qSuppressZero'];
     model.qSuppressMissing = input['qSuppressMissing'];
     model.qInterColumnSortOrder = input['qInterColumnSortOrder'] as List<int>;
+    model.columnOrder = input['columnOrder'] as List<int>;
     model.qAlwaysFullyExpanded = input['qAlwaysFullyExpanded'];
     var qCalcCond = input['qCalcCond'];
     if (qCalcCond != null) {
@@ -75,7 +76,6 @@ class QHyperCubeDefDecoder extends Converter<Map, QHyperCubeDef>
       model.qInitialDataFetch = qInitialDataFetchTemp0;
     }
     model.columnWidths = input['columnWidths'] as List<int>;
-    model.columnOrder = input['columnOrder'] as List<int>;
     return model;
   }
 }
@@ -123,6 +123,10 @@ class QHyperCubeDefEncoder extends Converter<QHyperCubeDef, Map>
     if (qInterColumnSortOrder != null) {
       model['qInterColumnSortOrder'] = qInterColumnSortOrder;
     }
+    var columnOrder = input.columnOrder;
+    if (columnOrder != null) {
+      model['columnOrder'] = columnOrder;
+    }
     var qAlwaysFullyExpanded = input.qAlwaysFullyExpanded;
     if (qAlwaysFullyExpanded != null) {
       model['qAlwaysFullyExpanded'] = qAlwaysFullyExpanded;
@@ -156,10 +160,6 @@ class QHyperCubeDefEncoder extends Converter<QHyperCubeDef, Map>
     var columnWidths = input.columnWidths;
     if (columnWidths != null) {
       model['columnWidths'] = columnWidths;
-    }
-    var columnOrder = input.columnOrder;
-    if (columnOrder != null) {
-      model['columnOrder'] = columnOrder;
     }
 
     return model;

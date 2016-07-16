@@ -3,17 +3,10 @@
 library sense_model.src.models.nx_value_expr;
 
 //---------------------------------------------------------------------
-// Imports
-//---------------------------------------------------------------------
-
-import 'package:dogma_convert/serialize.dart';
-
-//---------------------------------------------------------------------
 // Library contents
 //---------------------------------------------------------------------
 
 class NxValueExpr {
   /// Expression returning number value
-  @Serialize.field('qv', optional: true)
   String qv;
 }

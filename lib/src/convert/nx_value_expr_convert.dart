@@ -40,10 +40,7 @@ class NxValueExprEncoder extends Converter<NxValueExpr, Map>
   Map convert(NxValueExpr input) {
     var model = {};
 
-    var qv = input.qv;
-    if (qv != null) {
-      model['qv'] = qv;
-    }
+    model['qv'] = input.qv;
 
     return model;
   }

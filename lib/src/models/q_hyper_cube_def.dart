@@ -43,6 +43,10 @@ class QHyperCubeDef {
   @Serialize.field('qInterColumnSortOrder', optional: true)
   List<int> qInterColumnSortOrder;
 
+  /// Index array that determines the column order
+  @Serialize.field('columnOrder', optional: true)
+  List<int> columnOrder;
+
   /// If this property is set to true, the cells are always expanded. It implies
   /// that it is not possible to collapse any cells.
   @Serialize.field('qAlwaysFullyExpanded', optional: true)
@@ -73,8 +77,4 @@ class QHyperCubeDef {
   /// Columns widths, -1 means autosize
   @Serialize.field('columnWidths', optional: true)
   List<int> columnWidths;
-
-  /// Columns orders
-  @Serialize.field('columnOrder', optional: true)
-  List<int> columnOrder;
 }

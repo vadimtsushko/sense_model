@@ -350,6 +350,11 @@
                     "type": "boolean",
                     "default": false
 				},
+				"qSortBy":
+				{
+					"description": "Defines the sort criteria",
+					"$ref": "#/definitions/NxSortCriteria"
+				},
 				"width":
 				{
 					"description": "Ширина колонки",
@@ -488,6 +493,12 @@
 				{
 					"type": "boolean"
 				},
+				"updateAfterCreation":
+				{
+					"type": "boolean",
+					"default": false
+
+				},
 				"autoWidth":
 				{
 					"type": "boolean"
@@ -593,17 +604,25 @@
 					"enum": [-1,0,1]
 
 				},
-			  "interColumnSortOrder":
-			  {
-				"description": "Order the columns of the hypercube should be sorted. The index of the pseudo-dimension (if any) is -1.",
-				"type": "array",
-				"items":
+				"qInterColumnSortOrder":
 				{
-				  "type": "integer"
-				}
-			  },
-
-              "orientation":
+					"description": "Order the columns of the hypercube should be sorted. The index of the pseudo-dimension (if any) is -1.",
+					"type": "array",
+					"items":
+					{
+				  		"type": "integer"
+					}
+				},
+				"columnOrder":
+				{
+					"description": "Index array that determines the column order",
+					"type": "array",
+					"items":
+					{
+						"type": "integer"
+					}
+				},
+				"orientation":
 				{
 					"description": "Orientation settings. If vertical, the dimension axis can only be docked on bottom or top and measure axis on left or right",
 					"enum": ["horizontal","vertical"],
@@ -983,6 +1002,15 @@
 						"type": "integer"
 					}
 				},
+				"columnOrder":
+				{
+					"description": "Index array that determines the column order",
+					"type": "array",
+					"items":
+					{
+						"type": "integer"
+					}
+				},
 
 				"qAlwaysFullyExpanded":
 				{
@@ -1028,15 +1056,6 @@
 				"columnWidths":
 				{
 					"description": "Columns widths, -1 means autosize",
-					"type": "array",
-					"items": 
-					{
-						"type": "integer"
-					}
-				},
-				"columnOrder": 
-				{
-					"description": "Columns orders",
 					"type": "array",
 					"items": 
 					{
@@ -1282,6 +1301,11 @@
 					"description": "Not documented",
 					"type": "boolean"
 				},
+				"qSortBy":
+				{
+					"description": "Defines the sort criteria",
+					"$ref": "#/definitions/NxSortCriteria"
+				},
 				"qAttributeExpressions": 
 				{
 					"type": "array",
@@ -1484,7 +1508,11 @@
 					]
 				}
 			},
-			"additionalProperties": false
+			"additionalProperties": false,
+			"required":
+			[
+				"qSortByNumeric"
+			]
 		},
 		"NxFieldAttributes": 
 		{
@@ -1684,7 +1712,7 @@
 			"additionalProperties": false,
 			"required":
 			[
-				"qExpression"
+				"qv"
 			]
 		}
 	}

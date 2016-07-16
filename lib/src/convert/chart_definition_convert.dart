@@ -96,6 +96,7 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
     }
     model.title = input['title'];
     model.showTitles = input['showTitles'];
+    model.updateAfterCreation = input['updateAfterCreation'];
     model.autoWidth = input['autoWidth'];
     model.subtitle = input['subtitle'];
     model.footnote = input['footnote'];
@@ -143,7 +144,8 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
     model.suppressZero = input['suppressZero'];
     model.suppressMissing = input['suppressMissing'];
     model.sortbyYValue = input['sortbyYValue'];
-    model.interColumnSortOrder = input['interColumnSortOrder'] as List<int>;
+    model.qInterColumnSortOrder = input['qInterColumnSortOrder'] as List<int>;
+    model.columnOrder = input['columnOrder'] as List<int>;
     model.orientation = input['orientation'];
     return model;
   }
@@ -225,6 +227,10 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
     if (showTitles != null) {
       model['showTitles'] = showTitles;
     }
+    var updateAfterCreation = input.updateAfterCreation;
+    if (updateAfterCreation != null) {
+      model['updateAfterCreation'] = updateAfterCreation;
+    }
     var autoWidth = input.autoWidth;
     if (autoWidth != null) {
       model['autoWidth'] = autoWidth;
@@ -305,9 +311,13 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
     if (sortbyYValue != null) {
       model['sortbyYValue'] = sortbyYValue;
     }
-    var interColumnSortOrder = input.interColumnSortOrder;
-    if (interColumnSortOrder != null) {
-      model['interColumnSortOrder'] = interColumnSortOrder;
+    var qInterColumnSortOrder = input.qInterColumnSortOrder;
+    if (qInterColumnSortOrder != null) {
+      model['qInterColumnSortOrder'] = qInterColumnSortOrder;
+    }
+    var columnOrder = input.columnOrder;
+    if (columnOrder != null) {
+      model['columnOrder'] = columnOrder;
     }
     var orientation = input.orientation;
     if (orientation != null) {

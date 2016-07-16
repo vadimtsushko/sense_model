@@ -10,6 +10,7 @@ import 'package:dogma_convert/serialize.dart';
 import 'iv_attr_expression.dart';
 import 'iv_filter_param.dart';
 import 'nx_measure_series.dart';
+import 'nx_sort_criteria.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -32,6 +33,10 @@ class IvMeasure {
   /// Необходимо проверить условие отображения колонки
   @Serialize.field('conditional', optional: true)
   bool conditional;
+
+  /// Defines the sort criteria
+  @Serialize.field('qSortBy', optional: true)
+  NxSortCriteria qSortBy;
 
   /// Ширина колонки
   @Serialize.field('width', optional: true)

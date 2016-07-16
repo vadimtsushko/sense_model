@@ -17,6 +17,7 @@ import 'package:sense_model/models.dart';
 import 'iv_attr_expression_convert.dart';
 import 'iv_filter_param_convert.dart';
 import 'nx_measure_series_convert.dart';
+import 'nx_sort_criteria_convert.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -25,15 +26,20 @@ import 'nx_measure_series_convert.dart';
 /// A [ModelDecoder] for [IvMeasure].
 class IvMeasureDecoder extends Converter<Map, IvMeasure>
     implements ModelDecoder<IvMeasure> {
+  final Converter<Map, NxSortCriteria> _nxSortCriteriaDecoder;
   final Converter<Map, IvAttrExpression> _ivAttrExpressionDecoder;
   final Converter<Map, NxMeasureSeries> _nxMeasureSeriesDecoder;
   final Converter<Map, IvFilterParam> _ivFilterParamDecoder;
   IvMeasureDecoder()
-      : _ivAttrExpressionDecoder = new IvAttrExpressionDecoder(),
+      : _nxSortCriteriaDecoder = new NxSortCriteriaDecoder(),
+        _ivAttrExpressionDecoder = new IvAttrExpressionDecoder(),
         _nxMeasureSeriesDecoder = new NxMeasureSeriesDecoder(),
         _ivFilterParamDecoder = new IvFilterParamDecoder();
-  IvMeasureDecoder.using(this._ivAttrExpressionDecoder,
-      this._nxMeasureSeriesDecoder, this._ivFilterParamDecoder);
+  IvMeasureDecoder.using(
+      this._nxSortCriteriaDecoder,
+      this._ivAttrExpressionDecoder,
+      this._nxMeasureSeriesDecoder,
+      this._ivFilterParamDecoder);
   @override
   IvMeasure create() => new IvMeasure();
   @override
@@ -44,6 +50,10 @@ class IvMeasureDecoder extends Converter<Map, IvMeasure>
     model.key = input['key'];
     model.param = input['param'];
     model.conditional = input['conditional'];
+    var qSortBy = input['qSortBy'];
+    if (qSortBy != null) {
+      model.qSortBy = _nxSortCriteriaDecoder.convert(qSortBy);
+    }
     model.width = input['width'];
     model.qRelative = input['qRelative'];
     model.qAccumulate = input['qAccumulate'];
@@ -79,15 +89,20 @@ class IvMeasureDecoder extends Converter<Map, IvMeasure>
 /// A [ModelEncoder] for [IvMeasure].
 class IvMeasureEncoder extends Converter<IvMeasure, Map>
     implements ModelEncoder<IvMeasure> {
+  final Converter<NxSortCriteria, Map> _nxSortCriteriaEncoder;
   final Converter<IvAttrExpression, Map> _ivAttrExpressionEncoder;
   final Converter<NxMeasureSeries, Map> _nxMeasureSeriesEncoder;
   final Converter<IvFilterParam, Map> _ivFilterParamEncoder;
   IvMeasureEncoder()
-      : _ivAttrExpressionEncoder = new IvAttrExpressionEncoder(),
+      : _nxSortCriteriaEncoder = new NxSortCriteriaEncoder(),
+        _ivAttrExpressionEncoder = new IvAttrExpressionEncoder(),
         _nxMeasureSeriesEncoder = new NxMeasureSeriesEncoder(),
         _ivFilterParamEncoder = new IvFilterParamEncoder();
-  IvMeasureEncoder.using(this._ivAttrExpressionEncoder,
-      this._nxMeasureSeriesEncoder, this._ivFilterParamEncoder);
+  IvMeasureEncoder.using(
+      this._nxSortCriteriaEncoder,
+      this._ivAttrExpressionEncoder,
+      this._nxMeasureSeriesEncoder,
+      this._ivFilterParamEncoder);
   @override
   Map convert(IvMeasure input) {
     var model = {};
@@ -104,6 +119,10 @@ class IvMeasureEncoder extends Converter<IvMeasure, Map>
     var conditional = input.conditional;
     if (conditional != null) {
       model['conditional'] = conditional;
+    }
+    var qSortBy = input.qSortBy;
+    if (qSortBy != null) {
+      model['qSortBy'] = _nxSortCriteriaEncoder.convert(qSortBy);
     }
     var width = input.width;
     if (width != null) {

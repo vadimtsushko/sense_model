@@ -9,6 +9,7 @@ library sense_model.src.models.nx_measure;
 import 'package:dogma_convert/serialize.dart';
 import 'nx_attr_expr_def.dart';
 import 'nx_inline_measure_def.dart';
+import 'nx_sort_criteria.dart';
 import 'nx_value_expr.dart';
 
 //---------------------------------------------------------------------
@@ -32,6 +33,10 @@ class NxMeasure {
   /// Not documented
   @Serialize.field('autoSort', optional: true)
   bool autoSort;
+
+  /// Defines the sort criteria
+  @Serialize.field('qSortBy', optional: true)
+  NxSortCriteria qSortBy;
   @Serialize.field('qAttributeExpressions', optional: true)
   List<NxAttrExprDef> qAttributeExpressions;
 

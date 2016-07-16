@@ -50,6 +50,8 @@ class ChartDefinition {
   String title;
   @Serialize.field('showTitles', optional: true)
   bool showTitles;
+  @Serialize.field('updateAfterCreation', optional: true)
+  bool updateAfterCreation;
   @Serialize.field('autoWidth', optional: true)
   bool autoWidth;
   @Serialize.field('subtitle', optional: true)
@@ -127,8 +129,12 @@ class ChartDefinition {
 
   /// Order the columns of the hypercube should be sorted. The index of the
   /// pseudo-dimension (if any) is -1.
-  @Serialize.field('interColumnSortOrder', optional: true)
-  List<int> interColumnSortOrder;
+  @Serialize.field('qInterColumnSortOrder', optional: true)
+  List<int> qInterColumnSortOrder;
+
+  /// Index array that determines the column order
+  @Serialize.field('columnOrder', optional: true)
+  List<int> columnOrder;
 
   /// Orientation settings. If vertical, the dimension axis can only be docked on
   /// bottom or top and measure axis on left or right

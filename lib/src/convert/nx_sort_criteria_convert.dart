@@ -33,7 +33,10 @@ class NxSortCriteriaDecoder extends Converter<Map, NxSortCriteria>
     model ??= create();
 
     model.qSortByExpression = input['qSortByExpression'];
-    model.qExpression = _nxValueExprDecoder.convert(input['qExpression']);
+    var qExpression = input['qExpression'];
+    if (qExpression != null) {
+      model.qExpression = _nxValueExprDecoder.convert(qExpression);
+    }
     model.qSortByState = input['qSortByState'];
     model.qSortByFrequency = input['qSortByFrequency'];
     model.qSortByNumeric = input['qSortByNumeric'];
@@ -53,13 +56,31 @@ class NxSortCriteriaEncoder extends Converter<NxSortCriteria, Map>
   Map convert(NxSortCriteria input) {
     var model = {};
 
-    model['qSortByExpression'] = input.qSortByExpression;
-    model['qExpression'] = _nxValueExprEncoder.convert(input.qExpression);
-    model['qSortByState'] = input.qSortByState;
-    model['qSortByFrequency'] = input.qSortByFrequency;
+    var qSortByExpression = input.qSortByExpression;
+    if (qSortByExpression != null) {
+      model['qSortByExpression'] = qSortByExpression;
+    }
+    var qExpression = input.qExpression;
+    if (qExpression != null) {
+      model['qExpression'] = _nxValueExprEncoder.convert(qExpression);
+    }
+    var qSortByState = input.qSortByState;
+    if (qSortByState != null) {
+      model['qSortByState'] = qSortByState;
+    }
+    var qSortByFrequency = input.qSortByFrequency;
+    if (qSortByFrequency != null) {
+      model['qSortByFrequency'] = qSortByFrequency;
+    }
     model['qSortByNumeric'] = input.qSortByNumeric;
-    model['qSortByAscii'] = input.qSortByAscii;
-    model['qSortByLoadOrder'] = input.qSortByLoadOrder;
+    var qSortByAscii = input.qSortByAscii;
+    if (qSortByAscii != null) {
+      model['qSortByAscii'] = qSortByAscii;
+    }
+    var qSortByLoadOrder = input.qSortByLoadOrder;
+    if (qSortByLoadOrder != null) {
+      model['qSortByLoadOrder'] = qSortByLoadOrder;
+    }
 
     return model;
   }

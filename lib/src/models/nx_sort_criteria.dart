@@ -6,6 +6,7 @@ library sense_model.src.models.nx_sort_criteria;
 // Imports
 //---------------------------------------------------------------------
 
+import 'package:dogma_convert/serialize.dart';
 import 'nx_value_expr.dart';
 
 //---------------------------------------------------------------------
@@ -14,25 +15,32 @@ import 'nx_value_expr.dart';
 
 class NxSortCriteria {
   /// Sort by expression
+  @Serialize.field('qSortByExpression', optional: true)
   int qSortByExpression;
 
   /// Sort by expression.
+  @Serialize.field('qExpression', optional: true)
   NxValueExpr qExpression;
 
   /// Sorts the field values according to their logical state (selected,
   /// optional, alternative or excluded)
+  @Serialize.field('qSortByState', optional: true)
   int qSortByState;
 
   /// Sorts the field values by numeric value
+  @Serialize.field('qSortByFrequency', optional: true)
   int qSortByFrequency;
 
   /// Sorts the field values according to their logical state (selected,
   /// optional, alternative or excluded)
+  @Serialize.field('qSortByNumeric')
   int qSortByNumeric;
 
   /// Sorts the field by alphabetical order
+  @Serialize.field('qSortByAscii', optional: true)
   int qSortByAscii;
 
   /// Sorts the field values by the initial load order
+  @Serialize.field('qSortByLoadOrder', optional: true)
   int qSortByLoadOrder;
 }
