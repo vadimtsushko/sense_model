@@ -25,6 +25,7 @@ import 'nx_grid_line_convert.dart';
 import 'nx_legend_convert.dart';
 import 'nx_measure_axis_convert.dart';
 import 'nx_page_convert.dart';
+import 'nx_ref_line_container_convert.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -35,6 +36,7 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
     implements ModelDecoder<ChartDefinition> {
   final Converter<Map, IvDimension> _ivDimensionDecoder;
   final Converter<Map, IvMeasure> _ivMeasureDecoder;
+  final Converter<Map, NxRefLineContainer> _nxRefLineContainerDecoder;
   final Converter<Map, NxBarGrouping> _nxBarGroupingDecoder;
   final Converter<Map, NxDonut> _nxDonutDecoder;
   final Converter<Map, NxColor> _nxColorDecoder;
@@ -47,6 +49,7 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
   ChartDefinitionDecoder()
       : _ivDimensionDecoder = new IvDimensionDecoder(),
         _ivMeasureDecoder = new IvMeasureDecoder(),
+        _nxRefLineContainerDecoder = new NxRefLineContainerDecoder(),
         _nxBarGroupingDecoder = new NxBarGroupingDecoder(),
         _nxDonutDecoder = new NxDonutDecoder(),
         _nxColorDecoder = new NxColorDecoder(),
@@ -59,6 +62,7 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
   ChartDefinitionDecoder.using(
       this._ivDimensionDecoder,
       this._ivMeasureDecoder,
+      this._nxRefLineContainerDecoder,
       this._nxBarGroupingDecoder,
       this._nxDonutDecoder,
       this._nxColorDecoder,
@@ -97,6 +101,11 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
     model.title = input['title'];
     model.showTitles = input['showTitles'];
     model.updateAfterCreation = input['updateAfterCreation'];
+    model.alwaysRecreate = input['alwaysRecreate'];
+    var refLine = input['refLine'];
+    if (refLine != null) {
+      model.refLine = _nxRefLineContainerDecoder.convert(refLine);
+    }
     model.autoWidth = input['autoWidth'];
     model.subtitle = input['subtitle'];
     model.footnote = input['footnote'];
@@ -156,6 +165,7 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
     implements ModelEncoder<ChartDefinition> {
   final Converter<IvDimension, Map> _ivDimensionEncoder;
   final Converter<IvMeasure, Map> _ivMeasureEncoder;
+  final Converter<NxRefLineContainer, Map> _nxRefLineContainerEncoder;
   final Converter<NxBarGrouping, Map> _nxBarGroupingEncoder;
   final Converter<NxDonut, Map> _nxDonutEncoder;
   final Converter<NxColor, Map> _nxColorEncoder;
@@ -168,6 +178,7 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
   ChartDefinitionEncoder()
       : _ivDimensionEncoder = new IvDimensionEncoder(),
         _ivMeasureEncoder = new IvMeasureEncoder(),
+        _nxRefLineContainerEncoder = new NxRefLineContainerEncoder(),
         _nxBarGroupingEncoder = new NxBarGroupingEncoder(),
         _nxDonutEncoder = new NxDonutEncoder(),
         _nxColorEncoder = new NxColorEncoder(),
@@ -180,6 +191,7 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
   ChartDefinitionEncoder.using(
       this._ivDimensionEncoder,
       this._ivMeasureEncoder,
+      this._nxRefLineContainerEncoder,
       this._nxBarGroupingEncoder,
       this._nxDonutEncoder,
       this._nxColorEncoder,
@@ -230,6 +242,14 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
     var updateAfterCreation = input.updateAfterCreation;
     if (updateAfterCreation != null) {
       model['updateAfterCreation'] = updateAfterCreation;
+    }
+    var alwaysRecreate = input.alwaysRecreate;
+    if (alwaysRecreate != null) {
+      model['alwaysRecreate'] = alwaysRecreate;
+    }
+    var refLine = input.refLine;
+    if (refLine != null) {
+      model['refLine'] = _nxRefLineContainerEncoder.convert(refLine);
     }
     var autoWidth = input.autoWidth;
     if (autoWidth != null) {

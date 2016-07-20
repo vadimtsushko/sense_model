@@ -22,6 +22,7 @@ import 'nx_donut_convert.dart';
 import 'nx_grid_line_convert.dart';
 import 'nx_legend_convert.dart';
 import 'nx_measure_axis_convert.dart';
+import 'nx_ref_line_container_convert.dart';
 import 'q_hyper_cube_def_convert.dart';
 
 //---------------------------------------------------------------------
@@ -39,6 +40,7 @@ class NxOptionsDecoder extends Converter<Map, NxOptions>
   final Converter<Map, NxMeasureAxis> _nxMeasureAxisDecoder;
   final Converter<Map, NxColor> _nxColorDecoder;
   final Converter<Map, NxGridLine> _nxGridLineDecoder;
+  final Converter<Map, NxRefLineContainer> _nxRefLineContainerDecoder;
   final Converter<Map, QHyperCubeDef> _qHyperCubeDefDecoder;
   NxOptionsDecoder()
       : _nxBarGroupingDecoder = new NxBarGroupingDecoder(),
@@ -49,6 +51,7 @@ class NxOptionsDecoder extends Converter<Map, NxOptions>
         _nxMeasureAxisDecoder = new NxMeasureAxisDecoder(),
         _nxColorDecoder = new NxColorDecoder(),
         _nxGridLineDecoder = new NxGridLineDecoder(),
+        _nxRefLineContainerDecoder = new NxRefLineContainerDecoder(),
         _qHyperCubeDefDecoder = new QHyperCubeDefDecoder();
   NxOptionsDecoder.using(
       this._nxBarGroupingDecoder,
@@ -59,6 +62,7 @@ class NxOptionsDecoder extends Converter<Map, NxOptions>
       this._nxMeasureAxisDecoder,
       this._nxColorDecoder,
       this._nxGridLineDecoder,
+      this._nxRefLineContainerDecoder,
       this._qHyperCubeDefDecoder);
   @override
   NxOptions create() => new NxOptions();
@@ -106,6 +110,10 @@ class NxOptionsDecoder extends Converter<Map, NxOptions>
     if (gridLine != null) {
       model.gridLine = _nxGridLineDecoder.convert(gridLine);
     }
+    var refLine = input['refLine'];
+    if (refLine != null) {
+      model.refLine = _nxRefLineContainerDecoder.convert(refLine);
+    }
     model.orientation = input['orientation'];
     var qHyperCubeDef = input['qHyperCubeDef'];
     if (qHyperCubeDef != null) {
@@ -127,6 +135,7 @@ class NxOptionsEncoder extends Converter<NxOptions, Map>
   final Converter<NxMeasureAxis, Map> _nxMeasureAxisEncoder;
   final Converter<NxColor, Map> _nxColorEncoder;
   final Converter<NxGridLine, Map> _nxGridLineEncoder;
+  final Converter<NxRefLineContainer, Map> _nxRefLineContainerEncoder;
   final Converter<QHyperCubeDef, Map> _qHyperCubeDefEncoder;
   NxOptionsEncoder()
       : _nxBarGroupingEncoder = new NxBarGroupingEncoder(),
@@ -137,6 +146,7 @@ class NxOptionsEncoder extends Converter<NxOptions, Map>
         _nxMeasureAxisEncoder = new NxMeasureAxisEncoder(),
         _nxColorEncoder = new NxColorEncoder(),
         _nxGridLineEncoder = new NxGridLineEncoder(),
+        _nxRefLineContainerEncoder = new NxRefLineContainerEncoder(),
         _qHyperCubeDefEncoder = new QHyperCubeDefEncoder();
   NxOptionsEncoder.using(
       this._nxBarGroupingEncoder,
@@ -147,6 +157,7 @@ class NxOptionsEncoder extends Converter<NxOptions, Map>
       this._nxMeasureAxisEncoder,
       this._nxColorEncoder,
       this._nxGridLineEncoder,
+      this._nxRefLineContainerEncoder,
       this._qHyperCubeDefEncoder);
   @override
   Map convert(NxOptions input) {
@@ -212,6 +223,10 @@ class NxOptionsEncoder extends Converter<NxOptions, Map>
     var gridLine = input.gridLine;
     if (gridLine != null) {
       model['gridLine'] = _nxGridLineEncoder.convert(gridLine);
+    }
+    var refLine = input.refLine;
+    if (refLine != null) {
+      model['refLine'] = _nxRefLineContainerEncoder.convert(refLine);
     }
     var orientation = input.orientation;
     if (orientation != null) {

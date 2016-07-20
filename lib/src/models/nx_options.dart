@@ -15,6 +15,7 @@ import 'nx_donut.dart';
 import 'nx_grid_line.dart';
 import 'nx_legend.dart';
 import 'nx_measure_axis.dart';
+import 'nx_ref_line_container.dart';
 import 'q_hyper_cube_def.dart';
 
 //---------------------------------------------------------------------
@@ -79,6 +80,10 @@ class NxOptions {
   /// Grid line settings
   @Serialize.field('gridLine', optional: true)
   NxGridLine gridLine;
+
+  /// Reference line settings.
+  @Serialize.field('refLine', optional: true)
+  NxRefLineContainer refLine;
 
   /// Orientation settings. If vertical, the dimension axis can only be docked on
   /// bottom or top and measure axis on left or right

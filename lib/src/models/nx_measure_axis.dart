@@ -39,7 +39,7 @@ class NxMeasureAxis {
 
   /// Measure axis spacing
   @Serialize.field('spacing', optional: true)
-  int spacing;
+  num spacing;
 
   /// min ValueExpressionContainer
   @Serialize.field('min', optional: true)

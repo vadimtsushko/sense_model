@@ -18,6 +18,7 @@ import 'nx_grid_line.dart';
 import 'nx_legend.dart';
 import 'nx_measure_axis.dart';
 import 'nx_page.dart';
+import 'nx_ref_line_container.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -52,6 +53,12 @@ class ChartDefinition {
   bool showTitles;
   @Serialize.field('updateAfterCreation', optional: true)
   bool updateAfterCreation;
+  @Serialize.field('alwaysRecreate', optional: true)
+  bool alwaysRecreate;
+
+  /// Reference line settings.
+  @Serialize.field('refLine', optional: true)
+  NxRefLineContainer refLine;
   @Serialize.field('autoWidth', optional: true)
   bool autoWidth;
   @Serialize.field('subtitle', optional: true)

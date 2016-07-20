@@ -238,7 +238,56 @@
 				"fieldValue"
 			]
 		},
-		"IvDimension": 
+		"IvMasterDimension":
+		{
+			"properties":
+			{
+				"id":
+				{
+					"description": "Код мастер-измерения",
+					"type": "string"
+				},
+				"title":
+				{
+					"description": "Заголовок мастер-измерения",
+					"type": "string"
+				},
+				"grouping":
+				{
+					"description": "Группировка",
+					"type": "string"
+				},
+				"width":
+				{
+					"description": "Ширина колонки по умолчанию",
+					"type": "integer"
+				},
+				"labels":
+				{
+					"description": "Список заголовков",
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					}
+				},
+				"fields":
+				{
+					"description": "Список полей",
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					}
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"id"
+			]
+		},
+		"IvDimension":
 		{
 			"properties": 
 			{
@@ -498,6 +547,17 @@
 					"type": "boolean",
 					"default": false
 
+				},
+				"alwaysRecreate":
+				{
+					"type": "boolean",
+					"default": false
+
+				},
+				"refLine":
+				{
+					"description": "Reference line settings.",
+					"$ref": "#/definitions/NxRefLineContainer"
 				},
 				"autoWidth":
 				{
@@ -822,8 +882,7 @@
 				"spacing":
 				{
 					"description": "Measure axis spacing",
-					"type": "integer",
-					"enum": [0,1,2,3]
+					"type": "number"
 				},
 				"min": {
 					"description": "min ValueExpressionContainer",
@@ -943,6 +1002,12 @@
 					"description": "Grid line settings",
 					"$ref": "#/definitions/NxGridLine"
 				},
+				"refLine":
+				{
+					"description": "Reference line settings.",
+					"$ref": "#/definitions/NxRefLineContainer"
+				},
+
 				"orientation":
 				{
 					"description": "Orientation settings. If vertical, the dimension axis can only be docked on bottom or top and measure axis on left or right",
@@ -1697,7 +1762,83 @@
 			]
 
 		},
+		"NxRefLineContainer":
+		{
+			"properties":
+			{
+				"refLines":
+				{
+					"type": "array",
+					"items":
+					{
+						"$ref": "#/definitions/NxRefLine"
+					}
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"refLines"
+			]
 
+		},
+
+		"NxRefLine":
+		{
+			"properties":
+			{
+				"show":
+				{
+					"description": "Set to true to display this reference line.",
+					"type": "boolean"
+				},
+				"color":
+				{
+					"description": "Color",
+					"type": "integer",
+					"default": 3
+				},
+				"label":
+				{
+					"description": "Reference line label.",
+					"type": "string"
+				},
+				"refLineExpr":
+				{
+					"description": "Expression",
+					"$ref": "#/definitions/NxRefLineExpr"
+				}
+
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"refLineExpr"
+			]
+
+		},
+		"NxRefLineExpr":
+		{
+			"properties":
+			{
+				"value":
+				{
+					"description": "Expression for the value used in the visualization",
+					"type": "number"
+				},
+				"label":
+				{
+					"description": "Expression for the value used in the visualization",
+					"type": "string"
+				}
+
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"value"
+			]
+		},
 
 		"NxValueExpr":
 		{
@@ -1714,6 +1855,23 @@
 			[
 				"qv"
 			]
+		},
+		"NxStringExpr":
+		{
+			"properties":
+			{
+				"qv":
+				{
+					"description": "Expression returning string value",
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qv"
+			]
 		}
+
 	}
 }
