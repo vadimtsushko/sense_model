@@ -25,6 +25,10 @@ class SelectionTableData {
   /// Множественный выбор
   @Serialize.field('multiple', optional: true)
   bool multiple;
+
+  /// Код таблицы выбора для календаря (используется при подборе мер с учетом недель)
+  @Serialize.field('calendarTable', optional: true)
+  String calendarTable;
   @Serialize.field('tableItems')
   List<SelectionTableItem> tableItems;
 }

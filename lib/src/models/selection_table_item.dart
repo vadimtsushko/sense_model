@@ -17,6 +17,10 @@ class SelectionTableItem {
   @Serialize.field('value')
   String value;
 
+  /// Для этого выражения есть аналог с учетом недель
+  @Serialize.field('canBeWeekly', optional: true)
+  bool canBeWeekly;
+
   /// Является ли это значение иерархическим измерением (рантайм параметр)
   @Serialize.field('isHierarchy', optional: true)
   bool isHierarchy;

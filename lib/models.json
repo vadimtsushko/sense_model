@@ -146,7 +146,12 @@
 					"type": "boolean",
 					"default": false
 				},
-				"tableItems":
+               "calendarTable":
+               {
+                 "description": "Код таблицы выбора для календаря (используется при подборе мер с учетом недель)",
+                 "type": "string"
+               },
+              "tableItems":
 				{
 					"type": "array",
 					"items":
@@ -171,6 +176,11 @@
 				{
 					"description": "Код поля или выражения",
 					"type": "string"
+				},
+				"canBeWeekly":
+				{
+					"description": "Для этого выражения есть аналог с учетом недель",
+					"type": "boolean"
 				},
 				"isHierarchy":
 				{

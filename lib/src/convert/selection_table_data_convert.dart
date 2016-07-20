@@ -36,6 +36,7 @@ class SelectionTableDataDecoder extends Converter<Map, SelectionTableData>
     model.tableId = input['tableId'];
     model.tableType = input['tableType'];
     model.multiple = input['multiple'];
+    model.calendarTable = input['calendarTable'];
     var tableItemsTemp0 = <SelectionTableItem>[];
     for (var tableItemsValue0 in input['tableItems']) {
       tableItemsTemp0.add(_selectionTableItemDecoder.convert(tableItemsValue0));
@@ -62,6 +63,10 @@ class SelectionTableDataEncoder extends Converter<SelectionTableData, Map>
     var multiple = input.multiple;
     if (multiple != null) {
       model['multiple'] = multiple;
+    }
+    var calendarTable = input.calendarTable;
+    if (calendarTable != null) {
+      model['calendarTable'] = calendarTable;
     }
     var tableItemsTemp0 = [];
     for (var tableItemsValue0 in input.tableItems) {

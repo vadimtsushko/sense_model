@@ -29,6 +29,7 @@ class SelectionTableItemDecoder extends Converter<Map, SelectionTableItem>
     model ??= create();
 
     model.value = input['value'];
+    model.canBeWeekly = input['canBeWeekly'];
     model.isHierarchy = input['isHierarchy'];
     model.param = input['param'];
     model.displayValue = input['displayValue'];
@@ -44,6 +45,10 @@ class SelectionTableItemEncoder extends Converter<SelectionTableItem, Map>
     var model = {};
 
     model['value'] = input.value;
+    var canBeWeekly = input.canBeWeekly;
+    if (canBeWeekly != null) {
+      model['canBeWeekly'] = canBeWeekly;
+    }
     var isHierarchy = input.isHierarchy;
     if (isHierarchy != null) {
       model['isHierarchy'] = isHierarchy;
