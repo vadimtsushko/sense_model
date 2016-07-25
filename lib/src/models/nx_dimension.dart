@@ -8,6 +8,7 @@ library sense_model.src.models.nx_dimension;
 
 import 'package:dogma_convert/serialize.dart';
 import 'nx_inline_dimension_def.dart';
+import 'nx_other_total_spec_prop.dart';
 import 'nx_value_expr.dart';
 
 //---------------------------------------------------------------------
@@ -50,7 +51,7 @@ class NxDimension {
   /// Sets the dimension limits. Each dimension of a hypercube is configured
   /// separately. Just stub for now. Should add type in future
   @Serialize.field('qOtherTotalSpec', optional: true)
-  String qOtherTotalSpec;
+  NxOtherTotalSpecProp qOtherTotalSpec;
 
   /// Specifies a calculation condition, which must be fulfilled for the measure
   /// to be calculated

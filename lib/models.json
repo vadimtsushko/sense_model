@@ -138,7 +138,7 @@
 				{
 					"description": "Тип выбираемого значения",
 					"type": "string",
-					"enum": ["Dimension","Measure"]
+					"enum": ["Dimension","MeasureKey", "MeasureType","MeasureFamily"]
 				},
 				"multiple":
 				{
@@ -151,6 +151,15 @@
                  "description": "Код таблицы выбора для календаря (используется при подборе мер с учетом недель)",
                  "type": "string"
                },
+				"keys":
+				{
+					"description": "Список ключей выбора (тип зависит от типа таблицы выбора)",
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					}
+				},
               "tableItems":
 				{
 					"type": "array",
@@ -165,7 +174,7 @@
 			[
 				"tableId",
 				"tableType",
-				"tableItems"
+				"keys"
 			]
 		},
 		"SelectionTableItem":
@@ -297,6 +306,85 @@
 				"id"
 			]
 		},
+		"IvMasterExpression":
+		{
+			"properties":
+			{
+				"family":
+				{
+					"description": "Семейство мер (Продажи, ВП, и т.д.)",
+					"type": "string"
+				},
+				"type":
+				{
+					"description": "Тип меры (План, Факт, Сравнение с предыдущим месяцем и т.д)",
+					"type": "string"
+				},
+				"command":
+				{
+					"description": "Вид выражения",
+					"type": "string"
+				},
+				"comment":
+				{
+					"description": "Расширенная подсказка (для отображения в тултипах)",
+					"type": "string"
+				},
+				"definition":
+				{
+					"description": "Исходная формула",
+					"type": "string"
+				},
+				"expandedDefinition":
+				{
+					"description": "Окончательный вид формулы, после всех преобразований",
+					"type": "string"
+				},
+				"label":
+				{
+					"description": "Заголовок для отображения в колонках и так далее",
+					"type": "string"
+				},
+				"selectorLabel":
+				{
+					"description": "Заголовок для отображения в списках выбора",
+					"type": "string"
+				},
+
+				"macro":
+				{
+					"description": "Код макро",
+					"type": "string"
+				},
+				"description":
+				{
+					"description": "Описание выражения (не для отображения в интерфейсе, описание алгоритма и так далее)",
+					"type": "string"
+				},
+				"width":
+				{
+					"description": "Ширина колонки по умолчанию (как строка, ограничение текущего формата выгрузки из Sublime)",
+					"type": "string"
+				},
+				"intWidth":
+				{
+					"description": "Ширина колонки по умолчанию",
+					"type": "integer"
+				},
+
+				"name":
+				{
+					"description": "Уникальный код выражения",
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"name","definition","expandedDefinition","command"
+			]
+		},
+
 		"IvDimension":
 		{
 			"properties": 
@@ -332,6 +420,11 @@
                   "type": "boolean",
                   "default": true
                 },
+				"qOtherTotalSpec":
+				{
+					"description": "Sets the dimension limits. Each dimension of a hypercube is configured separately. Just stub for now. Should add type in future",
+					"$ref": "#/definitions/NxOtherTotalSpecProp"
+				},
 				"backgroundColor":
 				{
 					"description": "",
@@ -382,25 +475,102 @@
 				"expression"
 			]
 		},
+		"IvMeasureFamily":
+		{
+			"properties":
+			{
+				"key":
+				{
+					"description": "Код семейства",
+					"type": "string"
+				},
+				"displayName":
+				{
+					"description": "Значение отображаемое в списках выбора",
+					"type": "string"
+				},
+				"hasPlan":
+				{
+					"description": "Выражения этого семейства имеют план (Продажи и так далее)",
+					"type": "boolean",
+					"default": false
+				},
+				"monthly":
+				{
+					"description": "По выражениям этого семейства данные есть только в разрезе месяцев",
+					"type": "boolean",
+					"default": false
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"key", "displayName"
+			]
+		},
+		"IvMeasureType":
+		{
+			"properties":
+			{
+				"key":
+				{
+					"description": "Код семейства",
+					"type": "string"
+				},
+				"displayName":
+				{
+					"description": "Значение отображаемое в списках выбора",
+					"type": "string"
+				},
+                "isPlan":
+                {
+                  "description": "Выражения этого типа относятся к плановым показателям",
+                  "type": "boolean",
+                  "default": false
+                }
+
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"key", "displayName"
+			]
+		},
 
 		"IvMeasure":
 		{
 			"properties": 
 			{
-				"isStatic":
+				"key":
 				{
-					"description": "Статическая ли это мера",
-					"type": "boolean",
-                    "default": true
-				},
-				"key": 
-				{
-					"description": "Код поля (если измерение статическое), либо название динамической таблицы, откуда будет получен текущий код поля",
+					"description": "Код меры",
 					"type": "string"
 				},
-				"param":
+               "keySelector":
+               {
+                 "description": "Код таблицы выбора для кода меры",
+                 "type": "string"
+               },
+
+				"type":
 				{
-					"description": "Дополнительный параметр для выбора динамической меры",
+					"description": "Статический код типа выражения",
+					"type": "string"
+				},
+				"typeSelector":
+				{
+					"description": "Код таблицы выбора для типа выражения",
+					"type": "string",
+					"default": "Факт"
+				},
+				"family":
+				{
+					"description": "Статический код семейства выражения",
+					"type": "string"
+				},
+				"familySelector":
+				{
+					"description": "Код таблицы выбора семейства выражений",
 					"type": "string"
 				},
 				"conditional":
@@ -552,6 +722,11 @@
 				{
 					"type": "boolean"
 				},
+                "qShowTotalsAbove":
+                {
+                  "description": "If set to true, the total (if any) is shown on the first row.",
+                  "type": "boolean"
+                },
 				"updateAfterCreation":
 				{
 					"type": "boolean",
@@ -1006,7 +1181,6 @@
 					"default": true,
 					"type": "boolean"
 				},
-
 				"gridLine":
 				{
 					"description": "Grid line settings",
@@ -1192,7 +1366,7 @@
 				"qOtherTotalSpec": 
 				{
 					"description": "Sets the dimension limits. Each dimension of a hypercube is configured separately. Just stub for now. Should add type in future",
-					"type": "string"
+					"$ref": "#/definitions/NxOtherTotalSpecProp"
 				},
 				"qCalcCond": 
 				{
@@ -1318,6 +1492,72 @@
 			"required":
 			[
 				"type"
+			]
+		},
+		"NxOtherTotalSpecProp":
+		{
+			"properties":
+			{
+				"qTotalMode":
+				{
+					"description": "If set to TOTAL_EXPR, the total of the dimension values is returned.",
+					"type": "string",
+					"enum": ["TOTAL_OFF","TOTAL_EXPR"],
+					"default": "TOTAL_OFF"
+				},
+				"qReferencedExpression":
+				{
+					"description": "This parameter applies when there are several measures. Name of the measure to use for the calculation of Others for a specific dimension.",
+					"type": "string"
+				},
+				"qOtherCounted":
+				{
+					"description": "Number of values to display. The number of values can be entered as a calculated formula. This parameter is used when qOtherMode is set to OTHER_COUNTED",
+					"$ref": "#/definitions/NxValueExpr"
+				},
+				"qOtherLimit":
+				{
+					"description": "Value used to limit the dimension values. The limit can be entered as a calculated formula. This parameter is used when qOtherMode is set to: OTHER_ABS_LIMITED OTHER_REL_LIMITED OTHER_ABS_ACC_TARGET OTHER_REL_ACC_TARGET",
+					"$ref": "#/definitions/NxValueExpr"
+				},
+				"qOtherLimitMode":
+				{
+					"description": "If set to TOTAL_EXPR, the total of the dimension values is returned.",
+					"type": "string",
+					"enum": ["OTHER_GE_LIMIT","OTHER_LE_LIMIT","OTHER_GT_LIMIT","OTHER_LT_LIMIT"],
+					"default": "OTHER_GE_LIMIT"
+				},
+				"qSuppressOther":
+				{
+					"description": "If set to true, the group Others is not displayed as a dimension value.",
+					"type": "boolean",
+					"default": false
+				},
+				"qForceBadValueKeeping":
+				{
+					"description": "This parameter is used when qOtherMode is set to: OTHER_ABS_LIMITED OTHER_REL_LIMITED OTHER_ABS_ACC_TARGET OTHER_REL_ACC_TARGET and when the dimension values include not numeric values. Set this parameter to true to include text values in the returned values.",
+					"type": "boolean",
+					"default": true
+				},
+				"qApplyEvenWhenPossiblyWrongResult":
+				{
+					"description": "Set this parameter to true to allow the calculation of Others even if the engine detects some potential mistakes.For example the country Russia is part of the continent Europe and Asia. If you have an hypercube with two dimensions Country and Continent and one measure Population, the engine can detect that the population of Russia is included in both the continent Asia and Europe.",
+					"type": "boolean",
+					"default": true
+				},
+
+				"qOtherMode":
+				{
+					"description": "Determines how many dimension values are displayed",
+					"type": "string",
+					"enum": ["OTHER_OFF","OTHER_COUNTED","OTHER_ABS_LIMITED","OTHER_ABS_ACC_TARGET","OTHER_REL_LIMITED","OTHER_REL_ACC_TARGET"],
+					"default": "OTHER_OFF"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qTotalMode"
 			]
 		},
 		"NxPage":

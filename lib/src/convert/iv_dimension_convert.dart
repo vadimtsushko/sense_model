@@ -16,6 +16,7 @@ import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
 import 'iv_attr_expression_convert.dart';
 import 'iv_measure_convert.dart';
+import 'nx_other_total_spec_prop_convert.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -25,12 +26,14 @@ import 'iv_measure_convert.dart';
 class IvDimensionDecoder extends Converter<Map, IvDimension>
     implements ModelDecoder<IvDimension> {
   final Converter<Map, IvMeasure> _ivMeasureDecoder;
+  final Converter<Map, NxOtherTotalSpecProp> _nxOtherTotalSpecPropDecoder;
   final Converter<Map, IvAttrExpression> _ivAttrExpressionDecoder;
   IvDimensionDecoder()
       : _ivMeasureDecoder = new IvMeasureDecoder(),
+        _nxOtherTotalSpecPropDecoder = new NxOtherTotalSpecPropDecoder(),
         _ivAttrExpressionDecoder = new IvAttrExpressionDecoder();
-  IvDimensionDecoder.using(
-      this._ivMeasureDecoder, this._ivAttrExpressionDecoder);
+  IvDimensionDecoder.using(this._ivMeasureDecoder,
+      this._nxOtherTotalSpecPropDecoder, this._ivAttrExpressionDecoder);
   @override
   IvDimension create() => new IvDimension();
   @override
@@ -46,6 +49,11 @@ class IvDimensionDecoder extends Converter<Map, IvDimension>
       model.sortByExpression = _ivMeasureDecoder.convert(sortByExpression);
     }
     model.visible = input['visible'];
+    var qOtherTotalSpec = input['qOtherTotalSpec'];
+    if (qOtherTotalSpec != null) {
+      model.qOtherTotalSpec =
+          _nxOtherTotalSpecPropDecoder.convert(qOtherTotalSpec);
+    }
     var backgroundColor = input['backgroundColor'];
     if (backgroundColor != null) {
       model.backgroundColor = _ivAttrExpressionDecoder.convert(backgroundColor);
@@ -63,12 +71,14 @@ class IvDimensionDecoder extends Converter<Map, IvDimension>
 class IvDimensionEncoder extends Converter<IvDimension, Map>
     implements ModelEncoder<IvDimension> {
   final Converter<IvMeasure, Map> _ivMeasureEncoder;
+  final Converter<NxOtherTotalSpecProp, Map> _nxOtherTotalSpecPropEncoder;
   final Converter<IvAttrExpression, Map> _ivAttrExpressionEncoder;
   IvDimensionEncoder()
       : _ivMeasureEncoder = new IvMeasureEncoder(),
+        _nxOtherTotalSpecPropEncoder = new NxOtherTotalSpecPropEncoder(),
         _ivAttrExpressionEncoder = new IvAttrExpressionEncoder();
-  IvDimensionEncoder.using(
-      this._ivMeasureEncoder, this._ivAttrExpressionEncoder);
+  IvDimensionEncoder.using(this._ivMeasureEncoder,
+      this._nxOtherTotalSpecPropEncoder, this._ivAttrExpressionEncoder);
   @override
   Map convert(IvDimension input) {
     var model = {};
@@ -96,6 +106,11 @@ class IvDimensionEncoder extends Converter<IvDimension, Map>
     var visible = input.visible;
     if (visible != null) {
       model['visible'] = visible;
+    }
+    var qOtherTotalSpec = input.qOtherTotalSpec;
+    if (qOtherTotalSpec != null) {
+      model['qOtherTotalSpec'] =
+          _nxOtherTotalSpecPropEncoder.convert(qOtherTotalSpec);
     }
     var backgroundColor = input.backgroundColor;
     if (backgroundColor != null) {

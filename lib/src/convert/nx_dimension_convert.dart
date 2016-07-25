@@ -15,6 +15,7 @@ import 'dart:convert';
 import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
 import 'nx_inline_dimension_def_convert.dart';
+import 'nx_other_total_spec_prop_convert.dart';
 import 'nx_value_expr_convert.dart';
 
 //---------------------------------------------------------------------
@@ -25,12 +26,14 @@ import 'nx_value_expr_convert.dart';
 class NxDimensionDecoder extends Converter<Map, NxDimension>
     implements ModelDecoder<NxDimension> {
   final Converter<Map, NxInlineDimensionDef> _nxInlineDimensionDefDecoder;
+  final Converter<Map, NxOtherTotalSpecProp> _nxOtherTotalSpecPropDecoder;
   final Converter<Map, NxValueExpr> _nxValueExprDecoder;
   NxDimensionDecoder()
       : _nxInlineDimensionDefDecoder = new NxInlineDimensionDefDecoder(),
+        _nxOtherTotalSpecPropDecoder = new NxOtherTotalSpecPropDecoder(),
         _nxValueExprDecoder = new NxValueExprDecoder();
-  NxDimensionDecoder.using(
-      this._nxInlineDimensionDefDecoder, this._nxValueExprDecoder);
+  NxDimensionDecoder.using(this._nxInlineDimensionDefDecoder,
+      this._nxOtherTotalSpecPropDecoder, this._nxValueExprDecoder);
   @override
   NxDimension create() => new NxDimension();
   @override
@@ -48,7 +51,11 @@ class NxDimensionDecoder extends Converter<Map, NxDimension>
     model.qShowAll = input['qShowAll'];
     model.qOtherLabel = input['qOtherLabel'];
     model.qTotalLabel = input['qTotalLabel'];
-    model.qOtherTotalSpec = input['qOtherTotalSpec'];
+    var qOtherTotalSpec = input['qOtherTotalSpec'];
+    if (qOtherTotalSpec != null) {
+      model.qOtherTotalSpec =
+          _nxOtherTotalSpecPropDecoder.convert(qOtherTotalSpec);
+    }
     var qCalcCond = input['qCalcCond'];
     if (qCalcCond != null) {
       model.qCalcCond = _nxValueExprDecoder.convert(qCalcCond);
@@ -62,12 +69,14 @@ class NxDimensionDecoder extends Converter<Map, NxDimension>
 class NxDimensionEncoder extends Converter<NxDimension, Map>
     implements ModelEncoder<NxDimension> {
   final Converter<NxInlineDimensionDef, Map> _nxInlineDimensionDefEncoder;
+  final Converter<NxOtherTotalSpecProp, Map> _nxOtherTotalSpecPropEncoder;
   final Converter<NxValueExpr, Map> _nxValueExprEncoder;
   NxDimensionEncoder()
       : _nxInlineDimensionDefEncoder = new NxInlineDimensionDefEncoder(),
+        _nxOtherTotalSpecPropEncoder = new NxOtherTotalSpecPropEncoder(),
         _nxValueExprEncoder = new NxValueExprEncoder();
-  NxDimensionEncoder.using(
-      this._nxInlineDimensionDefEncoder, this._nxValueExprEncoder);
+  NxDimensionEncoder.using(this._nxInlineDimensionDefEncoder,
+      this._nxOtherTotalSpecPropEncoder, this._nxValueExprEncoder);
   @override
   Map convert(NxDimension input) {
     var model = {};
@@ -103,7 +112,8 @@ class NxDimensionEncoder extends Converter<NxDimension, Map>
     }
     var qOtherTotalSpec = input.qOtherTotalSpec;
     if (qOtherTotalSpec != null) {
-      model['qOtherTotalSpec'] = qOtherTotalSpec;
+      model['qOtherTotalSpec'] =
+          _nxOtherTotalSpecPropEncoder.convert(qOtherTotalSpec);
     }
     var qCalcCond = input.qCalcCond;
     if (qCalcCond != null) {

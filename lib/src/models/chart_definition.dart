@@ -51,6 +51,10 @@ class ChartDefinition {
   String title;
   @Serialize.field('showTitles', optional: true)
   bool showTitles;
+
+  /// If set to true, the total (if any) is shown on the first row.
+  @Serialize.field('qShowTotalsAbove', optional: true)
+  bool qShowTotalsAbove;
   @Serialize.field('updateAfterCreation', optional: true)
   bool updateAfterCreation;
   @Serialize.field('alwaysRecreate', optional: true)

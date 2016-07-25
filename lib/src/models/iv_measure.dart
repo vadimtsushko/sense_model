@@ -17,18 +17,29 @@ import 'nx_sort_criteria.dart';
 //---------------------------------------------------------------------
 
 class IvMeasure {
-  /// Статическая ли это мера
-  @Serialize.field('isStatic', optional: true)
-  bool isStatic;
-
-  /// Код поля (если измерение статическое), либо название динамической таблицы,
-  /// откуда будет получен текущий код поля
+  /// Код меры
   @Serialize.field('key')
   String key;
 
-  /// Дополнительный параметр для выбора динамической меры
-  @Serialize.field('param', optional: true)
-  String param;
+  /// Код таблицы выбора для кода меры
+  @Serialize.field('keySelector', optional: true)
+  String keySelector;
+
+  /// Статический код типа выражения
+  @Serialize.field('type', optional: true)
+  String type;
+
+  /// Код таблицы выбора для типа выражения
+  @Serialize.field('typeSelector', optional: true)
+  String typeSelector;
+
+  /// Статический код семейства выражения
+  @Serialize.field('family', optional: true)
+  String family;
+
+  /// Код таблицы выбора семейства выражений
+  @Serialize.field('familySelector', optional: true)
+  String familySelector;
 
   /// Необходимо проверить условие отображения колонки
   @Serialize.field('conditional', optional: true)

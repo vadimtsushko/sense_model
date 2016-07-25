@@ -9,6 +9,7 @@ library sense_model.src.models.iv_dimension;
 import 'package:dogma_convert/serialize.dart';
 import 'iv_attr_expression.dart';
 import 'iv_measure.dart';
+import 'nx_other_total_spec_prop.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -38,6 +39,11 @@ class IvDimension {
   /// Показывать колонку (рантайм параметр)
   @Serialize.field('visible', optional: true)
   bool visible;
+
+  /// Sets the dimension limits. Each dimension of a hypercube is configured
+  /// separately. Just stub for now. Should add type in future
+  @Serialize.field('qOtherTotalSpec', optional: true)
+  NxOtherTotalSpecProp qOtherTotalSpec;
   @Serialize.field('backgroundColor', optional: true)
   IvAttrExpression backgroundColor;
   @Serialize.field('fontColor', optional: true)

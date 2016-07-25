@@ -29,6 +29,10 @@ class SelectionTableData {
   /// Код таблицы выбора для календаря (используется при подборе мер с учетом недель)
   @Serialize.field('calendarTable', optional: true)
   String calendarTable;
-  @Serialize.field('tableItems')
+
+  /// Список ключей выбора (тип зависит от типа таблицы выбора)
+  @Serialize.field('keys')
+  List<String> keys;
+  @Serialize.field('tableItems', optional: true)
   List<SelectionTableItem> tableItems;
 }

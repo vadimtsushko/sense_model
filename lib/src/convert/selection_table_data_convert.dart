@@ -37,11 +37,16 @@ class SelectionTableDataDecoder extends Converter<Map, SelectionTableData>
     model.tableType = input['tableType'];
     model.multiple = input['multiple'];
     model.calendarTable = input['calendarTable'];
-    var tableItemsTemp0 = <SelectionTableItem>[];
-    for (var tableItemsValue0 in input['tableItems']) {
-      tableItemsTemp0.add(_selectionTableItemDecoder.convert(tableItemsValue0));
+    model.keys = input['keys'];
+    var tableItems = input['tableItems'];
+    if (tableItems != null) {
+      var tableItemsTemp0 = <SelectionTableItem>[];
+      for (var tableItemsValue0 in tableItems) {
+        tableItemsTemp0
+            .add(_selectionTableItemDecoder.convert(tableItemsValue0));
+      }
+      model.tableItems = tableItemsTemp0;
     }
-    model.tableItems = tableItemsTemp0;
 
     return model;
   }
@@ -68,11 +73,16 @@ class SelectionTableDataEncoder extends Converter<SelectionTableData, Map>
     if (calendarTable != null) {
       model['calendarTable'] = calendarTable;
     }
-    var tableItemsTemp0 = [];
-    for (var tableItemsValue0 in input.tableItems) {
-      tableItemsTemp0.add(_selectionTableItemEncoder.convert(tableItemsValue0));
+    model['keys'] = input.keys;
+    var tableItems = input.tableItems;
+    if (tableItems != null) {
+      var tableItemsTemp0 = [];
+      for (var tableItemsValue0 in tableItems) {
+        tableItemsTemp0
+            .add(_selectionTableItemEncoder.convert(tableItemsValue0));
+      }
+      model['tableItems'] = tableItemsTemp0;
     }
-    model['tableItems'] = tableItemsTemp0;
 
     return model;
   }

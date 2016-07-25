@@ -46,9 +46,12 @@ class IvMeasureDecoder extends Converter<Map, IvMeasure>
   IvMeasure convert(Map input, [IvMeasure model]) {
     model ??= create();
 
-    model.isStatic = input['isStatic'];
     model.key = input['key'];
-    model.param = input['param'];
+    model.keySelector = input['keySelector'];
+    model.type = input['type'];
+    model.typeSelector = input['typeSelector'];
+    model.family = input['family'];
+    model.familySelector = input['familySelector'];
     model.conditional = input['conditional'];
     var qSortBy = input['qSortBy'];
     if (qSortBy != null) {
@@ -107,14 +110,26 @@ class IvMeasureEncoder extends Converter<IvMeasure, Map>
   Map convert(IvMeasure input) {
     var model = {};
 
-    var isStatic = input.isStatic;
-    if (isStatic != null) {
-      model['isStatic'] = isStatic;
-    }
     model['key'] = input.key;
-    var param = input.param;
-    if (param != null) {
-      model['param'] = param;
+    var keySelector = input.keySelector;
+    if (keySelector != null) {
+      model['keySelector'] = keySelector;
+    }
+    var type = input.type;
+    if (type != null) {
+      model['type'] = type;
+    }
+    var typeSelector = input.typeSelector;
+    if (typeSelector != null) {
+      model['typeSelector'] = typeSelector;
+    }
+    var family = input.family;
+    if (family != null) {
+      model['family'] = family;
+    }
+    var familySelector = input.familySelector;
+    if (familySelector != null) {
+      model['familySelector'] = familySelector;
     }
     var conditional = input.conditional;
     if (conditional != null) {

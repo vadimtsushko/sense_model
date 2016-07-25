@@ -100,6 +100,7 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
     }
     model.title = input['title'];
     model.showTitles = input['showTitles'];
+    model.qShowTotalsAbove = input['qShowTotalsAbove'];
     model.updateAfterCreation = input['updateAfterCreation'];
     model.alwaysRecreate = input['alwaysRecreate'];
     var refLine = input['refLine'];
@@ -238,6 +239,10 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
     var showTitles = input.showTitles;
     if (showTitles != null) {
       model['showTitles'] = showTitles;
+    }
+    var qShowTotalsAbove = input.qShowTotalsAbove;
+    if (qShowTotalsAbove != null) {
+      model['qShowTotalsAbove'] = qShowTotalsAbove;
     }
     var updateAfterCreation = input.updateAfterCreation;
     if (updateAfterCreation != null) {
