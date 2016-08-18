@@ -151,6 +151,12 @@
                  "description": "Код таблицы выбора для календаря (используется при подборе мер с учетом недель)",
                  "type": "string"
                },
+				"selectedValue":
+				{
+					"description": "",
+					"type": "string"
+				},
+
 				"keys":
 				{
 					"description": "Список ключей выбора (тип зависит от типа таблицы выбора)",
@@ -456,6 +462,15 @@
 					"description": "Код",
 					"type": "string"
 				},
+				"params":
+				{
+					"description": "Список параметров для выражения - шаблона",
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					}
+				},
 				"inPlace":
 				{
 					"description": "Статическая ли это выражение",
@@ -484,6 +499,16 @@
 					"description": "Код семейства",
 					"type": "string"
 				},
+				"params":
+				{
+					"description": "Список параметров для выражения - шаблона",
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					}
+				},
+
 				"displayName":
 				{
 					"description": "Значение отображаемое в списках выбора",
