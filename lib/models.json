@@ -405,6 +405,11 @@
 					"description": "Динамически создаваемая иерархия",
 					"type": "boolean"
 				},
+				"measureSelector":
+				{
+					"description": "Код таблицы выбора выражения (дополнительный параметр для измерения)",
+					"type": "string"
+				},
 				"contitional":
 				{
 					"description": "Необходимо проверить условие отображения колонки",
@@ -462,6 +467,12 @@
 					"description": "Код",
 					"type": "string"
 				},
+               "param1":
+               {
+                 "description": "Первый параметр для выражения - шаблона",
+                 "type": "string"
+               },
+
 				"params":
 				{
 					"description": "Список параметров для выражения - шаблона",
@@ -499,16 +510,6 @@
 					"description": "Код семейства",
 					"type": "string"
 				},
-				"params":
-				{
-					"description": "Список параметров для выражения - шаблона",
-					"type": "array",
-					"items":
-					{
-						"type": "string"
-					}
-				},
-
 				"displayName":
 				{
 					"description": "Значение отображаемое в списках выбора",
@@ -571,7 +572,22 @@
 					"description": "Код меры",
 					"type": "string"
 				},
-               "keySelector":
+              "param1":
+              {
+                "description": "Первый параметр для выражения - шаблона",
+                "type": "string"
+              },
+
+               "params":
+               {
+                 "description": "Список параметров для выражения - шаблона",
+                 "type": "array",
+                 "items":
+                 {
+                   "type": "string"
+                 }
+               },
+              "keySelector":
                {
                  "description": "Код таблицы выбора для кода меры",
                  "type": "string"
@@ -1148,6 +1164,11 @@
 				{
 					"type": "string"
 				},
+				"preferContinuousAxis":
+				{
+					"type": "boolean"
+				},
+
 				"barGrouping":
 				{
 					"description": "Bar grouping settings",
