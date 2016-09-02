@@ -67,6 +67,49 @@
 				"qText"
 			]
 		},
+		"AppConfig":
+		{
+			"properties":
+			{
+				"host":
+				{
+					"description": "Qlik Sense host",
+					"type": "string"
+				},
+				"id":
+				{
+					"description": "Qlik Sense application ID",
+					"type": "string"
+				},
+				"name":
+				{
+					"description": "App name",
+					"type": "string"
+				},
+				"useCurrentDate":
+				{
+					"description": "Фильтр по умолчанию на основе системной даты",
+					"type": "boolean"
+				},
+				"currentYear":
+				{
+					"description": "Год для фильтра по умолчанию",
+					"type": "integer"
+				},
+				"currentMonth":
+				{
+					"description": "Месяц для фильтра по умолчанию",
+					"type": "integer"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"host", "id" , "name"
+			]
+		},
+
+
 		"NxCell":
 		{
 			"properties":
@@ -420,6 +463,40 @@
 					"description": "Ширина колонки",
 					"type": "integer"
 				},
+				"sortByNumeric":
+				{
+					"description": "Sorts the field values according to their logical state (selected, optional, alternative or excluded)",
+					"type": "integer",
+					"enum":
+					[
+						-1,
+						0,
+						1
+					]
+				},
+				"sortByAscii":
+				{
+					"description": "Sorts the field by alphabetical order",
+					"type": "integer",
+					"enum":
+					[
+						-1,
+						0,
+						1
+					]
+				},
+				"sortByLoadOrder":
+				{
+					"description": "Sorts the field values by the initial load order",
+					"type": "integer",
+					"enum":
+					[
+						-1,
+						0,
+						1
+					]
+				},
+
 				"sortByExpression":
 				{
 					"description": "Выражение сортировки (по убыванию)",
@@ -446,7 +523,22 @@
 					"description": "",
 					"$ref": "#/definitions/IvAttrExpression"
 				},
-				"key":
+               "qShowAll":
+               {
+                 "description": "If set to true, all dimension values are shown.",
+                 "type": "boolean"
+               },
+               "qOtherLabel":
+               {
+                 "description": "This property is used when some dimension limits are set.",
+                 "type": "string"
+               },
+               "qTotalLabel":
+               {
+                 "description": "If this property is set, the total of the calculated values is returned.",
+                 "type": "string"
+               },
+              "key":
 				{
 					"description": "Код поля (если измерение статическое), либо название динамической таблицы, откуда будет получен текущий код поля",
 					"type": "string"
@@ -650,7 +742,7 @@
 				"qAggrFunc":
 				{
 					"description": "Aggregate function",
-					"enum": ["Sum","Min","Max","Avg"],
+					"enum": ["Sum","Min","Max","Avg","None"],
 					"type": "string"
 				},
 				"backgroundColor":
