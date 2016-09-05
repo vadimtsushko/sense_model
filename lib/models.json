@@ -181,7 +181,7 @@
 				{
 					"description": "Тип выбираемого значения",
 					"type": "string",
-					"enum": ["Dimension","MeasureKey", "MeasureType","MeasureFamily"]
+					"enum": ["Dimension","MeasureKey", "MeasureType","MeasureFamily", "ListItem"]
 				},
 				"multiple":
 				{
@@ -626,6 +626,28 @@
 				"key", "displayName"
 			]
 		},
+		"IvListItem":
+		{
+			"properties":
+			{
+				"id":
+				{
+					"description": "Код значения",
+					"type": "string"
+				},
+				"title":
+				{
+					"description": "Отображаемое значение",
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"id", "title"
+			]
+		},
+
 		"IvMeasureType":
 		{
 			"properties":
@@ -805,6 +827,7 @@
 						"barchart",
 						"piechart",
 						"linechart",
+                        "infovizion_kpi",
 						"combochart"
 					]
 				},
