@@ -613,6 +613,29 @@
 					"type": "boolean",
 					"default": false
 				},
+				"inverted":
+				{
+					"description": "Рост значения расценивается как ухудшение показателя",
+					"type": "boolean",
+					"default": false
+				},
+				"percentValue":
+				{
+					"description": "Процентный показатель",
+					"type": "boolean",
+					"default": false
+				},
+				"currency":
+				{
+					"description": "Единица измерения",
+					"type": "string"
+				},
+				"defaultMultiplier":
+				{
+					"description": "Множитель по умолчанию (1000 для показателей в тыс. руб.)",
+					"type": "number",
+					"default": 1
+				},
 				"monthly":
 				{
 					"description": "По выражениям этого семейства данные есть только в разрезе месяцев",
