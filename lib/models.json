@@ -189,11 +189,11 @@
 					"type": "boolean",
 					"default": false
 				},
-               "calendarTable":
-               {
-                 "description": "Код таблицы выбора для календаря (используется при подборе мер с учетом недель)",
-                 "type": "string"
-               },
+				"calendarTable":
+				{
+					"description": "Код таблицы выбора для календаря (используется при подборе мер с учетом недель)",
+					"type": "string"
+				},
 				"selectedValue":
 				{
 					"description": "",
@@ -209,7 +209,7 @@
 						"type": "string"
 					}
 				},
-              "tableItems":
+				"tableItems":
 				{
 					"type": "array",
 					"items":
@@ -286,21 +286,21 @@
 
 		"IvFilterParam":
 		{
-			"properties": 
+			"properties":
 			{
-				"fieldName": 
+				"fieldName":
 				{
 					"description": "Поле для фильтра",
 					"type": "string"
 				},
-				"fieldValue": 
+				"fieldValue":
 				{
 					"description": "Значение фильтра",
 					"type": "string"
 				}
 			},
 			"additionalProperties": false,
-			"required": 
+			"required":
 			[
 				"fieldName",
 				"fieldValue"
@@ -436,7 +436,7 @@
 
 		"IvDimension":
 		{
-			"properties": 
+			"properties":
 			{
 				"isStatic":
 				{
@@ -502,12 +502,12 @@
 					"description": "Выражение сортировки (по убыванию)",
 					"$ref": "#/definitions/IvMeasure"
 				},
-                "visible":
-                {
-                  "description": "Показывать колонку (рантайм параметр)",
-                  "type": "boolean",
-                  "default": true
-                },
+				"visible":
+				{
+					"description": "Показывать колонку (рантайм параметр)",
+					"type": "boolean",
+					"default": true
+				},
 				"qOtherTotalSpec":
 				{
 					"description": "Sets the dimension limits. Each dimension of a hypercube is configured separately. Just stub for now. Should add type in future",
@@ -523,29 +523,29 @@
 					"description": "",
 					"$ref": "#/definitions/IvAttrExpression"
 				},
-               "qShowAll":
-               {
-                 "description": "If set to true, all dimension values are shown.",
-                 "type": "boolean"
-               },
-               "qOtherLabel":
-               {
-                 "description": "This property is used when some dimension limits are set.",
-                 "type": "string"
-               },
-               "qTotalLabel":
-               {
-                 "description": "If this property is set, the total of the calculated values is returned.",
-                 "type": "string"
-               },
-              "key":
+				"qShowAll":
+				{
+					"description": "If set to true, all dimension values are shown.",
+					"type": "boolean"
+				},
+				"qOtherLabel":
+				{
+					"description": "This property is used when some dimension limits are set.",
+					"type": "string"
+				},
+				"qTotalLabel":
+				{
+					"description": "If this property is set, the total of the calculated values is returned.",
+					"type": "string"
+				},
+				"key":
 				{
 					"description": "Код поля (если измерение статическое), либо название динамической таблицы, откуда будет получен текущий код поля",
 					"type": "string"
 				}
 			},
 			"additionalProperties": false,
-			"required": 
+			"required":
 			[
 				"key"
 			]
@@ -559,11 +559,11 @@
 					"description": "Код",
 					"type": "string"
 				},
-               "param1":
-               {
-                 "description": "Первый параметр для выражения - шаблона",
-                 "type": "string"
-               },
+				"param1":
+				{
+					"description": "Первый параметр для выражения - шаблона",
+					"type": "string"
+				},
 
 				"params":
 				{
@@ -571,7 +571,7 @@
 					"type": "array",
 					"items":
 					{
-						"type": "string"
+						"$ref": "#/definitions/IvExpressionParam"
 					}
 				},
 				"inPlace":
@@ -685,12 +685,12 @@
 					"description": "Значение отображаемое в списках выбора",
 					"type": "string"
 				},
-                "isPlan":
-                {
-                  "description": "Выражения этого типа относятся к плановым показателям",
-                  "type": "boolean",
-                  "default": false
-                }
+				"isPlan":
+				{
+					"description": "Выражения этого типа относятся к плановым показателям",
+					"type": "boolean",
+					"default": false
+				}
 
 			},
 			"additionalProperties": false,
@@ -699,36 +699,66 @@
 				"key", "displayName"
 			]
 		},
+		"IvExpressionParam":
+		{
+			"properties":
+			{
+				"value":
+				{
+					"description": "Значение параметра",
+					"type": "string"
+				},
+				"valueType":
+				{
+					"description": "Тип параметра",
+					"enum": ["simpleValue","dimension","measureKey","measureType","measureFamily"],
+					"type": "string",
+					"default": "simpleValue"
+				},
+				"contentType":
+				{
+					"description": "Тип обработки значения",
+					"enum": ["simpleValue","content","label"],
+					"type": "string",
+					"default": "simpleValue"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"value"
+			]
+		},
 
 		"IvMeasure":
 		{
-			"properties": 
+			"properties":
 			{
 				"key":
 				{
 					"description": "Код меры",
 					"type": "string"
 				},
-              "param1":
-              {
-                "description": "Первый параметр для выражения - шаблона",
-                "type": "string"
-              },
+				"param1":
+				{
+					"description": "Первый параметр для выражения - шаблона",
+					"type": "string"
+				},
 
-               "params":
-               {
-                 "description": "Список параметров для выражения - шаблона",
-                 "type": "array",
-                 "items":
-                 {
-                   "type": "string"
-                 }
-               },
-              "keySelector":
-               {
-                 "description": "Код таблицы выбора для кода меры",
-                 "type": "string"
-               },
+				"params":
+				{
+					"description": "Список параметров для выражения - шаблона",
+					"type": "array",
+					"items":
+					{
+						"$ref": "#/definitions/IvExpressionParam"
+					}
+				},
+				"keySelector":
+				{
+					"description": "Код таблицы выбора для кода меры",
+					"type": "string"
+				},
 
 				"type":
 				{
@@ -754,8 +784,8 @@
 				"conditional":
 				{
 					"description": "Необходимо проверить условие отображения колонки",
-                    "type": "boolean",
-                    "default": false
+					"type": "boolean",
+					"default": false
 				},
 				"qSortBy":
 				{
@@ -800,12 +830,12 @@
 					"description": "",
 					"$ref": "#/definitions/IvAttrExpression"
 				},
-                "visible":
-                {
-                  "description": "Показывать колонку (рантайм параметр)",
-                  "type": "boolean",
-                  "default": true
-                },
+				"visible":
+				{
+					"description": "Показывать колонку (рантайм параметр)",
+					"type": "boolean",
+					"default": true
+				},
 				"series":
 				{
 					"description": "Дополнительные параметры меры для комбочарта",
@@ -822,14 +852,14 @@
 				{
 					"description": "Дополнительный фильтр (используется только для динамических мер)",
 					"type": "array",
-					"items": 
+					"items":
 					{
 						"$ref": "#/definitions/IvFilterParam"
 					}
 				}
 			},
 			"additionalProperties": false,
-			"required": 
+			"required":
 			[
 				"key"
 			]
@@ -838,11 +868,11 @@
 		{
 			"properties":
 			{
-				"chartType": 
+				"chartType":
 				{
 					"description": "Тип визуализации",
 					"type": "string",
-					"enum": 
+					"enum":
 					[
 						"table",
 						"pivot-table",
@@ -850,8 +880,9 @@
 						"barchart",
 						"piechart",
 						"linechart",
-                        "infovizion_kpi",
-						"combochart"
+						"infovizion_kpi",
+						"combochart",
+						"scatterchart"
 					]
 				},
 				"chartId":
@@ -865,7 +896,7 @@
 					"description": "Список измерений",
 					"type": "array",
 					"minItems": 1,
-					"items": 
+					"items":
 					{
 						"$ref": "#/definitions/IvDimension"
 					}
@@ -888,7 +919,7 @@
 					"description": "Список мер",
 					"type": "array",
 					"minItems": 1,
-					"items": 
+					"items":
 					{
 						"$ref": "#/definitions/IvMeasure"
 					}
@@ -901,11 +932,11 @@
 				{
 					"type": "boolean"
 				},
-                "qShowTotalsAbove":
-                {
-                  "description": "If set to true, the total (if any) is shown on the first row.",
-                  "type": "boolean"
-                },
+				"qShowTotalsAbove":
+				{
+					"description": "If set to true, the total (if any) is shown on the first row.",
+					"type": "boolean"
+				},
 				"updateAfterCreation":
 				{
 					"type": "boolean",
@@ -1034,7 +1065,7 @@
 					"type": "array",
 					"items":
 					{
-				  		"type": "integer"
+						"type": "integer"
 					}
 				},
 				"columnOrder":
@@ -1055,37 +1086,37 @@
 
 			},
 			"additionalProperties": false,
-			"required": 
+			"required":
 			[
 				"chartType",
 				"chartId"
 			]
 		},
-		"QColumnsContainer": 
+		"QColumnsContainer":
 		{
-			"properties": 
+			"properties":
 			{
-				"qDimensions": 
+				"qDimensions":
 				{
 					"description": "Dimensions",
 					"type": "array",
-					"items": 
+					"items":
 					{
 						"$ref": "#/definitions/NxDimension"
 					}
 				},
-				"qMeasures": 
+				"qMeasures":
 				{
 					"description": "Dimensions",
 					"type": "array",
-					"items": 
+					"items":
 					{
 						"$ref": "#/definitions/NxMeasure"
 					}
 				}
 			},
 			"additionalProperties": false,
-			"required": 
+			"required":
 			[
 				"qDimensions",
 				"qMeasures"
@@ -1284,21 +1315,21 @@
 
 		"NxOptions":
 		{
-			"properties": 
+			"properties":
 			{
-				"title": 
+				"title":
 				{
 					"type": "string"
 				},
-				"showTitles": 
+				"showTitles":
 				{
 					"type": "boolean"
 				},
-				"subtitle": 
+				"subtitle":
 				{
 					"type": "string"
 				},
-				"footnote": 
+				"footnote":
 				{
 					"type": "string"
 				},
@@ -1391,15 +1422,15 @@
 			"required":  ["title"],
 			"additionalProperties": false
 		},
-		"QHyperCubeDef": 
+		"QHyperCubeDef":
 		{
-			"properties": 
+			"properties":
 			{
-				"qDimensions": 
+				"qDimensions":
 				{
 					"description": "Dimensions",
 					"type": "array",
-					"items": 
+					"items":
 					{
 						"$ref": "#/definitions/NxDimension"
 					}
@@ -1471,7 +1502,7 @@
 				{
 					"description": "Dimensions",
 					"type": "array",
-					"items": 
+					"items":
 					{
 						"$ref": "#/definitions/NxMeasure"
 					}
@@ -1490,39 +1521,39 @@
 				{
 					"description": "Columns widths, -1 means autosize",
 					"type": "array",
-					"items": 
+					"items":
 					{
 						"type": "integer"
 					}
 				}
 			},
 			"additionalProperties": false,
-			"required": 
+			"required":
 			[
 				"qDimensions",
 				"qMeasures"
 			]
 		},
-		"NxDimension": 
+		"NxDimension":
 		{
-			"properties": 
+			"properties":
 			{
-				"type": 
+				"type":
 				{
 					"description": "Should be set to `dimension` simetimes",
 					"type": "string"
 				},
-				"qLibraryId": 
+				"qLibraryId":
 				{
 					"description": "Refers to a dimension stored in the library.",
 					"type": "string"
 				},
-				"qDef": 
+				"qDef":
 				{
 					"description": "Refers to a dimension stored in the hypercube.",
 					"$ref": "#/definitions/NxInlineDimensionDef"
 				},
-				"qNullSuppression": 
+				"qNullSuppression":
 				{
 					"description": "If set to true, no null values are returned.",
 					"type": "boolean"
@@ -1537,28 +1568,28 @@
 					"description": "If set to true, all dimension values are shown.",
 					"type": "boolean"
 				},
-				"qOtherLabel": 
+				"qOtherLabel":
 				{
 					"description": "This property is used when some dimension limits are set.",
 					"type": "string"
 				},
-				"qTotalLabel": 
+				"qTotalLabel":
 				{
 					"description": "If this property is set, the total of the calculated values is returned.",
 					"type": "string"
 				},
-				"qOtherTotalSpec": 
+				"qOtherTotalSpec":
 				{
 					"description": "Sets the dimension limits. Each dimension of a hypercube is configured separately. Just stub for now. Should add type in future",
 					"$ref": "#/definitions/NxOtherTotalSpecProp"
 				},
-				"qCalcCond": 
+				"qCalcCond":
 				{
 					"description": "Specifies a calculation condition, which must be fulfilled for the measure to be calculated",
 					"$ref": "#/definitions/NxValueExpr"
 				}
 			},
-			"required": 
+			"required":
 			[
 				"qLibraryId"
 			],
@@ -1566,59 +1597,59 @@
 		},
 		"NxInlineMeasureDef":
 		{
-			"properties": 
+			"properties":
 			{
-				"qLabel": 
+				"qLabel":
 				{
 					"description": "Name of the measure.",
 					"type": "string"
 				},
-				"qDescription": 
+				"qDescription":
 				{
 					"description": "Description of the measure",
 					"type": "string"
 				},
-				"qDef": 
+				"qDef":
 				{
 					"description": "Definition of the expression in the measure.\n Example: Sum (OrderTotal)",
 					"type": "string"
 				},
-				"qRelative": 
+				"qRelative":
 				{
 					"description": "If set to true, percentage values are returned instead of absolute numbers",
 					"type": "boolean"
 				},
-				"qBrutalSum": 
+				"qBrutalSum":
 				{
 					"description": "If set to true, the sum of rows total should be used rather than real expression total",
 					"type": "boolean"
 				},
-				"qAggrFunc": 
+				"qAggrFunc":
 				{
 					"description": "Aggregate function",
 					"enum": ["Sum","Min","Max","Avg"],
 					"type": "string"
 				},
-				"qAccumulate": 
+				"qAccumulate":
 				{
 					"description": "0 means no accumulation\n1 means full accumulation (each y-value accumulates all previous y-values of the expression)\n≥ 2 means accumulate as many steps as the qAccumulate value",
 					"type": "integer"
 				},
-				"qReverseSort": 
+				"qReverseSort":
 				{
 					"description": "If set to true, it inverts the sort criteria in the field",
 					"type": "boolean"
 				},
-				"qActiveExpression": 
+				"qActiveExpression":
 				{
 					"description": "Index of the active expression in a cyclic measure. The indexing starts from 0.",
 					"type": "integer"
 				},
-				"qExpressions": 
+				"qExpressions":
 				{
 					"description": "If set to true, it inverts the sort criteria in the field",
 					"type": "array",
-					"items": 
+					"items":
 					{
 						"type": "string"
 					},
@@ -1633,7 +1664,7 @@
 				"qTags":
 				{
 					"type": "array",
-					"items": 
+					"items":
 					{
 						"type": "string"
 					},
@@ -1641,7 +1672,7 @@
 				}
 			},
 			"additionalProperties": false,
-			"required": 
+			"required":
 			[
 				"qDef"
 			]
@@ -1776,21 +1807,21 @@
 			]
 		},
 
-		"NxMeasure": 
+		"NxMeasure":
 		{
-			"properties": 
+			"properties":
 			{
-				"type": 
+				"type":
 				{
 					"description": "Should be set to `measure` simetimes",
 					"type": "string"
 				},
-				"qLibraryId": 
+				"qLibraryId":
 				{
 					"description": "Refers to a measure stored in the library",
 					"type": "string"
 				},
-				"qDef": 
+				"qDef":
 				{
 					"description": "Definition of the expression in the measure.\n Example: Sum (OrderTotal)",
 					"$ref": "#/definitions/NxInlineMeasureDef"
@@ -1805,32 +1836,32 @@
 					"description": "Defines the sort criteria",
 					"$ref": "#/definitions/NxSortCriteria"
 				},
-				"qAttributeExpressions": 
+				"qAttributeExpressions":
 				{
 					"type": "array",
-					"items": 
+					"items":
 					{
 						"$ref": "#/definitions/NxAttrExprDef"
 					},
 					"uniqueItems": true
 				},
-				"qCalcCond": 
+				"qCalcCond":
 				{
 					"description": "Specifies a calculation condition, which must be fulfilled for the measure to be calculated",
 					"$ref": "#/definitions/NxValueExpr"
 				}
 			},
 			"additionalProperties": false,
-			"required": 
+			"required":
 			[
 				"qDef"
 			]
 		},
-		"NxAttrExprDef": 
+		"NxAttrExprDef":
 		{
-			"properties": 
+			"properties":
 			{
-				"qExpression": 
+				"qExpression":
 				{
 					"description": "Definition of the attribute expression. Example: Max(OrderID)",
 					"type": "string"
@@ -1844,67 +1875,67 @@
 
 			},
 			"additionalProperties": false,
-			"required": 
+			"required":
 			[
 				"qExpression", "id"
 			]
 		},
-		"NxInlineDimensionDef": 
+		"NxInlineDimensionDef":
 		{
-			"properties": 
+			"properties":
 			{
-				"qFieldDefs": 
+				"qFieldDefs":
 				{
 					"description": "Array of field names.\n When creating a grouped dimension, more than one field name is defined",
 					"type": "array",
-					"items": 
+					"items":
 					{
 						"type": "string"
 					},
 					"uniqueItems": true
 				},
-				"qFieldLabels": 
+				"qFieldLabels":
 				{
 					"description": "Array of field labels.",
 					"type": "array",
-					"items": 
+					"items":
 					{
 						"type": "string"
 					},
 					"uniqueItems": true
 				},
-				"qGrouping": 
+				"qGrouping":
 				{
 					"description": "Used to define a cyclic group or drill-down group",
 					"type": "string",
-					"enum": 
+					"enum":
 					[
 						"N",
 						"H",
 						"C"
 					]
 				},
-				"qSortCriterias": 
+				"qSortCriterias":
 				{
 					"description": "Defines the sorting criteria in the field.",
 					"type": "array",
-					"items": 
+					"items":
 					{
 						"$ref": "#/definitions/NxSortCriteria"
 					},
 					"uniqueItems": true
 				},
-				"qNumberPresentations": 
+				"qNumberPresentations":
 				{
 					"description": "Defines the format of the value.",
 					"type": "array",
-					"items": 
+					"items":
 					{
 						"$ref": "#/definitions/NxFieldAttributes"
 					},
 					"uniqueItems": true
 				},
-				"qReverseSort": 
+				"qReverseSort":
 				{
 					"description": "If set to true, it inverts the sort criteria in the field.",
 					"type": "boolean"
@@ -1925,14 +1956,14 @@
 				}
 			},
 			"additionalProperties": false,
-			"required": 
+			"required":
 			[
 				"qDef"
 			]
 		},
 		"NxSortCriteria":
 		{
-			"properties": 
+			"properties":
 			{
 				"qSortByExpression":
 				{
@@ -1951,55 +1982,55 @@
 					"$ref": "#/definitions/NxValueExpr"
 				},
 
-				"qSortByState": 
+				"qSortByState":
 				{
 					"description": "Sorts the field values according to their logical state (selected, optional, alternative or excluded)",
 					"type": "integer",
-					"enum": 
+					"enum":
 					[
 						-1,
 						0,
 						1
 					]
 				},
-				"qSortByFrequency": 
+				"qSortByFrequency":
 				{
 					"description": "Sorts the field values by numeric value",
 					"type": "integer",
-					"enum": 
+					"enum":
 					[
 						-1,
 						0,
 						1
 					]
 				},
-				"qSortByNumeric": 
+				"qSortByNumeric":
 				{
 					"description": "Sorts the field values according to their logical state (selected, optional, alternative or excluded)",
 					"type": "integer",
-					"enum": 
+					"enum":
 					[
 						-1,
 						0,
 						1
 					]
 				},
-				"qSortByAscii": 
+				"qSortByAscii":
 				{
 					"description": "Sorts the field by alphabetical order",
 					"type": "integer",
-					"enum": 
+					"enum":
 					[
 						-1,
 						0,
 						1
 					]
 				},
-				"qSortByLoadOrder": 
+				"qSortByLoadOrder":
 				{
 					"description": "Sorts the field values by the initial load order",
 					"type": "integer",
-					"enum": 
+					"enum":
 					[
 						-1,
 						0,
@@ -2013,16 +2044,16 @@
 				"qSortByNumeric"
 			]
 		},
-		"NxFieldAttributes": 
+		"NxFieldAttributes":
 		{
-			"properties": 
+			"properties":
 			{
-				"qType": 
+				"qType":
 				{
 					"description": "Type of the field.Default is U",
 					"type": "string",
 					"default": "U",
-					"enum": 
+					"enum":
 					[
 						"U",
 						"A",
@@ -2036,38 +2067,38 @@
 						"IV"
 					]
 				},
-				"qnDec": 
+				"qnDec":
 				{
 					"description": "Number of decimals. Default is 10",
 					"type": "integer",
-					"enum": 
+					"enum":
 					[
 						-1,
 						0,
 						1
 					]
 				},
-				"qUseThou": 
+				"qUseThou":
 				{
 					"description": "Defines whether or not a thousands separator must be used",
 					"type": "integer",
-					"enum": 
+					"enum":
 					[
 						0,
 						1
 					]
 				},
-				"qFmt": 
+				"qFmt":
 				{
 					"description": "Defines the format pattern that applies to qText.Is used in connection to the type of the field",
 					"type": "string"
 				},
-				"qDec": 
+				"qDec":
 				{
 					"description": "Defines the decimal separator.",
 					"type": "string"
 				},
-				"qThou": 
+				"qThou":
 				{
 					"description": "Defines the thousand separator (if any).Is used if qUseThou is set to 1.",
 					"type": "string"
@@ -2276,9 +2307,9 @@
 
 		"NxValueExpr":
 		{
-			"properties": 
+			"properties":
 			{
-				"qv": 
+				"qv":
 				{
 					"description": "Expression returning number value",
 					"type": "string"
