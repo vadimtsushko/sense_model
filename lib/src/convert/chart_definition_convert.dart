@@ -157,6 +157,10 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
     model.suppressMissing = input['suppressMissing'];
     model.sortbyYValue = input['sortbyYValue'];
     model.qInterColumnSortOrder = input['qInterColumnSortOrder'] as List<int>;
+    model.qNoOfLeftDims = input['qNoOfLeftDims'];
+    model.qSuppressZero = input['qSuppressZero'];
+    model.qSuppressMissing = input['qSuppressMissing'];
+    model.qAlwaysFullyExpanded = input['qAlwaysFullyExpanded'];
     model.columnOrder = input['columnOrder'] as List<int>;
     model.orientation = input['orientation'];
     return model;
@@ -349,6 +353,22 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
     var qInterColumnSortOrder = input.qInterColumnSortOrder;
     if (qInterColumnSortOrder != null) {
       model['qInterColumnSortOrder'] = qInterColumnSortOrder;
+    }
+    var qNoOfLeftDims = input.qNoOfLeftDims;
+    if (qNoOfLeftDims != null) {
+      model['qNoOfLeftDims'] = qNoOfLeftDims;
+    }
+    var qSuppressZero = input.qSuppressZero;
+    if (qSuppressZero != null) {
+      model['qSuppressZero'] = qSuppressZero;
+    }
+    var qSuppressMissing = input.qSuppressMissing;
+    if (qSuppressMissing != null) {
+      model['qSuppressMissing'] = qSuppressMissing;
+    }
+    var qAlwaysFullyExpanded = input.qAlwaysFullyExpanded;
+    if (qAlwaysFullyExpanded != null) {
+      model['qAlwaysFullyExpanded'] = qAlwaysFullyExpanded;
     }
     var columnOrder = input.columnOrder;
     if (columnOrder != null) {

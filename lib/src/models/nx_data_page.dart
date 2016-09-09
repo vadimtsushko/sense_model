@@ -46,6 +46,8 @@ class NxDataPage {
   /// Frequency of the value.
   @Serialize.field('qFrequency', optional: true)
   String qFrequency;
+  @Serialize.field('qNoOfLeftDims', optional: true)
+  int qNoOfLeftDims;
 
   /// Is set to true if the value is Null.
   @Serialize.field('qIsNull', optional: true)

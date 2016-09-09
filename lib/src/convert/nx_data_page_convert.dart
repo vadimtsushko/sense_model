@@ -36,6 +36,7 @@ class NxDataPageDecoder extends Converter<Map, NxDataPage>
     model.qIsTotalCell = input['qIsTotalCell'];
     model.qIsOtherCell = input['qIsOtherCell'];
     model.qFrequency = input['qFrequency'];
+    model.qNoOfLeftDims = input['qNoOfLeftDims'];
     model.qIsNull = input['qIsNull'];
     return model;
   }
@@ -79,6 +80,10 @@ class NxDataPageEncoder extends Converter<NxDataPage, Map>
     var qFrequency = input.qFrequency;
     if (qFrequency != null) {
       model['qFrequency'] = qFrequency;
+    }
+    var qNoOfLeftDims = input.qNoOfLeftDims;
+    if (qNoOfLeftDims != null) {
+      model['qNoOfLeftDims'] = qNoOfLeftDims;
     }
     var qIsNull = input.qIsNull;
     if (qIsNull != null) {

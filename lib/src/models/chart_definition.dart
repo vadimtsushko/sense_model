@@ -147,6 +147,23 @@ class ChartDefinition {
   @Serialize.field('qInterColumnSortOrder', optional: true)
   List<int> qInterColumnSortOrder;
 
+  /// Number of left dimensions. (meaningfull for pivot tables)
+  @Serialize.field('qNoOfLeftDims', optional: true)
+  int qNoOfLeftDims;
+
+  /// Removes zero values.Default is false.
+  @Serialize.field('qSuppressZero', optional: true)
+  bool qSuppressZero;
+
+  /// Removes missing values.Default is false.
+  @Serialize.field('qSuppressMissing', optional: true)
+  bool qSuppressMissing;
+
+  /// If this property is set to true, the cells are always expanded. It implies
+  /// that it is not possible to collapse any cells.
+  @Serialize.field('qAlwaysFullyExpanded', optional: true)
+  bool qAlwaysFullyExpanded;
+
   /// Index array that determines the column order
   @Serialize.field('columnOrder', optional: true)
   List<int> columnOrder;

@@ -55,6 +55,11 @@
 					"description": "Frequency of the value.",
 					"type": "string"
 				},
+				"qNoOfLeftDims":
+				{
+					"description": "",
+					"type": "integer"
+				},
 				"qIsNull":
 				{
 					"description": "Is set to true if the value is Null.",
@@ -711,7 +716,7 @@
 				"valueType":
 				{
 					"description": "Тип параметра",
-					"enum": ["simpleValue","dimension","measureKey","measureType","measureFamily"],
+					"enum": ["simpleValue","measureKey","selector"],
 					"type": "string",
 					"default": "simpleValue"
 				},
@@ -1080,6 +1085,30 @@
 						"type": "integer"
 					}
 				},
+
+				"qNoOfLeftDims":
+				{
+					"description": "Number of left dimensions. (meaningfull for pivot tables)",
+					"type": "integer"
+				},
+				"qSuppressZero":
+				{
+					"description": "Removes zero values.Default is false.",
+					"type": "boolean"
+				},
+				"qSuppressMissing":
+				{
+					"description": "Removes missing values.Default is false.",
+					"type": "boolean"
+				},
+
+				"qAlwaysFullyExpanded":
+				{
+					"description": "If this property is set to true, the cells are always expanded. It implies that it is not possible to collapse any cells.",
+					"type": "boolean"
+				},
+
+
 				"columnOrder":
 				{
 					"description": "Index array that determines the column order",
