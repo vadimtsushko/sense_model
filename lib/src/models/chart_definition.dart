@@ -59,6 +59,10 @@ class ChartDefinition {
   bool updateAfterCreation;
   @Serialize.field('alwaysRecreate', optional: true)
   bool alwaysRecreate;
+  @Serialize.field('hideEmptyMeasure', optional: true)
+  bool hideEmptyMeasure;
+  @Serialize.field('hideNoPlanMeasure', optional: true)
+  bool hideNoPlanMeasure;
 
   /// Reference line settings.
   @Serialize.field('refLine', optional: true)
