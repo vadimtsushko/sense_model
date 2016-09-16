@@ -103,6 +103,7 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
     model.qShowTotalsAbove = input['qShowTotalsAbove'];
     model.updateAfterCreation = input['updateAfterCreation'];
     model.alwaysRecreate = input['alwaysRecreate'];
+    model.suppressLoadIndicator = input['suppressLoadIndicator'];
     model.hideEmptyMeasure = input['hideEmptyMeasure'];
     model.hideNoPlanMeasure = input['hideNoPlanMeasure'];
     var refLine = input['refLine'];
@@ -257,6 +258,10 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
     var alwaysRecreate = input.alwaysRecreate;
     if (alwaysRecreate != null) {
       model['alwaysRecreate'] = alwaysRecreate;
+    }
+    var suppressLoadIndicator = input.suppressLoadIndicator;
+    if (suppressLoadIndicator != null) {
+      model['suppressLoadIndicator'] = suppressLoadIndicator;
     }
     var hideEmptyMeasure = input.hideEmptyMeasure;
     if (hideEmptyMeasure != null) {

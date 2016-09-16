@@ -14,6 +14,7 @@ import 'dart:convert';
 
 import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
+import 'locale_display_name_convert.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -22,6 +23,10 @@ import 'package:sense_model/models.dart';
 /// A [ModelDecoder] for [IvMeasureFamily].
 class IvMeasureFamilyDecoder extends Converter<Map, IvMeasureFamily>
     implements ModelDecoder<IvMeasureFamily> {
+  final Converter<Map, LocaleDisplayName> _localeDisplayNameDecoder;
+  IvMeasureFamilyDecoder()
+      : _localeDisplayNameDecoder = new LocaleDisplayNameDecoder();
+  IvMeasureFamilyDecoder.using(this._localeDisplayNameDecoder);
   @override
   IvMeasureFamily create() => new IvMeasureFamily();
   @override
@@ -30,10 +35,16 @@ class IvMeasureFamilyDecoder extends Converter<Map, IvMeasureFamily>
 
     model.key = input['key'];
     model.displayName = input['displayName'];
+    var localeDisplayName = input['localeDisplayName'];
+    if (localeDisplayName != null) {
+      model.localeDisplayName =
+          _localeDisplayNameDecoder.convert(localeDisplayName);
+    }
     model.hasPlan = input['hasPlan'];
     model.inverted = input['inverted'];
     model.percentValue = input['percentValue'];
     model.currency = input['currency'];
+    model.format = input['format'];
     model.defaultMultiplier = input['defaultMultiplier'];
     model.monthly = input['monthly'];
     return model;
@@ -43,12 +54,21 @@ class IvMeasureFamilyDecoder extends Converter<Map, IvMeasureFamily>
 /// A [ModelEncoder] for [IvMeasureFamily].
 class IvMeasureFamilyEncoder extends Converter<IvMeasureFamily, Map>
     implements ModelEncoder<IvMeasureFamily> {
+  final Converter<LocaleDisplayName, Map> _localeDisplayNameEncoder;
+  IvMeasureFamilyEncoder()
+      : _localeDisplayNameEncoder = new LocaleDisplayNameEncoder();
+  IvMeasureFamilyEncoder.using(this._localeDisplayNameEncoder);
   @override
   Map convert(IvMeasureFamily input) {
     var model = {};
 
     model['key'] = input.key;
     model['displayName'] = input.displayName;
+    var localeDisplayName = input.localeDisplayName;
+    if (localeDisplayName != null) {
+      model['localeDisplayName'] =
+          _localeDisplayNameEncoder.convert(localeDisplayName);
+    }
     var hasPlan = input.hasPlan;
     if (hasPlan != null) {
       model['hasPlan'] = hasPlan;
@@ -64,6 +84,10 @@ class IvMeasureFamilyEncoder extends Converter<IvMeasureFamily, Map>
     var currency = input.currency;
     if (currency != null) {
       model['currency'] = currency;
+    }
+    var format = input.format;
+    if (format != null) {
+      model['format'] = format;
     }
     var defaultMultiplier = input.defaultMultiplier;
     if (defaultMultiplier != null) {

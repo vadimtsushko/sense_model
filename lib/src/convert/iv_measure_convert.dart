@@ -51,7 +51,6 @@ class IvMeasureDecoder extends Converter<Map, IvMeasure>
     model ??= create();
 
     model.key = input['key'];
-    model.param1 = input['param1'];
     var params = input['params'];
     if (params != null) {
       var paramsTemp0 = <IvExpressionParam>[];
@@ -60,6 +59,7 @@ class IvMeasureDecoder extends Converter<Map, IvMeasure>
       }
       model.params = paramsTemp0;
     }
+    model.formatParamIndex = input['formatParamIndex'];
     model.keySelector = input['keySelector'];
     model.type = input['type'];
     model.typeSelector = input['typeSelector'];
@@ -127,10 +127,6 @@ class IvMeasureEncoder extends Converter<IvMeasure, Map>
     var model = {};
 
     model['key'] = input.key;
-    var param1 = input.param1;
-    if (param1 != null) {
-      model['param1'] = param1;
-    }
     var params = input.params;
     if (params != null) {
       var paramsTemp0 = [];
@@ -138,6 +134,10 @@ class IvMeasureEncoder extends Converter<IvMeasure, Map>
         paramsTemp0.add(_ivExpressionParamEncoder.convert(paramsValue0));
       }
       model['params'] = paramsTemp0;
+    }
+    var formatParamIndex = input.formatParamIndex;
+    if (formatParamIndex != null) {
+      model['formatParamIndex'] = formatParamIndex;
     }
     var keySelector = input.keySelector;
     if (keySelector != null) {

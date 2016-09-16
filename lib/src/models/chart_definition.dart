@@ -59,6 +59,8 @@ class ChartDefinition {
   bool updateAfterCreation;
   @Serialize.field('alwaysRecreate', optional: true)
   bool alwaysRecreate;
+  @Serialize.field('suppressLoadIndicator', optional: true)
+  bool suppressLoadIndicator;
   @Serialize.field('hideEmptyMeasure', optional: true)
   bool hideEmptyMeasure;
   @Serialize.field('hideNoPlanMeasure', optional: true)

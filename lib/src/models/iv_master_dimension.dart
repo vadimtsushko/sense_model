@@ -7,6 +7,7 @@ library sense_model.src.models.iv_master_dimension;
 //---------------------------------------------------------------------
 
 import 'package:dogma_convert/serialize.dart';
+import 'locale_display_name.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -20,6 +21,12 @@ class IvMasterDimension {
   /// Заголовок мастер-измерения
   @Serialize.field('title', optional: true)
   String title;
+
+  /// Группировка
+  @Serialize.field('isCalculatedDimension', optional: true)
+  bool isCalculatedDimension;
+  @Serialize.field('localeDisplayName', optional: true)
+  LocaleDisplayName localeDisplayName;
 
   /// Группировка
   @Serialize.field('grouping', optional: true)

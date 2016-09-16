@@ -41,11 +41,11 @@ class NxMeasureAxis {
   @Serialize.field('spacing', optional: true)
   num spacing;
 
-  /// min ValueExpressionContainer
+  /// min
   @Serialize.field('min', optional: true)
   String min;
 
-  /// max ValueExpressionContainer
+  /// max
   @Serialize.field('max', optional: true)
   String max;
 }

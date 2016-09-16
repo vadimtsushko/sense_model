@@ -14,6 +14,7 @@ import 'dart:convert';
 
 import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
+import 'locale_display_name_convert.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -22,6 +23,10 @@ import 'package:sense_model/models.dart';
 /// A [ModelDecoder] for [IvMasterExpression].
 class IvMasterExpressionDecoder extends Converter<Map, IvMasterExpression>
     implements ModelDecoder<IvMasterExpression> {
+  final Converter<Map, LocaleDisplayName> _localeDisplayNameDecoder;
+  IvMasterExpressionDecoder()
+      : _localeDisplayNameDecoder = new LocaleDisplayNameDecoder();
+  IvMasterExpressionDecoder.using(this._localeDisplayNameDecoder);
   @override
   IvMasterExpression create() => new IvMasterExpression();
   @override
@@ -33,6 +38,7 @@ class IvMasterExpressionDecoder extends Converter<Map, IvMasterExpression>
     model.command = input['command'];
     model.comment = input['comment'];
     model.definition = input['definition'];
+    model.format = input['format'];
     model.expandedDefinition = input['expandedDefinition'];
     model.label = input['label'];
     model.selectorLabel = input['selectorLabel'];
@@ -40,6 +46,11 @@ class IvMasterExpressionDecoder extends Converter<Map, IvMasterExpression>
     model.description = input['description'];
     model.width = input['width'];
     model.intWidth = input['intWidth'];
+    var localeDisplayName = input['localeDisplayName'];
+    if (localeDisplayName != null) {
+      model.localeDisplayName =
+          _localeDisplayNameDecoder.convert(localeDisplayName);
+    }
     model.name = input['name'];
     return model;
   }
@@ -48,6 +59,10 @@ class IvMasterExpressionDecoder extends Converter<Map, IvMasterExpression>
 /// A [ModelEncoder] for [IvMasterExpression].
 class IvMasterExpressionEncoder extends Converter<IvMasterExpression, Map>
     implements ModelEncoder<IvMasterExpression> {
+  final Converter<LocaleDisplayName, Map> _localeDisplayNameEncoder;
+  IvMasterExpressionEncoder()
+      : _localeDisplayNameEncoder = new LocaleDisplayNameEncoder();
+  IvMasterExpressionEncoder.using(this._localeDisplayNameEncoder);
   @override
   Map convert(IvMasterExpression input) {
     var model = {};
@@ -66,6 +81,10 @@ class IvMasterExpressionEncoder extends Converter<IvMasterExpression, Map>
       model['comment'] = comment;
     }
     model['definition'] = input.definition;
+    var format = input.format;
+    if (format != null) {
+      model['format'] = format;
+    }
     model['expandedDefinition'] = input.expandedDefinition;
     var label = input.label;
     if (label != null) {
@@ -90,6 +109,11 @@ class IvMasterExpressionEncoder extends Converter<IvMasterExpression, Map>
     var intWidth = input.intWidth;
     if (intWidth != null) {
       model['intWidth'] = intWidth;
+    }
+    var localeDisplayName = input.localeDisplayName;
+    if (localeDisplayName != null) {
+      model['localeDisplayName'] =
+          _localeDisplayNameEncoder.convert(localeDisplayName);
     }
     model['name'] = input.name;
 

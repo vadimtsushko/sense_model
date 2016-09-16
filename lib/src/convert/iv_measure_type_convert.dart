@@ -14,6 +14,7 @@ import 'dart:convert';
 
 import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
+import 'locale_display_name_convert.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -22,6 +23,10 @@ import 'package:sense_model/models.dart';
 /// A [ModelDecoder] for [IvMeasureType].
 class IvMeasureTypeDecoder extends Converter<Map, IvMeasureType>
     implements ModelDecoder<IvMeasureType> {
+  final Converter<Map, LocaleDisplayName> _localeDisplayNameDecoder;
+  IvMeasureTypeDecoder()
+      : _localeDisplayNameDecoder = new LocaleDisplayNameDecoder();
+  IvMeasureTypeDecoder.using(this._localeDisplayNameDecoder);
   @override
   IvMeasureType create() => new IvMeasureType();
   @override
@@ -30,6 +35,12 @@ class IvMeasureTypeDecoder extends Converter<Map, IvMeasureType>
 
     model.key = input['key'];
     model.displayName = input['displayName'];
+    var localeDisplayName = input['localeDisplayName'];
+    if (localeDisplayName != null) {
+      model.localeDisplayName =
+          _localeDisplayNameDecoder.convert(localeDisplayName);
+    }
+    model.format = input['format'];
     model.isPlan = input['isPlan'];
     return model;
   }
@@ -38,12 +49,25 @@ class IvMeasureTypeDecoder extends Converter<Map, IvMeasureType>
 /// A [ModelEncoder] for [IvMeasureType].
 class IvMeasureTypeEncoder extends Converter<IvMeasureType, Map>
     implements ModelEncoder<IvMeasureType> {
+  final Converter<LocaleDisplayName, Map> _localeDisplayNameEncoder;
+  IvMeasureTypeEncoder()
+      : _localeDisplayNameEncoder = new LocaleDisplayNameEncoder();
+  IvMeasureTypeEncoder.using(this._localeDisplayNameEncoder);
   @override
   Map convert(IvMeasureType input) {
     var model = {};
 
     model['key'] = input.key;
     model['displayName'] = input.displayName;
+    var localeDisplayName = input.localeDisplayName;
+    if (localeDisplayName != null) {
+      model['localeDisplayName'] =
+          _localeDisplayNameEncoder.convert(localeDisplayName);
+    }
+    var format = input.format;
+    if (format != null) {
+      model['format'] = format;
+    }
     var isPlan = input.isPlan;
     if (isPlan != null) {
       model['isPlan'] = isPlan;

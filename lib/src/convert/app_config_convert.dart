@@ -31,6 +31,7 @@ class AppConfigDecoder extends Converter<Map, AppConfig>
     model.host = input['host'];
     model.id = input['id'];
     model.name = input['name'];
+    model.lang = input['lang'];
     model.useCurrentDate = input['useCurrentDate'];
     model.currentYear = input['currentYear'];
     model.currentMonth = input['currentMonth'];
@@ -48,6 +49,10 @@ class AppConfigEncoder extends Converter<AppConfig, Map>
     model['host'] = input.host;
     model['id'] = input.id;
     model['name'] = input.name;
+    var lang = input.lang;
+    if (lang != null) {
+      model['lang'] = lang;
+    }
     var useCurrentDate = input.useCurrentDate;
     if (useCurrentDate != null) {
       model['useCurrentDate'] = useCurrentDate;

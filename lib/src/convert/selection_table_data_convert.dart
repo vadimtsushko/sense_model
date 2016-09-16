@@ -38,6 +38,7 @@ class SelectionTableDataDecoder extends Converter<Map, SelectionTableData>
     model.multiple = input['multiple'];
     model.calendarTable = input['calendarTable'];
     model.selectedValue = input['selectedValue'];
+    model.selectedIndex = input['selectedIndex'];
     model.keys = input['keys'];
     var tableItems = input['tableItems'];
     if (tableItems != null) {
@@ -77,6 +78,10 @@ class SelectionTableDataEncoder extends Converter<SelectionTableData, Map>
     var selectedValue = input.selectedValue;
     if (selectedValue != null) {
       model['selectedValue'] = selectedValue;
+    }
+    var selectedIndex = input.selectedIndex;
+    if (selectedIndex != null) {
+      model['selectedIndex'] = selectedIndex;
     }
     model['keys'] = input.keys;
     var tableItems = input.tableItems;

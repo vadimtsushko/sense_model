@@ -70,6 +70,14 @@ class IvDimension {
   @Serialize.field('qShowAll', optional: true)
   bool qShowAll;
 
+  /// If set to true, no null values are returned.
+  @Serialize.field('qNullSuppression', optional: true)
+  bool qNullSuppression;
+
+  /// Not documented
+  @Serialize.field('autoSort', optional: true)
+  bool autoSort;
+
   /// This property is used when some dimension limits are set.
   @Serialize.field('qOtherLabel', optional: true)
   String qOtherLabel;

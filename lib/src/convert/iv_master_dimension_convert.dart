@@ -14,6 +14,7 @@ import 'dart:convert';
 
 import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
+import 'locale_display_name_convert.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -22,6 +23,10 @@ import 'package:sense_model/models.dart';
 /// A [ModelDecoder] for [IvMasterDimension].
 class IvMasterDimensionDecoder extends Converter<Map, IvMasterDimension>
     implements ModelDecoder<IvMasterDimension> {
+  final Converter<Map, LocaleDisplayName> _localeDisplayNameDecoder;
+  IvMasterDimensionDecoder()
+      : _localeDisplayNameDecoder = new LocaleDisplayNameDecoder();
+  IvMasterDimensionDecoder.using(this._localeDisplayNameDecoder);
   @override
   IvMasterDimension create() => new IvMasterDimension();
   @override
@@ -30,6 +35,12 @@ class IvMasterDimensionDecoder extends Converter<Map, IvMasterDimension>
 
     model.id = input['id'];
     model.title = input['title'];
+    model.isCalculatedDimension = input['isCalculatedDimension'];
+    var localeDisplayName = input['localeDisplayName'];
+    if (localeDisplayName != null) {
+      model.localeDisplayName =
+          _localeDisplayNameDecoder.convert(localeDisplayName);
+    }
     model.grouping = input['grouping'];
     model.width = input['width'];
     model.labels = input['labels'];
@@ -41,6 +52,10 @@ class IvMasterDimensionDecoder extends Converter<Map, IvMasterDimension>
 /// A [ModelEncoder] for [IvMasterDimension].
 class IvMasterDimensionEncoder extends Converter<IvMasterDimension, Map>
     implements ModelEncoder<IvMasterDimension> {
+  final Converter<LocaleDisplayName, Map> _localeDisplayNameEncoder;
+  IvMasterDimensionEncoder()
+      : _localeDisplayNameEncoder = new LocaleDisplayNameEncoder();
+  IvMasterDimensionEncoder.using(this._localeDisplayNameEncoder);
   @override
   Map convert(IvMasterDimension input) {
     var model = {};
@@ -49,6 +64,15 @@ class IvMasterDimensionEncoder extends Converter<IvMasterDimension, Map>
     var title = input.title;
     if (title != null) {
       model['title'] = title;
+    }
+    var isCalculatedDimension = input.isCalculatedDimension;
+    if (isCalculatedDimension != null) {
+      model['isCalculatedDimension'] = isCalculatedDimension;
+    }
+    var localeDisplayName = input.localeDisplayName;
+    if (localeDisplayName != null) {
+      model['localeDisplayName'] =
+          _localeDisplayNameEncoder.convert(localeDisplayName);
     }
     var grouping = input.grouping;
     if (grouping != null) {

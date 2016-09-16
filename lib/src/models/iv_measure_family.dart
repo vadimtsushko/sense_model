@@ -7,6 +7,7 @@ library sense_model.src.models.iv_measure_family;
 //---------------------------------------------------------------------
 
 import 'package:dogma_convert/serialize.dart';
+import 'locale_display_name.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -20,6 +21,8 @@ class IvMeasureFamily {
   /// Значение отображаемое в списках выбора
   @Serialize.field('displayName')
   String displayName;
+  @Serialize.field('localeDisplayName', optional: true)
+  LocaleDisplayName localeDisplayName;
 
   /// Выражения этого семейства имеют план (Продажи и так далее)
   @Serialize.field('hasPlan', optional: true)
@@ -36,6 +39,10 @@ class IvMeasureFamily {
   /// Единица измерения
   @Serialize.field('currency', optional: true)
   String currency;
+
+  /// Формат выражения
+  @Serialize.field('format', optional: true)
+  String format;
 
   /// Множитель по умолчанию (1000 для показателей в тыс. руб.)
   @Serialize.field('defaultMultiplier', optional: true)

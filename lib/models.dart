@@ -19,6 +19,7 @@ export 'src/models/iv_master_expression.dart';
 export 'src/models/iv_measure.dart';
 export 'src/models/iv_measure_family.dart';
 export 'src/models/iv_measure_type.dart';
+export 'src/models/locale_display_name.dart';
 export 'src/models/nx_attr_expr_def.dart';
 export 'src/models/nx_bar_grouping.dart';
 export 'src/models/nx_cell.dart';

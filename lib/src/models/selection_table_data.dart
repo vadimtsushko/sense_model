@@ -31,6 +31,8 @@ class SelectionTableData {
   String calendarTable;
   @Serialize.field('selectedValue', optional: true)
   String selectedValue;
+  @Serialize.field('selectedIndex', optional: true)
+  int selectedIndex;
 
   /// Список ключей выбора (тип зависит от типа таблицы выбора)
   @Serialize.field('keys')

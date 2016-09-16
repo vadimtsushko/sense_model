@@ -24,6 +24,8 @@ class AppConfig {
   /// App name
   @Serialize.field('name')
   String name;
+  @Serialize.field('lang', optional: true)
+  String lang;
 
   /// Фильтр по умолчанию на основе системной даты
   @Serialize.field('useCurrentDate', optional: true)

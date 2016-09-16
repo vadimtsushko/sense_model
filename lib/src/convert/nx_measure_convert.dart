@@ -50,6 +50,7 @@ class NxMeasureDecoder extends Converter<Map, NxMeasure>
     model.qLibraryId = input['qLibraryId'];
     model.qDef = _nxInlineMeasureDefDecoder.convert(input['qDef']);
     model.autoSort = input['autoSort'];
+    model.numFormatFromTemplate = input['numFormatFromTemplate'];
     var qSortBy = input['qSortBy'];
     if (qSortBy != null) {
       model.qSortBy = _nxSortCriteriaDecoder.convert(qSortBy);
@@ -105,6 +106,10 @@ class NxMeasureEncoder extends Converter<NxMeasure, Map>
     var autoSort = input.autoSort;
     if (autoSort != null) {
       model['autoSort'] = autoSort;
+    }
+    var numFormatFromTemplate = input.numFormatFromTemplate;
+    if (numFormatFromTemplate != null) {
+      model['numFormatFromTemplate'] = numFormatFromTemplate;
     }
     var qSortBy = input.qSortBy;
     if (qSortBy != null) {

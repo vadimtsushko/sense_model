@@ -14,6 +14,7 @@ import 'dart:convert';
 
 import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
+import 'nx_field_attributes_convert.dart';
 import 'nx_measure_series_convert.dart';
 
 //---------------------------------------------------------------------
@@ -23,10 +24,13 @@ import 'nx_measure_series_convert.dart';
 /// A [ModelDecoder] for [NxInlineMeasureDef].
 class NxInlineMeasureDefDecoder extends Converter<Map, NxInlineMeasureDef>
     implements ModelDecoder<NxInlineMeasureDef> {
+  final Converter<Map, NxFieldAttributes> _nxFieldAttributesDecoder;
   final Converter<Map, NxMeasureSeries> _nxMeasureSeriesDecoder;
   NxInlineMeasureDefDecoder()
-      : _nxMeasureSeriesDecoder = new NxMeasureSeriesDecoder();
-  NxInlineMeasureDefDecoder.using(this._nxMeasureSeriesDecoder);
+      : _nxFieldAttributesDecoder = new NxFieldAttributesDecoder(),
+        _nxMeasureSeriesDecoder = new NxMeasureSeriesDecoder();
+  NxInlineMeasureDefDecoder.using(
+      this._nxFieldAttributesDecoder, this._nxMeasureSeriesDecoder);
   @override
   NxInlineMeasureDef create() => new NxInlineMeasureDef();
   @override
@@ -43,6 +47,10 @@ class NxInlineMeasureDefDecoder extends Converter<Map, NxInlineMeasureDef>
     model.qReverseSort = input['qReverseSort'];
     model.qActiveExpression = input['qActiveExpression'];
     model.qExpressions = input['qExpressions'];
+    var qNumFormat = input['qNumFormat'];
+    if (qNumFormat != null) {
+      model.qNumFormat = _nxFieldAttributesDecoder.convert(qNumFormat);
+    }
     var series = input['series'];
     if (series != null) {
       model.series = _nxMeasureSeriesDecoder.convert(series);
@@ -55,10 +63,13 @@ class NxInlineMeasureDefDecoder extends Converter<Map, NxInlineMeasureDef>
 /// A [ModelEncoder] for [NxInlineMeasureDef].
 class NxInlineMeasureDefEncoder extends Converter<NxInlineMeasureDef, Map>
     implements ModelEncoder<NxInlineMeasureDef> {
+  final Converter<NxFieldAttributes, Map> _nxFieldAttributesEncoder;
   final Converter<NxMeasureSeries, Map> _nxMeasureSeriesEncoder;
   NxInlineMeasureDefEncoder()
-      : _nxMeasureSeriesEncoder = new NxMeasureSeriesEncoder();
-  NxInlineMeasureDefEncoder.using(this._nxMeasureSeriesEncoder);
+      : _nxFieldAttributesEncoder = new NxFieldAttributesEncoder(),
+        _nxMeasureSeriesEncoder = new NxMeasureSeriesEncoder();
+  NxInlineMeasureDefEncoder.using(
+      this._nxFieldAttributesEncoder, this._nxMeasureSeriesEncoder);
   @override
   Map convert(NxInlineMeasureDef input) {
     var model = {};
@@ -99,6 +110,10 @@ class NxInlineMeasureDefEncoder extends Converter<NxInlineMeasureDef, Map>
     var qExpressions = input.qExpressions;
     if (qExpressions != null) {
       model['qExpressions'] = qExpressions;
+    }
+    var qNumFormat = input.qNumFormat;
+    if (qNumFormat != null) {
+      model['qNumFormat'] = _nxFieldAttributesEncoder.convert(qNumFormat);
     }
     var series = input.series;
     if (series != null) {

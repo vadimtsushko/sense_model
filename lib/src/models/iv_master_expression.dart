@@ -7,6 +7,7 @@ library sense_model.src.models.iv_master_expression;
 //---------------------------------------------------------------------
 
 import 'package:dogma_convert/serialize.dart';
+import 'locale_display_name.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -32,6 +33,10 @@ class IvMasterExpression {
   /// Исходная формула
   @Serialize.field('definition')
   String definition;
+
+  /// Формат выражения
+  @Serialize.field('format', optional: true)
+  String format;
 
   /// Окончательный вид формулы, после всех преобразований
   @Serialize.field('expandedDefinition')
@@ -62,6 +67,8 @@ class IvMasterExpression {
   /// Ширина колонки по умолчанию
   @Serialize.field('intWidth', optional: true)
   int intWidth;
+  @Serialize.field('localeDisplayName', optional: true)
+  LocaleDisplayName localeDisplayName;
 
   /// Уникальный код выражения
   @Serialize.field('name')

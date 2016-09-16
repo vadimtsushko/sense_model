@@ -7,6 +7,7 @@ library sense_model.src.models.iv_measure_type;
 //---------------------------------------------------------------------
 
 import 'package:dogma_convert/serialize.dart';
+import 'locale_display_name.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -20,6 +21,12 @@ class IvMeasureType {
   /// Значение отображаемое в списках выбора
   @Serialize.field('displayName')
   String displayName;
+  @Serialize.field('localeDisplayName', optional: true)
+  LocaleDisplayName localeDisplayName;
+
+  /// Формат выражения
+  @Serialize.field('format', optional: true)
+  String format;
 
   /// Выражения этого типа относятся к плановым показателям
   @Serialize.field('isPlan', optional: true)

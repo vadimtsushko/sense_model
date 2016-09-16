@@ -67,6 +67,8 @@ class IvDimensionDecoder extends Converter<Map, IvDimension>
       model.fontColor = _ivAttrExpressionDecoder.convert(fontColor);
     }
     model.qShowAll = input['qShowAll'];
+    model.qNullSuppression = input['qNullSuppression'];
+    model.autoSort = input['autoSort'];
     model.qOtherLabel = input['qOtherLabel'];
     model.qTotalLabel = input['qTotalLabel'];
     model.key = input['key'];
@@ -147,6 +149,14 @@ class IvDimensionEncoder extends Converter<IvDimension, Map>
     var qShowAll = input.qShowAll;
     if (qShowAll != null) {
       model['qShowAll'] = qShowAll;
+    }
+    var qNullSuppression = input.qNullSuppression;
+    if (qNullSuppression != null) {
+      model['qNullSuppression'] = qNullSuppression;
+    }
+    var autoSort = input.autoSort;
+    if (autoSort != null) {
+      model['autoSort'] = autoSort;
     }
     var qOtherLabel = input.qOtherLabel;
     if (qOtherLabel != null) {

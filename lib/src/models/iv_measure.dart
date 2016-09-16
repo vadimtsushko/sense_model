@@ -22,13 +22,13 @@ class IvMeasure {
   @Serialize.field('key')
   String key;
 
-  /// Первый параметр для выражения - шаблона
-  @Serialize.field('param1', optional: true)
-  String param1;
-
   /// Список параметров для выражения - шаблона
   @Serialize.field('params', optional: true)
   List<IvExpressionParam> params;
+
+  /// Для динамического форматирования смотреть параметр с этим индексом
+  @Serialize.field('formatParamIndex', optional: true)
+  int formatParamIndex;
 
   /// Код таблицы выбора для кода меры
   @Serialize.field('keySelector', optional: true)

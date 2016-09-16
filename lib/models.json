@@ -91,6 +91,10 @@
 					"description": "App name",
 					"type": "string"
 				},
+                "lang":
+                {
+                  "type": "string"
+                },
 				"useCurrentDate":
 				{
 					"description": "Фильтр по умолчанию на основе системной даты",
@@ -114,6 +118,32 @@
 			]
 		},
 
+		"LocaleDisplayName":
+		{
+			"properties":
+			{
+				"en":
+				{
+					"description": "English",
+					"type": "string"
+				},
+				"fr":
+				{
+					"description": "French",
+					"type": "string"
+				},
+				"de":
+				{
+					"description": "Deutch",
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"en"
+			]
+		},
 
 		"NxCell":
 		{
@@ -203,6 +233,11 @@
 				{
 					"description": "",
 					"type": "string"
+				},
+				"selectedIndex":
+				{
+					"description": "",
+					"type": "integer"
 				},
 
 				"keys":
@@ -324,7 +359,19 @@
 				{
 					"description": "Заголовок мастер-измерения",
 					"type": "string"
-				},
+ 				},
+
+                "isCalculatedDimension":
+                {
+                  "description": "Группировка",
+                  "type": "boolean"
+                },
+
+
+                "localeDisplayName":
+                {
+                  "$ref": "#/definitions/LocaleDisplayName"
+                },
 				"grouping":
 				{
 					"description": "Группировка",
@@ -389,6 +436,11 @@
 					"description": "Исходная формула",
 					"type": "string"
 				},
+                "format":
+                {
+                  "description": "Формат выражения",
+                  "type": "string"
+                },
 				"expandedDefinition":
 				{
 					"description": "Окончательный вид формулы, после всех преобразований",
@@ -425,7 +477,10 @@
 					"description": "Ширина колонки по умолчанию",
 					"type": "integer"
 				},
-
+                "localeDisplayName":
+                {
+                  "$ref": "#/definitions/LocaleDisplayName"
+                },
 				"name":
 				{
 					"description": "Уникальный код выражения",
@@ -533,6 +588,16 @@
 					"description": "If set to true, all dimension values are shown.",
 					"type": "boolean"
 				},
+				"qNullSuppression":
+				{
+					"description": "If set to true, no null values are returned.",
+					"type": "boolean"
+				},
+				"autoSort":
+				{
+					"description": "Not documented",
+					"type": "boolean"
+				},
 				"qOtherLabel":
 				{
 					"description": "This property is used when some dimension limits are set.",
@@ -602,17 +667,21 @@
 		{
 			"properties":
 			{
-				"key":
-				{
-					"description": "Код семейства",
-					"type": "string"
-				},
-				"displayName":
-				{
-					"description": "Значение отображаемое в списках выбора",
-					"type": "string"
-				},
-				"hasPlan":
+              "key":
+              {
+                "description": "Код семейства",
+                "type": "string"
+              },
+              "displayName":
+              {
+                "description": "Значение отображаемое в списках выбора",
+                "type": "string"
+              },
+              "localeDisplayName":
+              {
+                "$ref": "#/definitions/LocaleDisplayName"
+              },
+              "hasPlan":
 				{
 					"description": "Выражения этого семейства имеют план (Продажи и так далее)",
 					"type": "boolean",
@@ -635,6 +704,11 @@
 					"description": "Единица измерения",
 					"type": "string"
 				},
+                "format":
+                {
+                  "description": "Формат выражения",
+                  "type": "string"
+                },
 				"defaultMultiplier":
 				{
 					"description": "Множитель по умолчанию (1000 для показателей в тыс. руб.)",
@@ -663,7 +737,11 @@
 					"description": "Код значения",
 					"type": "string"
 				},
-				"title":
+                "localeDisplayName":
+                {
+                  "$ref": "#/definitions/LocaleDisplayName"
+                },
+         		"title":
 				{
 					"description": "Отображаемое значение",
 					"type": "string"
@@ -690,7 +768,16 @@
 					"description": "Значение отображаемое в списках выбора",
 					"type": "string"
 				},
-				"isPlan":
+                "localeDisplayName":
+                {
+                  "$ref": "#/definitions/LocaleDisplayName"
+                },
+				"format":
+				{
+					"description": "Формат выражения",
+					"type": "string"
+				},
+                "isPlan":
 				{
 					"description": "Выражения этого типа относятся к плановым показателям",
 					"type": "boolean",
@@ -739,18 +826,12 @@
 		{
 			"properties":
 			{
-				"key":
-				{
-					"description": "Код меры",
-					"type": "string"
-				},
-				"param1":
-				{
-					"description": "Первый параметр для выражения - шаблона",
-					"type": "string"
-				},
-
-				"params":
+              "key":
+              {
+                  "description": "Код меры",
+                  "type": "string"
+              },
+               "params":
 				{
 					"description": "Список параметров для выражения - шаблона",
 					"type": "array",
@@ -759,6 +840,12 @@
 						"$ref": "#/definitions/IvExpressionParam"
 					}
 				},
+				"formatParamIndex":
+				{
+					"description": "Для динамического форматирования смотреть параметр с этим индексом",
+					"type": "integer"
+				},
+
 				"keySelector":
 				{
 					"description": "Код таблицы выбора для кода меры",
@@ -949,6 +1036,12 @@
 
 				},
 				"alwaysRecreate":
+				{
+					"type": "boolean",
+					"default": false
+
+				},
+				"suppressLoadIndicator":
 				{
 					"type": "boolean",
 					"default": false
@@ -1321,11 +1414,11 @@
 					"type": "number"
 				},
 				"min": {
-					"description": "min ValueExpressionContainer",
+					"description": "min",
 					"type": "string"
 				},
 				"max": {
-					"description": "max ValueExpressionContainer",
+					"description": "max",
 					"type": "string"
 				}
 			},
@@ -1696,12 +1789,16 @@
 					},
 					"uniqueItems": true
 				},
-				"series":
+				"qNumFormat":
 				{
-					"description": "Combo chart series settings for which axis to put the measure and how to visualize its data",
-					"$ref": "#/definitions/NxMeasureSeries"
+					"description": "Format of the field.",
+					"$ref": "#/definitions/NxFieldAttributes"
 				},
-
+                "series":
+                {
+                  "description": "Combo chart series settings for which axis to put the measure and how to visualize its data",
+                  "$ref": "#/definitions/NxMeasureSeries"
+                },
 				"qTags":
 				{
 					"type": "array",
@@ -1868,6 +1965,11 @@
 					"$ref": "#/definitions/NxInlineMeasureDef"
 				},
 				"autoSort":
+				{
+					"description": "Not documented",
+					"type": "boolean"
+				},
+				"numFormatFromTemplate":
 				{
 					"description": "Not documented",
 					"type": "boolean"

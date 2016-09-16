@@ -34,6 +34,10 @@ class NxMeasure {
   @Serialize.field('autoSort', optional: true)
   bool autoSort;
 
+  /// Not documented
+  @Serialize.field('numFormatFromTemplate', optional: true)
+  bool numFormatFromTemplate;
+
   /// Defines the sort criteria
   @Serialize.field('qSortBy', optional: true)
   NxSortCriteria qSortBy;
