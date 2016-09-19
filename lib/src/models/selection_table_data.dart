@@ -22,6 +22,14 @@ class SelectionTableData {
   @Serialize.field('tableType')
   String tableType;
 
+  /// Код родительской таблицы выбора (для таблиц преобразования)
+  @Serialize.field('parentTableId', optional: true)
+  String parentTableId;
+
+  /// Тип преобразования
+  @Serialize.field('transformationType', optional: true)
+  String transformationType;
+
   /// Множественный выбор
   @Serialize.field('multiple', optional: true)
   bool multiple;

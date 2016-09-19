@@ -35,6 +35,8 @@ class SelectionTableDataDecoder extends Converter<Map, SelectionTableData>
 
     model.tableId = input['tableId'];
     model.tableType = input['tableType'];
+    model.parentTableId = input['parentTableId'];
+    model.transformationType = input['transformationType'];
     model.multiple = input['multiple'];
     model.calendarTable = input['calendarTable'];
     model.selectedValue = input['selectedValue'];
@@ -67,6 +69,14 @@ class SelectionTableDataEncoder extends Converter<SelectionTableData, Map>
 
     model['tableId'] = input.tableId;
     model['tableType'] = input.tableType;
+    var parentTableId = input.parentTableId;
+    if (parentTableId != null) {
+      model['parentTableId'] = parentTableId;
+    }
+    var transformationType = input.transformationType;
+    if (transformationType != null) {
+      model['transformationType'] = transformationType;
+    }
     var multiple = input.multiple;
     if (multiple != null) {
       model['multiple'] = multiple;

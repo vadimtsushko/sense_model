@@ -218,6 +218,18 @@
 					"type": "string",
 					"enum": ["Dimension","MeasureKey", "MeasureType","MeasureFamily", "ListItem"]
 				},
+				"parentTableId":
+				{
+					"description": "Код родительской таблицы выбора (для таблиц преобразования)",
+					"type": "string"
+				},
+				"transformationType":
+				{
+					"description": "Тип преобразования",
+					"type": "string",
+					"enum": ["Map"]
+				},
+
 				"multiple":
 				{
 					"description": "Множественный выбор",
