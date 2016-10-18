@@ -63,6 +63,11 @@ class ChartDefinition {
   bool suppressLoadIndicator;
   @Serialize.field('hideEmptyMeasure', optional: true)
   bool hideEmptyMeasure;
+
+  /// If this property is set to true, the missing symbols (if any) are replaced
+  /// by 0 if the value is a numeric and by an empty string if the value is a string.
+  @Serialize.field('qPopulateMissing', optional: true)
+  bool qPopulateMissing;
   @Serialize.field('hideNoPlanMeasure', optional: true)
   bool hideNoPlanMeasure;
 
@@ -109,6 +114,10 @@ class ChartDefinition {
   NxMeasureAxis measureAxis;
   @Serialize.field('preferContinuousAxis', optional: true)
   bool preferContinuousAxis;
+
+  /// Set to define custom error messages.
+  @Serialize.field('customErrorMessage', optional: true)
+  String customErrorMessage;
 
   /// Sets the null value presentation
   @Serialize.field('nullMode', optional: true)

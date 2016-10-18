@@ -105,6 +105,7 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
     model.alwaysRecreate = input['alwaysRecreate'];
     model.suppressLoadIndicator = input['suppressLoadIndicator'];
     model.hideEmptyMeasure = input['hideEmptyMeasure'];
+    model.qPopulateMissing = input['qPopulateMissing'];
     model.hideNoPlanMeasure = input['hideNoPlanMeasure'];
     var refLine = input['refLine'];
     if (refLine != null) {
@@ -146,6 +147,7 @@ class ChartDefinitionDecoder extends Converter<Map, ChartDefinition>
       model.measureAxis = _nxMeasureAxisDecoder.convert(measureAxis);
     }
     model.preferContinuousAxis = input['preferContinuousAxis'];
+    model.customErrorMessage = input['customErrorMessage'];
     model.nullMode = input['nullMode'];
     model.lineType = input['lineType'];
     model.stackedArea = input['stackedArea'];
@@ -267,6 +269,10 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
     if (hideEmptyMeasure != null) {
       model['hideEmptyMeasure'] = hideEmptyMeasure;
     }
+    var qPopulateMissing = input.qPopulateMissing;
+    if (qPopulateMissing != null) {
+      model['qPopulateMissing'] = qPopulateMissing;
+    }
     var hideNoPlanMeasure = input.hideNoPlanMeasure;
     if (hideNoPlanMeasure != null) {
       model['hideNoPlanMeasure'] = hideNoPlanMeasure;
@@ -322,6 +328,10 @@ class ChartDefinitionEncoder extends Converter<ChartDefinition, Map>
     var preferContinuousAxis = input.preferContinuousAxis;
     if (preferContinuousAxis != null) {
       model['preferContinuousAxis'] = preferContinuousAxis;
+    }
+    var customErrorMessage = input.customErrorMessage;
+    if (customErrorMessage != null) {
+      model['customErrorMessage'] = customErrorMessage;
     }
     var nullMode = input.nullMode;
     if (nullMode != null) {

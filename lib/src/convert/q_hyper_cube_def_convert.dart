@@ -14,6 +14,7 @@ import 'dart:convert';
 
 import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
+import 'nx_custom_error_message_convert.dart';
 import 'nx_dimension_convert.dart';
 import 'nx_measure_convert.dart';
 import 'nx_page_convert.dart';
@@ -29,14 +30,20 @@ class QHyperCubeDefDecoder extends Converter<Map, QHyperCubeDef>
   final Converter<Map, NxDimension> _nxDimensionDecoder;
   final Converter<Map, NxValueExpr> _nxValueExprDecoder;
   final Converter<Map, NxMeasure> _nxMeasureDecoder;
+  final Converter<Map, NxCustomErrorMessage> _nxCustomErrorMessageDecoder;
   final Converter<Map, NxPage> _nxPageDecoder;
   QHyperCubeDefDecoder()
       : _nxDimensionDecoder = new NxDimensionDecoder(),
         _nxValueExprDecoder = new NxValueExprDecoder(),
         _nxMeasureDecoder = new NxMeasureDecoder(),
+        _nxCustomErrorMessageDecoder = new NxCustomErrorMessageDecoder(),
         _nxPageDecoder = new NxPageDecoder();
-  QHyperCubeDefDecoder.using(this._nxDimensionDecoder, this._nxValueExprDecoder,
-      this._nxMeasureDecoder, this._nxPageDecoder);
+  QHyperCubeDefDecoder.using(
+      this._nxDimensionDecoder,
+      this._nxValueExprDecoder,
+      this._nxMeasureDecoder,
+      this._nxCustomErrorMessageDecoder,
+      this._nxPageDecoder);
   @override
   QHyperCubeDef create() => new QHyperCubeDef();
   @override
@@ -52,6 +59,7 @@ class QHyperCubeDefDecoder extends Converter<Map, QHyperCubeDef>
     model.qNoOfLeftDims = input['qNoOfLeftDims'];
     model.qSuppressZero = input['qSuppressZero'];
     model.qSuppressMissing = input['qSuppressMissing'];
+    model.qPopulateMissing = input['qPopulateMissing'];
     model.qInterColumnSortOrder = input['qInterColumnSortOrder'] as List<int>;
     model.columnOrder = input['columnOrder'] as List<int>;
     model.qAlwaysFullyExpanded = input['qAlwaysFullyExpanded'];
@@ -66,6 +74,11 @@ class QHyperCubeDefDecoder extends Converter<Map, QHyperCubeDef>
       qMeasuresTemp0.add(_nxMeasureDecoder.convert(qMeasuresValue0));
     }
     model.qMeasures = qMeasuresTemp0;
+    var customErrorMessage = input['customErrorMessage'];
+    if (customErrorMessage != null) {
+      model.customErrorMessage =
+          _nxCustomErrorMessageDecoder.convert(customErrorMessage);
+    }
     var qInitialDataFetch = input['qInitialDataFetch'];
     if (qInitialDataFetch != null) {
       var qInitialDataFetchTemp0 = <NxPage>[];
@@ -86,14 +99,20 @@ class QHyperCubeDefEncoder extends Converter<QHyperCubeDef, Map>
   final Converter<NxDimension, Map> _nxDimensionEncoder;
   final Converter<NxValueExpr, Map> _nxValueExprEncoder;
   final Converter<NxMeasure, Map> _nxMeasureEncoder;
+  final Converter<NxCustomErrorMessage, Map> _nxCustomErrorMessageEncoder;
   final Converter<NxPage, Map> _nxPageEncoder;
   QHyperCubeDefEncoder()
       : _nxDimensionEncoder = new NxDimensionEncoder(),
         _nxValueExprEncoder = new NxValueExprEncoder(),
         _nxMeasureEncoder = new NxMeasureEncoder(),
+        _nxCustomErrorMessageEncoder = new NxCustomErrorMessageEncoder(),
         _nxPageEncoder = new NxPageEncoder();
-  QHyperCubeDefEncoder.using(this._nxDimensionEncoder, this._nxValueExprEncoder,
-      this._nxMeasureEncoder, this._nxPageEncoder);
+  QHyperCubeDefEncoder.using(
+      this._nxDimensionEncoder,
+      this._nxValueExprEncoder,
+      this._nxMeasureEncoder,
+      this._nxCustomErrorMessageEncoder,
+      this._nxPageEncoder);
   @override
   Map convert(QHyperCubeDef input) {
     var model = {};
@@ -118,6 +137,10 @@ class QHyperCubeDefEncoder extends Converter<QHyperCubeDef, Map>
     var qSuppressMissing = input.qSuppressMissing;
     if (qSuppressMissing != null) {
       model['qSuppressMissing'] = qSuppressMissing;
+    }
+    var qPopulateMissing = input.qPopulateMissing;
+    if (qPopulateMissing != null) {
+      model['qPopulateMissing'] = qPopulateMissing;
     }
     var qInterColumnSortOrder = input.qInterColumnSortOrder;
     if (qInterColumnSortOrder != null) {
@@ -148,6 +171,11 @@ class QHyperCubeDefEncoder extends Converter<QHyperCubeDef, Map>
       qMeasuresTemp0.add(_nxMeasureEncoder.convert(qMeasuresValue0));
     }
     model['qMeasures'] = qMeasuresTemp0;
+    var customErrorMessage = input.customErrorMessage;
+    if (customErrorMessage != null) {
+      model['customErrorMessage'] =
+          _nxCustomErrorMessageEncoder.convert(customErrorMessage);
+    }
     var qInitialDataFetch = input.qInitialDataFetch;
     if (qInitialDataFetch != null) {
       var qInitialDataFetchTemp0 = [];

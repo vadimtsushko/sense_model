@@ -1065,6 +1065,11 @@
 					"default": false
 
 				},
+				"qPopulateMissing":
+				{
+					"description": "If this property is set to true, the missing symbols (if any) are replaced by 0 if the value is a numeric and by an empty string if the value is a string.",
+					"type": "boolean"
+				},
 				"hideNoPlanMeasure":
 				{
 					"type": "boolean",
@@ -1132,6 +1137,12 @@
 				"preferContinuousAxis":
 				{
 					"type": "boolean"
+				},
+
+				"customErrorMessage":
+				{
+					"description": "Set to define custom error messages.",
+					"type": "string"
 				},
 
 				"nullMode":
@@ -1593,6 +1604,7 @@
 					"description": "Number of left dimensions. (meaningfull for pivot tables)",
 					"type": "integer"
 				},
+
 				"qSuppressZero":
 				{
 					"description": "Removes zero values.Default is false.",
@@ -1603,6 +1615,12 @@
 					"description": "Removes missing values.Default is false.",
 					"type": "boolean"
 				},
+				"qPopulateMissing":
+				{
+					"description": "If this property is set to true, the missing symbols (if any) are replaced by 0 if the value is a numeric and by an empty string if the value is a string.",
+					"type": "boolean"
+				},
+
 				"qInterColumnSortOrder":
 				{
 					"description": "Order the columns of the hypercube should be sorted. The index of the pseudo-dimension (if any) is -1.",
@@ -1652,6 +1670,11 @@
 					{
 						"$ref": "#/definitions/NxMeasure"
 					}
+				},
+				"customErrorMessage":
+				{
+					"description": "Set to define custom error messages.",
+					"$ref": "#/definitions/NxCustomErrorMessage"
 				},
 				"qInitialDataFetch":
 				{
@@ -2437,6 +2460,7 @@
 			]
 
 		},
+
 		"NxRefLineExpr":
 		{
 			"properties":
@@ -2490,6 +2514,22 @@
 			"required":
 			[
 				"qv"
+			]
+		},
+		"NxCustomErrorMessage":
+		{
+			"properties":
+			{
+				"calcCond":
+				{
+					"description": "Set to customize the calculation condition unfilled message",
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"calcCond"
 			]
 		}
 

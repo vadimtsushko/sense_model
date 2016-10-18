@@ -7,6 +7,7 @@ library sense_model.src.models.q_hyper_cube_def;
 //---------------------------------------------------------------------
 
 import 'package:dogma_convert/serialize.dart';
+import 'nx_custom_error_message.dart';
 import 'nx_dimension.dart';
 import 'nx_measure.dart';
 import 'nx_page.dart';
@@ -37,6 +38,11 @@ class QHyperCubeDef {
   /// Removes missing values.Default is false.
   @Serialize.field('qSuppressMissing', optional: true)
   bool qSuppressMissing;
+
+  /// If this property is set to true, the missing symbols (if any) are replaced
+  /// by 0 if the value is a numeric and by an empty string if the value is a string.
+  @Serialize.field('qPopulateMissing', optional: true)
+  bool qPopulateMissing;
 
   /// Order the columns of the hypercube should be sorted. The index of the
   /// pseudo-dimension (if any) is -1.
@@ -69,6 +75,10 @@ class QHyperCubeDef {
   /// Dimensions
   @Serialize.field('qMeasures')
   List<NxMeasure> qMeasures;
+
+  /// Set to define custom error messages.
+  @Serialize.field('customErrorMessage', optional: true)
+  NxCustomErrorMessage customErrorMessage;
 
   /// Initial data set
   @Serialize.field('qInitialDataFetch', optional: true)
