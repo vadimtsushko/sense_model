@@ -732,6 +732,12 @@
 					"description": "По выражениям этого семейства данные есть только в разрезе месяцев",
 					"type": "boolean",
 					"default": false
+				},
+				"solidcolor":
+				{
+					"description": "Единый цвет меры (для графиков)",
+					"type": "number",
+					"default": 1
 				}
 			},
 			"additionalProperties": false,
