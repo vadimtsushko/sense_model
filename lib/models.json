@@ -450,8 +450,8 @@
 				},
                 "format":
                 {
-                  "description": "Формат выражения",
-                  "type": "string"
+                    "description": "Формат выражения",
+                    "type": "string"
                 },
 				"expandedDefinition":
 				{
@@ -468,7 +468,11 @@
 					"description": "Заголовок для отображения в списках выбора",
 					"type": "string"
 				},
-
+				"backgroundColor":
+				{
+					"description": "Цвет меры (для графиков)",
+					"type": "string"
+				},
 				"macro":
 				{
 					"description": "Код макро",
@@ -491,7 +495,7 @@
 				},
                 "localeDisplayName":
                 {
-                  "$ref": "#/definitions/LocaleDisplayName"
+                    "$ref": "#/definitions/LocaleDisplayName"
                 },
 				"name":
 				{
@@ -828,7 +832,7 @@
 				"contentType":
 				{
 					"description": "Тип обработки значения",
-					"enum": ["simpleValue","content","label"],
+					"enum": ["simpleValue","content","label","solidcolor"],
 					"type": "string",
 					"default": "simpleValue"
 				}
@@ -992,7 +996,8 @@
 						"linechart",
 						"infovizion_kpi",
 						"combochart",
-						"scatterchart"
+						"scatterplot",
+						"scatter-plot"
 					]
 				},
 				"chartId":
