@@ -1581,11 +1581,15 @@
 					"enum": ["horizontal","vertical"],
 					"type": "string"
 				},
-
+				"qListObjectDef":
+				{
+					"$ref": "#/definitions/NxDimension"
+				},
 				"qHyperCubeDef":
 				{
 					"$ref": "#/definitions/QHyperCubeDef"
 				}
+
 			},
 			"required":  ["title"],
 			"additionalProperties": false

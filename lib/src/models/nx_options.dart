@@ -11,6 +11,7 @@ import 'package:dogma_convert/serialize.dart';
 import 'nx_bar_grouping.dart';
 import 'nx_color.dart';
 import 'nx_data_point.dart';
+import 'nx_dimension.dart';
 import 'nx_dimension_axis.dart';
 import 'nx_donut.dart';
 import 'nx_grid_line.dart';
@@ -92,6 +93,8 @@ class NxOptions {
   /// bottom or top and measure axis on left or right
   @Serialize.field('orientation', optional: true)
   String orientation;
+  @Serialize.field('qListObjectDef', optional: true)
+  NxDimension qListObjectDef;
   @Serialize.field('qHyperCubeDef', optional: true)
   QHyperCubeDef qHyperCubeDef;
 }
