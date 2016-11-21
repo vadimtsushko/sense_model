@@ -7,6 +7,7 @@ library sense_model.models;
 //---------------------------------------------------------------------
 
 export 'src/models/app_config.dart';
+export 'src/models/app_config_item.dart';
 export 'src/models/chart_definition.dart';
 export 'src/models/iv_attr_expression.dart';
 export 'src/models/iv_dimension.dart';

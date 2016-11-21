@@ -14,6 +14,7 @@ import 'dart:convert';
 
 import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
+import 'app_config_item_convert.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -22,6 +23,9 @@ import 'package:sense_model/models.dart';
 /// A [ModelDecoder] for [AppConfig].
 class AppConfigDecoder extends Converter<Map, AppConfig>
     implements ModelDecoder<AppConfig> {
+  final Converter<Map, AppConfigItem> _appConfigItemDecoder;
+  AppConfigDecoder() : _appConfigItemDecoder = new AppConfigItemDecoder();
+  AppConfigDecoder.using(this._appConfigItemDecoder);
   @override
   AppConfig create() => new AppConfig();
   @override
@@ -34,6 +38,15 @@ class AppConfigDecoder extends Converter<Map, AppConfig>
     model.lang = input['lang'];
     model.useCurrentDate = input['useCurrentDate'];
     model.currentYear = input['currentYear'];
+    model.port = input['port'];
+    var apps = input['apps'];
+    if (apps != null) {
+      var appsTemp0 = <AppConfigItem>[];
+      for (var appsValue0 in apps) {
+        appsTemp0.add(_appConfigItemDecoder.convert(appsValue0));
+      }
+      model.apps = appsTemp0;
+    }
     model.currentMonth = input['currentMonth'];
     return model;
   }
@@ -42,6 +55,9 @@ class AppConfigDecoder extends Converter<Map, AppConfig>
 /// A [ModelEncoder] for [AppConfig].
 class AppConfigEncoder extends Converter<AppConfig, Map>
     implements ModelEncoder<AppConfig> {
+  final Converter<AppConfigItem, Map> _appConfigItemEncoder;
+  AppConfigEncoder() : _appConfigItemEncoder = new AppConfigItemEncoder();
+  AppConfigEncoder.using(this._appConfigItemEncoder);
   @override
   Map convert(AppConfig input) {
     var model = {};
@@ -60,6 +76,18 @@ class AppConfigEncoder extends Converter<AppConfig, Map>
     var currentYear = input.currentYear;
     if (currentYear != null) {
       model['currentYear'] = currentYear;
+    }
+    var port = input.port;
+    if (port != null) {
+      model['port'] = port;
+    }
+    var apps = input.apps;
+    if (apps != null) {
+      var appsTemp0 = [];
+      for (var appsValue0 in apps) {
+        appsTemp0.add(_appConfigItemEncoder.convert(appsValue0));
+      }
+      model['apps'] = appsTemp0;
     }
     var currentMonth = input.currentMonth;
     if (currentMonth != null) {

@@ -7,6 +7,7 @@ library sense_model.convert;
 //---------------------------------------------------------------------
 
 export 'src/convert/app_config_convert.dart';
+export 'src/convert/app_config_item_convert.dart';
 export 'src/convert/chart_definition_convert.dart';
 export 'src/convert/iv_attr_expression_convert.dart';
 export 'src/convert/iv_dimension_convert.dart';

@@ -7,6 +7,7 @@ library sense_model.src.models.app_config;
 //---------------------------------------------------------------------
 
 import 'package:dogma_convert/serialize.dart';
+import 'app_config_item.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -34,6 +35,12 @@ class AppConfig {
   /// Год для фильтра по умолчанию
   @Serialize.field('currentYear', optional: true)
   int currentYear;
+
+  /// Порт сервера Sense
+  @Serialize.field('port', optional: true)
+  int port;
+  @Serialize.field('apps', optional: true)
+  List<AppConfigItem> apps;
 
   /// Месяц для фильтра по умолчанию
   @Serialize.field('currentMonth', optional: true)

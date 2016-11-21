@@ -105,6 +105,20 @@
 					"description": "Год для фильтра по умолчанию",
 					"type": "integer"
 				},
+				"port":
+				{
+					"description": "Порт сервера Sense",
+					"default": 80,
+					"type": "integer"
+				},
+				"apps":
+				{
+					"type": "array",
+					"items":
+					{
+						"$ref": "#/definitions/AppConfigItem"
+					}
+				},
 				"currentMonth":
 				{
 					"description": "Месяц для фильтра по умолчанию",
@@ -115,6 +129,38 @@
 			"required":
 			[
 				"host", "id" , "name"
+			]
+		},
+		"AppConfigItem":
+		{
+			"properties":
+			{
+				"docName":
+				{
+					"description": "Наименование главной страницы (например salesdemo.html)",
+					"type": "string"
+				},
+				"host":
+				{
+					"description": "Qlik Sense host",
+					"type": "string"
+				},
+				"port":
+				{
+					"description": "Порт сервера Sense",
+					"default": 80,
+					"type": "integer"
+				},
+				"id":
+				{
+					"description": "Qlik Sense application ID",
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"host", "id" , "docName"
 			]
 		},
 
