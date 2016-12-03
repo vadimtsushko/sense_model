@@ -111,7 +111,7 @@
 					"default": 80,
 					"type": "integer"
 				},
-				"apps":
+				"entryPoints":
 				{
 					"type": "array",
 					"items":
@@ -119,12 +119,12 @@
 						"$ref": "#/definitions/AppConfigItem"
 					}
 				},
-				"documents":
+				"apps":
 				{
 					"type": "array",
 					"items":
 					{
-						"type": "string"
+						"$ref": "#/definitions/DocListEntry"
 					}
 				},
 				"currentMonth":
@@ -136,7 +136,7 @@
 			"additionalProperties": false,
 			"required":
 			[
-				"host", "id" , "name", "documents"
+				"host", "id" , "name", "apps"
 			]
 		},
 		"AppConfigItem":
@@ -158,17 +158,40 @@
 					"description": "Порт сервера Sense",
 					"default": 80,
 					"type": "integer"
-				},
-				"id":
-				{
-					"description": "Qlik Sense application ID",
-					"type": "string"
 				}
 			},
 			"additionalProperties": false,
 			"required":
 			[
-				"host", "id" , "docName"
+				"host", "docName"
+			]
+		},
+		"DocListEntry": {
+			"properties": {
+				"qDocName": {
+					"description": "Name of the ap",
+					"type": "string"
+				},
+				"qDocId": {
+					"description": "Identifier of the app.",
+					"type": "string"
+				},
+				"qTitle": {
+					"description": "Title of the app",
+					"type": "string"
+				},
+				"qLastReloadTime": {
+					"description": "Last reload time of the app",
+					"type": "string"
+				},
+				"qReadOnly": {
+					"description": "If set to true, it means that the app is read-only",
+					"type": "boolean"
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"qDocName"
 			]
 		},
 

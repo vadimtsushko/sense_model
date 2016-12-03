@@ -31,7 +31,6 @@ class AppConfigItemDecoder extends Converter<Map, AppConfigItem>
     model.docName = input['docName'];
     model.host = input['host'];
     model.port = input['port'];
-    model.id = input['id'];
     return model;
   }
 }
@@ -49,7 +48,6 @@ class AppConfigItemEncoder extends Converter<AppConfigItem, Map>
     if (port != null) {
       model['port'] = port;
     }
-    model['id'] = input.id;
 
     return model;
   }
