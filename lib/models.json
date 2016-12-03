@@ -119,6 +119,14 @@
 						"$ref": "#/definitions/AppConfigItem"
 					}
 				},
+				"documents":
+				{
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					}
+				},
 				"currentMonth":
 				{
 					"description": "Месяц для фильтра по умолчанию",
@@ -128,7 +136,7 @@
 			"additionalProperties": false,
 			"required":
 			[
-				"host", "id" , "name"
+				"host", "id" , "name", "documents"
 			]
 		},
 		"AppConfigItem":

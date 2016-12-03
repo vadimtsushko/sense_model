@@ -41,6 +41,8 @@ class AppConfig {
   int port;
   @Serialize.field('apps', optional: true)
   List<AppConfigItem> apps;
+  @Serialize.field('documents')
+  List<String> documents;
 
   /// Месяц для фильтра по умолчанию
   @Serialize.field('currentMonth', optional: true)

@@ -47,6 +47,7 @@ class AppConfigDecoder extends Converter<Map, AppConfig>
       }
       model.apps = appsTemp0;
     }
+    model.documents = input['documents'];
     model.currentMonth = input['currentMonth'];
     return model;
   }
@@ -89,6 +90,7 @@ class AppConfigEncoder extends Converter<AppConfig, Map>
       }
       model['apps'] = appsTemp0;
     }
+    model['documents'] = input.documents;
     var currentMonth = input.currentMonth;
     if (currentMonth != null) {
       model['currentMonth'] = currentMonth;
