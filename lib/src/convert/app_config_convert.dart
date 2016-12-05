@@ -37,7 +37,6 @@ class AppConfigDecoder extends Converter<Map, AppConfig>
     model ??= create();
 
     model.host = input['host'];
-    model.id = input['id'];
     model.name = input['name'];
     model.lang = input['lang'];
     model.useCurrentDate = input['useCurrentDate'];
@@ -51,14 +50,11 @@ class AppConfigDecoder extends Converter<Map, AppConfig>
       }
       model.entryPoints = entryPointsTemp0;
     }
-    var apps = input['apps'];
-    if (apps != null) {
-      var appsTemp0 = <DocListEntry>[];
-      for (var appsValue0 in apps) {
-        appsTemp0.add(_docListEntryDecoder.convert(appsValue0));
-      }
-      model.apps = appsTemp0;
+    var appsTemp0 = <DocListEntry>[];
+    for (var appsValue0 in input['apps']) {
+      appsTemp0.add(_docListEntryDecoder.convert(appsValue0));
     }
+    model.apps = appsTemp0;
     model.currentMonth = input['currentMonth'];
     return model;
   }
@@ -78,7 +74,6 @@ class AppConfigEncoder extends Converter<AppConfig, Map>
     var model = {};
 
     model['host'] = input.host;
-    model['id'] = input.id;
     model['name'] = input.name;
     var lang = input.lang;
     if (lang != null) {
@@ -104,14 +99,11 @@ class AppConfigEncoder extends Converter<AppConfig, Map>
       }
       model['entryPoints'] = entryPointsTemp0;
     }
-    var apps = input.apps;
-    if (apps != null) {
-      var appsTemp0 = [];
-      for (var appsValue0 in apps) {
-        appsTemp0.add(_docListEntryEncoder.convert(appsValue0));
-      }
-      model['apps'] = appsTemp0;
+    var appsTemp0 = [];
+    for (var appsValue0 in input.apps) {
+      appsTemp0.add(_docListEntryEncoder.convert(appsValue0));
     }
+    model['apps'] = appsTemp0;
     var currentMonth = input.currentMonth;
     if (currentMonth != null) {
       model['currentMonth'] = currentMonth;

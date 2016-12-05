@@ -81,11 +81,6 @@
 					"description": "Qlik Sense host",
 					"type": "string"
 				},
-				"id":
-				{
-					"description": "Qlik Sense application ID",
-					"type": "string"
-				},
 				"name":
 				{
 					"description": "App name",

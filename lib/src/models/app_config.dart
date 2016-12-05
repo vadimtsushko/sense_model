@@ -19,10 +19,6 @@ class AppConfig {
   @Serialize.field('host')
   String host;
 
-  /// Qlik Sense application ID
-  @Serialize.field('id')
-  String id;
-
   /// App name
   @Serialize.field('name')
   String name;
@@ -42,7 +38,7 @@ class AppConfig {
   int port;
   @Serialize.field('entryPoints', optional: true)
   List<AppConfigItem> entryPoints;
-  @Serialize.field('apps', optional: true)
+  @Serialize.field('apps')
   List<DocListEntry> apps;
 
   /// Месяц для фильтра по умолчанию
