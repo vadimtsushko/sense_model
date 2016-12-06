@@ -131,7 +131,7 @@
 			"additionalProperties": false,
 			"required":
 			[
-				"host", "id" , "name", "apps"
+				"host", "name", "apps"
 			]
 		},
 		"AppConfigItem":
