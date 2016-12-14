@@ -24,8 +24,4 @@ class AppConfigItem {
   /// Порт сервера Sense
   @Serialize.field('port', optional: true)
   int port;
-
-  /// Qlik Sense application ID
-  @Serialize.field('id')
-  String id;
 }

@@ -1,6 +1,6 @@
 description: "A simple console application."
 name: "sense_model"
-version: "0.0.2"
+version: "0.0.3"
 dependencies: 
   build: "^0.3.0"
   yaml: "2.1.10"

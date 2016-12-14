@@ -8,6 +8,7 @@ library sense_model.src.models.iv_dimension;
 
 import 'package:dogma_convert/serialize.dart';
 import 'iv_attr_expression.dart';
+import 'iv_expression_param.dart';
 import 'iv_measure.dart';
 import 'nx_other_total_spec_prop.dart';
 
@@ -35,6 +36,11 @@ class IvDimension {
   /// Ширина колонки
   @Serialize.field('width', optional: true)
   int width;
+
+  /// Список параметров для выражения - шаблона. Действительно только для
+  /// вычисляемых измерений
+  @Serialize.field('params', optional: true)
+  List<IvExpressionParam> params;
 
   /// Sorts the field values according to their logical state (selected,
   /// optional, alternative or excluded)

@@ -8,6 +8,7 @@ library sense_model.src.models.app_config;
 
 import 'package:dogma_convert/serialize.dart';
 import 'app_config_item.dart';
+import 'doc_list_entry.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -17,10 +18,6 @@ class AppConfig {
   /// Qlik Sense host
   @Serialize.field('host')
   String host;
-
-  /// Qlik Sense application ID
-  @Serialize.field('id')
-  String id;
 
   /// App name
   @Serialize.field('name')
@@ -39,8 +36,10 @@ class AppConfig {
   /// Порт сервера Sense
   @Serialize.field('port', optional: true)
   int port;
-  @Serialize.field('apps', optional: true)
-  List<AppConfigItem> apps;
+  @Serialize.field('entryPoints', optional: true)
+  List<AppConfigItem> entryPoints;
+  @Serialize.field('apps')
+  List<DocListEntry> apps;
 
   /// Месяц для фильтра по умолчанию
   @Serialize.field('currentMonth', optional: true)

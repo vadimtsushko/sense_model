@@ -15,6 +15,7 @@ import 'dart:convert';
 import 'package:dogma_convert/convert.dart';
 import 'package:sense_model/models.dart';
 import 'app_config_item_convert.dart';
+import 'doc_list_entry_convert.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -24,8 +25,11 @@ import 'app_config_item_convert.dart';
 class AppConfigDecoder extends Converter<Map, AppConfig>
     implements ModelDecoder<AppConfig> {
   final Converter<Map, AppConfigItem> _appConfigItemDecoder;
-  AppConfigDecoder() : _appConfigItemDecoder = new AppConfigItemDecoder();
-  AppConfigDecoder.using(this._appConfigItemDecoder);
+  final Converter<Map, DocListEntry> _docListEntryDecoder;
+  AppConfigDecoder()
+      : _appConfigItemDecoder = new AppConfigItemDecoder(),
+        _docListEntryDecoder = new DocListEntryDecoder();
+  AppConfigDecoder.using(this._appConfigItemDecoder, this._docListEntryDecoder);
   @override
   AppConfig create() => new AppConfig();
   @override
@@ -33,20 +37,24 @@ class AppConfigDecoder extends Converter<Map, AppConfig>
     model ??= create();
 
     model.host = input['host'];
-    model.id = input['id'];
     model.name = input['name'];
     model.lang = input['lang'];
     model.useCurrentDate = input['useCurrentDate'];
     model.currentYear = input['currentYear'];
     model.port = input['port'];
-    var apps = input['apps'];
-    if (apps != null) {
-      var appsTemp0 = <AppConfigItem>[];
-      for (var appsValue0 in apps) {
-        appsTemp0.add(_appConfigItemDecoder.convert(appsValue0));
+    var entryPoints = input['entryPoints'];
+    if (entryPoints != null) {
+      var entryPointsTemp0 = <AppConfigItem>[];
+      for (var entryPointsValue0 in entryPoints) {
+        entryPointsTemp0.add(_appConfigItemDecoder.convert(entryPointsValue0));
       }
-      model.apps = appsTemp0;
+      model.entryPoints = entryPointsTemp0;
     }
+    var appsTemp0 = <DocListEntry>[];
+    for (var appsValue0 in input['apps']) {
+      appsTemp0.add(_docListEntryDecoder.convert(appsValue0));
+    }
+    model.apps = appsTemp0;
     model.currentMonth = input['currentMonth'];
     return model;
   }
@@ -56,14 +64,16 @@ class AppConfigDecoder extends Converter<Map, AppConfig>
 class AppConfigEncoder extends Converter<AppConfig, Map>
     implements ModelEncoder<AppConfig> {
   final Converter<AppConfigItem, Map> _appConfigItemEncoder;
-  AppConfigEncoder() : _appConfigItemEncoder = new AppConfigItemEncoder();
-  AppConfigEncoder.using(this._appConfigItemEncoder);
+  final Converter<DocListEntry, Map> _docListEntryEncoder;
+  AppConfigEncoder()
+      : _appConfigItemEncoder = new AppConfigItemEncoder(),
+        _docListEntryEncoder = new DocListEntryEncoder();
+  AppConfigEncoder.using(this._appConfigItemEncoder, this._docListEntryEncoder);
   @override
   Map convert(AppConfig input) {
     var model = {};
 
     model['host'] = input.host;
-    model['id'] = input.id;
     model['name'] = input.name;
     var lang = input.lang;
     if (lang != null) {
@@ -81,14 +91,19 @@ class AppConfigEncoder extends Converter<AppConfig, Map>
     if (port != null) {
       model['port'] = port;
     }
-    var apps = input.apps;
-    if (apps != null) {
-      var appsTemp0 = [];
-      for (var appsValue0 in apps) {
-        appsTemp0.add(_appConfigItemEncoder.convert(appsValue0));
+    var entryPoints = input.entryPoints;
+    if (entryPoints != null) {
+      var entryPointsTemp0 = [];
+      for (var entryPointsValue0 in entryPoints) {
+        entryPointsTemp0.add(_appConfigItemEncoder.convert(entryPointsValue0));
       }
-      model['apps'] = appsTemp0;
+      model['entryPoints'] = entryPointsTemp0;
     }
+    var appsTemp0 = [];
+    for (var appsValue0 in input.apps) {
+      appsTemp0.add(_docListEntryEncoder.convert(appsValue0));
+    }
+    model['apps'] = appsTemp0;
     var currentMonth = input.currentMonth;
     if (currentMonth != null) {
       model['currentMonth'] = currentMonth;

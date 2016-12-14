@@ -81,11 +81,6 @@
 					"description": "Qlik Sense host",
 					"type": "string"
 				},
-				"id":
-				{
-					"description": "Qlik Sense application ID",
-					"type": "string"
-				},
 				"name":
 				{
 					"description": "App name",
@@ -111,12 +106,20 @@
 					"default": 80,
 					"type": "integer"
 				},
-				"apps":
+				"entryPoints":
 				{
 					"type": "array",
 					"items":
 					{
 						"$ref": "#/definitions/AppConfigItem"
+					}
+				},
+				"apps":
+				{
+					"type": "array",
+					"items":
+					{
+						"$ref": "#/definitions/DocListEntry"
 					}
 				},
 				"currentMonth":
@@ -128,7 +131,7 @@
 			"additionalProperties": false,
 			"required":
 			[
-				"host", "id" , "name"
+				"host", "name", "apps"
 			]
 		},
 		"AppConfigItem":
@@ -150,17 +153,50 @@
 					"description": "Порт сервера Sense",
 					"default": 80,
 					"type": "integer"
-				},
-				"id":
-				{
-					"description": "Qlik Sense application ID",
-					"type": "string"
 				}
 			},
 			"additionalProperties": false,
 			"required":
 			[
-				"host", "id" , "docName"
+				"host", "docName"
+			]
+		},
+		"DocListEntry": {
+			"properties": {
+				"qDocName": {
+					"description": "Name of the ap",
+					"type": "string"
+				},
+				"qDocId": {
+					"description": "Identifier of the app.",
+					"type": "string"
+				},
+				"qTitle": {
+					"description": "Title of the app",
+					"type": "string"
+				},
+				"qLastReloadTime": {
+					"description": "Last reload time of the app",
+					"type": "string"
+				},
+				"excludedDimensions":
+				{
+					"description": "Список исключенных (недействительных для этого приложения) измерений",
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					}
+				},
+
+				"qReadOnly": {
+					"description": "If set to true, it means that the app is read-only",
+					"type": "boolean"
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"qDocName"
 			]
 		},
 
@@ -584,6 +620,15 @@
 				{
 					"description": "Ширина колонки",
 					"type": "integer"
+				},
+				"params":
+				{
+					"description": "Список параметров для выражения - шаблона. Действительно только для вычисляемых измерений",
+					"type": "array",
+					"items":
+					{
+						"$ref": "#/definitions/IvExpressionParam"
+					}
 				},
 				"sortByNumeric":
 				{
