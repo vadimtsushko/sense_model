@@ -32,6 +32,7 @@ class DocListEntryDecoder extends Converter<Map, DocListEntry>
     model.qDocId = input['qDocId'];
     model.qTitle = input['qTitle'];
     model.qLastReloadTime = input['qLastReloadTime'];
+    model.excludedDimensions = input['excludedDimensions'];
     model.qReadOnly = input['qReadOnly'];
     return model;
   }
@@ -56,6 +57,10 @@ class DocListEntryEncoder extends Converter<DocListEntry, Map>
     var qLastReloadTime = input.qLastReloadTime;
     if (qLastReloadTime != null) {
       model['qLastReloadTime'] = qLastReloadTime;
+    }
+    var excludedDimensions = input.excludedDimensions;
+    if (excludedDimensions != null) {
+      model['excludedDimensions'] = excludedDimensions;
     }
     var qReadOnly = input.qReadOnly;
     if (qReadOnly != null) {

@@ -179,6 +179,16 @@
 					"description": "Last reload time of the app",
 					"type": "string"
 				},
+				"excludedDimensions":
+				{
+					"description": "Список исключенных (недействительных для этого приложения) измерений",
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					}
+				},
+
 				"qReadOnly": {
 					"description": "If set to true, it means that the app is read-only",
 					"type": "boolean"

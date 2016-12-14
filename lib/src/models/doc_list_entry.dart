@@ -29,6 +29,10 @@ class DocListEntry {
   @Serialize.field('qLastReloadTime', optional: true)
   String qLastReloadTime;
 
+  /// Список исключенных (недействительных для этого приложения) измерений
+  @Serialize.field('excludedDimensions', optional: true)
+  List<String> excludedDimensions;
+
   /// If set to true, it means that the app is read-only
   @Serialize.field('qReadOnly', optional: true)
   bool qReadOnly;
