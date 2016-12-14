@@ -611,6 +611,15 @@
 					"description": "Ширина колонки",
 					"type": "integer"
 				},
+				"params":
+				{
+					"description": "Список параметров для выражения - шаблона. Действительно только для вычисляемых измерений",
+					"type": "array",
+					"items":
+					{
+						"$ref": "#/definitions/IvExpressionParam"
+					}
+				},
 				"sortByNumeric":
 				{
 					"description": "Sorts the field values according to their logical state (selected, optional, alternative or excluded)",
