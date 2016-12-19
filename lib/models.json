@@ -2637,7 +2637,204 @@
 			[
 				"calcCond"
 			]
+		},
+
+		"NxLibraryDimensionDef":
+		{
+			"properties":
+			{
+				"qFieldDefs":
+				{
+					"description": "Array of field names.\n When creating a grouped dimension, more than one field name is defined",
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					},
+					"uniqueItems": true
+				},
+				"qFieldLabels":
+				{
+					"description": "Array of field labels.",
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					},
+					"uniqueItems": true
+				},
+				"qGrouping":
+				{
+					"description": "Used to define a cyclic group or drill-down group",
+					"type": "string",
+					"enum":
+					[
+						"N",
+						"H",
+						"C"
+					]
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qDef"
+			]
+		},
+		"NxInfo":
+		{
+			"properties":
+			{
+				"qId":
+				{
+					"description": "Identifier of the object. If the chosen identifier is already in use, the engine automatically sets another one.",
+					"type": "string"
+				},
+				"qType":
+				{
+					"description": "Type of the object.",
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qId"
+			]
+		},
+		"NxGenericDimensionProperties":
+		{
+			"properties":
+			{
+				"qInfo":
+				{
+					"description": "Identifier and type of the dimension. This parameter is mandatory.",
+					"$ref": "#/definitions/NxInfo"
+				},
+				"qDim":
+				{
+					"description": "Definition of the dimension. This parameter is mandatory.",
+					"$ref": "#/definitions/NxLibraryDimensionDef"
+				},
+				"qMetaDef":
+				{
+					"description": "Metadata.",
+					"$ref": "#/definitions/NxMeta"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qInfo", "qMeasure"
+			]
+		},
+
+		"NxLibraryMeasureDef":
+		{
+			"properties":
+			{
+				"qLabel":
+				{
+					"description": "Label of the measure.",
+					"type": "string"
+				},
+				"qDef":
+				{
+					"description": "Definition of the measure.",
+					"type": "string"
+				},
+
+				"qExpressions":
+				{
+					"description": "Array of expressions.",
+					"type": "array",
+					"items":
+					{
+						"type": "string"
+					},
+					"uniqueItems": true
+				},
+				"qActiveExpression":
+				{
+					"description": "Index to the active expression in a measure.",
+					"type": "integer"
+				},
+				"qGrouping":
+				{
+					"description": "Used to define a cyclic group or drill-down group",
+					"type": "string",
+					"enum":
+					[
+						"N",
+						"H",
+						"C"
+					]
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qDef"
+			]
+		},
+
+
+		"NxGenericMeasureProperties":
+		{
+			"properties":
+			{
+				"qInfo":
+				{
+					"description": "Identifier and type of the dimension. This parameter is mandatory.",
+					"$ref": "#/definitions/NxInfo"
+				},
+				"qMeasure":
+				{
+					"description": "Definition of the measure.",
+					"$ref": "#/definitions/NxLibraryMeasureDef"
+				},
+				"qMetaDef":
+				{
+					"description": "Metadata.",
+					"$ref": "#/definitions/NxMeta"
+				}
+			},
+			"additionalProperties": false,
+			"required":
+			[
+				"qInfo", "qDim", "qMetaDef"
+			]
+		},
+		"NxMeta": {
+			"properties": {
+				"title": {
+					"description": "Name of object",
+					"type": "string"
+				},
+				"description": {
+					"description": "Description of object",
+					"type": "string"
+				},
+				"tags": {
+					"description": "Tags",
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"uniqueItems": true
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"title"
+			]
 		}
 
+
+
+
+
 	}
+
+
 }
