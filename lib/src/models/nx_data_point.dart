@@ -21,4 +21,8 @@ class NxDataPoint {
   /// Set to display labels on data points. (F.E. in linechart)
   @Serialize.field('showLabels', optional: true)
   bool showLabels;
+
+  /// Bubble size
+  @Serialize.field('bubbleSizes', optional: true)
+  int bubbleSizes;
 }

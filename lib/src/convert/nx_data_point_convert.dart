@@ -30,6 +30,7 @@ class NxDataPointDecoder extends Converter<Map, NxDataPoint>
 
     model.show = input['show'];
     model.showLabels = input['showLabels'];
+    model.bubbleSizes = input['bubbleSizes'];
     return model;
   }
 }
@@ -45,6 +46,10 @@ class NxDataPointEncoder extends Converter<NxDataPoint, Map>
     var showLabels = input.showLabels;
     if (showLabels != null) {
       model['showLabels'] = showLabels;
+    }
+    var bubbleSizes = input.bubbleSizes;
+    if (bubbleSizes != null) {
+      model['bubbleSizes'] = bubbleSizes;
     }
 
     return model;

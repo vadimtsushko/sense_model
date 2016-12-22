@@ -1394,8 +1394,12 @@
 				{
 					"description": "Set to display labels on data points. (F.E. in linechart)",
 					"type": "boolean"
+				},
+				"bubbleSizes":
+				{
+					"description": "Bubble size",
+					"type": "integer"
 				}
-
 			},
 			"additionalProperties": false,
 			"required":
