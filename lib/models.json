@@ -1486,8 +1486,13 @@
 					"type": "string",
 					"default": "near",
 					"enum": ["near","far"]
+				},
+				"continuousAuto":
+				{
+					"description": "ContinuousAuto by default",
+					"default": false,
+					"type": "boolean"
 				}
-
 			},
 			"additionalProperties": false,
 			"required":
@@ -2450,7 +2455,10 @@
 					"description": "Set to define whether the result of the expression is a valid CSS3 color.",
 					"type": "boolean"
 				},
-
+                "colorExpression": {
+					"description": "Цвет",
+					"type": "string"
+				},
 				"expressionLabel":
 				{
 					"description": "Label to be defined on tool tips when using a coloring expression. Only used if expressionIsColor is set to false.",
@@ -2474,7 +2482,6 @@
 					"description": "Set to reverse the color scheme",
 					"type": "boolean"
 				},
-
 				"dimensionScheme":
 				{
 					"description": "Dimension color scheme",
